@@ -1,0 +1,1123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>American Airlines LLM Technical Interview Guide</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    
+    body {
+      background-color: #f0f4f8;
+      color: #333;
+      line-height: 1.6;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    
+    header {
+      background: linear-gradient(135deg, #0078d4 0%, #004b8d 100%);
+      color: white;
+      padding: 30px 20px;
+      border-radius: 8px;
+      margin-bottom: 30px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+    
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+    }
+    
+    h2 {
+      font-size: 2rem;
+      margin: 30px 0 15px;
+      color: #0078d4;
+      border-bottom: 2px solid #e6e6e6;
+      padding-bottom: 10px;
+    }
+    
+    h3 {
+      font-size: 1.5rem;
+      margin: 25px 0 10px;
+      color: #004b8d;
+    }
+    
+    p {
+      margin-bottom: 16px;
+    }
+    
+    .interview-structure {
+      display: flex;
+      margin: 30px 0;
+      justify-content: space-around;
+      flex-wrap: wrap;
+    }
+    
+    .chart-container {
+      width: 45%;
+      min-width: 300px;
+      background-color: white;
+      border-radius: 8px;
+      padding: 20px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+      margin-bottom: 20px;
+    }
+    
+    .topic-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 20px;
+      margin: 30px 0;
+    }
+    
+    .topic-card {
+      background-color: white;
+      border-radius: 8px;
+      padding: 20px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+    }
+    
+    .topic-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    }
+    
+    .topic-card h3 {
+      color: #0078d4;
+      margin-top: 0;
+      display: flex;
+      align-items: center;
+    }
+    
+    .topic-card h3 i {
+      margin-right: 10px;
+      font-size: 1.5rem;
+    }
+    
+    .questions {
+      margin-top: 15px;
+      display: none;
+    }
+    
+    .questions.active {
+      display: block;
+    }
+    
+    .question-item {
+      background-color: #f8f9fa;
+      padding: 12px 15px;
+      margin-bottom: 10px;
+      border-radius: 6px;
+      border-left: 4px solid #0078d4;
+    }
+    
+    .coding-test {
+      background-color: white;
+      border-radius: 8px;
+      padding: 25px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+      margin: 30px 0;
+    }
+    
+    .code-example {
+      background-color: #282c34;
+      color: #e6e6e6;
+      padding: 15px;
+      border-radius: 6px;
+      font-family: 'Courier New', Courier, monospace;
+      margin: 15px 0;
+      overflow-x: auto;
+    }
+    
+    .tabs {
+      display: flex;
+      margin-bottom: 20px;
+      border-bottom: 1px solid #ddd;
+    }
+    
+    .tab {
+      padding: 10px 20px;
+      background-color: #f0f4f8;
+      cursor: pointer;
+      border-radius: 6px 6px 0 0;
+      margin-right: 5px;
+    }
+    
+    .tab.active {
+      background-color: #0078d4;
+      color: white;
+    }
+    
+    .tab-content {
+      display: none;
+      padding: 20px;
+      background-color: white;
+      border-radius: 0 0 6px 6px;
+    }
+    
+    .tab-content.active {
+      display: block;
+    }
+    
+    .progress-container {
+      margin: 30px 0;
+      background-color: white;
+      border-radius: 8px;
+      padding: 25px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    }
+    
+    .progress-item {
+      margin-bottom: 20px;
+    }
+    
+    .progress-label {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 8px;
+    }
+    
+    .progress-bar {
+      height: 10px;
+      background-color: #e6e6e6;
+      border-radius: 5px;
+      overflow: hidden;
+    }
+    
+    .progress-fill {
+      height: 100%;
+      border-radius: 5px;
+      background: linear-gradient(90deg, #0078d4 0%, #00bcd4 100%);
+    }
+    
+    .strategies {
+      background-color: white;
+      border-radius: 8px;
+      padding: 25px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+      margin: 30px 0;
+    }
+    
+    .strategy-item {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: 15px;
+    }
+    
+    .strategy-item i {
+      color: #0078d4;
+      margin-right: 15px;
+      font-size: 1.2rem;
+      padding-top: 3px;
+    }
+    
+    .libraries {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      margin: 20px 0;
+    }
+    
+    .library-badge {
+      background-color: #e6f3ff;
+      color: #0078d4;
+      padding: 8px 15px;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      display: inline-flex;
+      align-items: center;
+    }
+    
+    .toggle-btn {
+      margin-top: 10px;
+      background-color: transparent;
+      border: none;
+      color: #0078d4;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      font-size: 0.9rem;
+    }
+    
+    .toggle-btn:hover {
+      text-decoration: underline;
+    }
+    
+    .toggle-btn i {
+      margin-right: 5px;
+    }
+    
+    footer {
+      text-align: center;
+      margin-top: 50px;
+      padding: 20px;
+      color: #666;
+      font-size: 0.9rem;
+    }
+
+    /* New component styles */
+    .timeline {
+      position: relative;
+      max-width: 1200px;
+      margin: 30px auto;
+    }
+
+    .timeline::after {
+      content: '';
+      position: absolute;
+      width: 6px;
+      background-color: #0078d4;
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      margin-left: -3px;
+      border-radius: 3px;
+    }
+
+    .timeline-item {
+      padding: 10px 40px;
+      position: relative;
+      width: 50%;
+      box-sizing: border-box;
+    }
+
+    .timeline-item::after {
+      content: '';
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background-color: white;
+      border: 4px solid #0078d4;
+      border-radius: 50%;
+      top: 15px;
+      z-index: 1;
+    }
+
+    .timeline-left {
+      left: 0;
+    }
+
+    .timeline-right {
+      left: 50%;
+    }
+
+    .timeline-left::after {
+      right: -10px;
+    }
+
+    .timeline-right::after {
+      left: -10px;
+    }
+
+    .timeline-content {
+      padding: 20px;
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    /* RAG diagram styles */
+    .rag-diagram {
+      position: relative;
+      height: 500px;
+      margin: 40px 0;
+      background-color: white;
+      border-radius: 8px;
+      padding: 20px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    }
+
+    .rag-component {
+      position: absolute;
+      width: 180px;
+      padding: 15px;
+      border-radius: 8px;
+      background-color: #f0f4f8;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      font-weight: bold;
+      transition: all 0.3s ease;
+    }
+
+    .rag-component:hover {
+      transform: scale(1.05);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    .rag-arrow {
+      position: absolute;
+      height: 2px;
+      background-color: #0078d4;
+      transform-origin: 0 0;
+    }
+
+    .rag-arrow::after {
+      content: '';
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background-color: #0078d4;
+      right: 0;
+      top: -4px;
+      transform: rotate(45deg);
+    }
+
+    /* Responsive tweaks */
+    @media (max-width: 768px) {
+      .chart-container {
+        width: 100%;
+      }
+      
+      .timeline::after {
+        left: 31px;
+      }
+      
+      .timeline-item {
+        width: 100%;
+        padding-left: 70px;
+        padding-right: 25px;
+      }
+      
+      .timeline-right {
+        left: 0;
+      }
+      
+      .timeline-left::after, .timeline-right::after {
+        left: 21px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>American Airlines Gen AI Technical Interview Guide</h1>
+      <p>Comprehensive preparation for the LLM-focused team technical panel</p>
+    </header>
+    
+    <section>
+      <h2>Interview Overview</h2>
+      <p>American Airlines is building a new LLM-focused group within their IT Operations Research and Advanced Analytics team, hiring 9 team members. Your upcoming technical panel will test your knowledge of foundation models, RAG systems, and their applications to airline IT operations.</p>
+      
+      <div class="interview-structure">
+        <div class="chart-container">
+          <h3>Interview Structure</h3>
+          <canvas id="interviewStructureChart"></canvas>
+        </div>
+        
+        <div class="chart-container">
+          <h3>Technical Focus Areas</h3>
+          <canvas id="technicalFocusChart"></canvas>
+        </div>
+      </div>
+    </section>
+
+    <section class="rag-diagram">
+      <h2 style="text-align: center; margin-bottom: 30px;">Interactive RAG Pipeline</h2>
+      <div class="rag-component" id="user-query" style="top: 50px; left: calc(50% - 90px);">User Query</div>
+      <div class="rag-component" id="vectordb" style="top: 200px; left: 100px;">Vector Database</div>
+      <div class="rag-component" id="retriever" style="top: 200px; left: calc(50% - 90px);">Retriever</div>
+      <div class="rag-component" id="llm" style="top: 200px; left: calc(100% - 280px);">LLM</div>
+      <div class="rag-component" id="knowledge" style="top: 350px; left: 100px;">Knowledge Base</div>
+      <div class="rag-component" id="response" style="top: 350px; left: calc(50% - 90px);">Generated Response</div>
+      
+      <!-- Arrows will be drawn with JavaScript -->
+    </section>
+    
+    <section>
+      <h2>Key Technical Question Categories</h2>
+      <div class="topic-grid" id="topic-grid">
+        <!-- These will be populated by JavaScript -->
+      </div>
+    </section>
+    
+    <section class="coding-test">
+      <h2>Coding Test Preparation</h2>
+      <p>The 30-minute coding test will likely focus on practical implementation of RAG components. Be prepared to write code that demonstrates your understanding of the full pipeline.</p>
+      
+      <div class="tabs">
+        <div class="tab active" data-tab="task1">Task 1: RAG Pipeline</div>
+        <div class="tab" data-tab="task2">Task 2: Azure Integration</div>
+        <div class="tab" data-tab="task3">Task 3: Evaluation</div>
+      </div>
+      
+      <div class="tab-content active" id="task1">
+        <h3>Implement Basic RAG Pipeline</h3>
+        <p>You may be asked to create a basic RAG pipeline that processes documents, generates embeddings, and retrieves relevant information.</p>
+        <div class="code-example">
+          <pre>
+# Sample RAG pipeline implementation
+import numpy as np
+from sentence_transformers import SentenceTransformer
+from sklearn.metrics.pairwise import cosine_similarity
+
+# 1. Document chunking function
+def chunk_document(text, chunk_size=200, overlap=50):
+    """Split document into overlapping chunks."""
+    chunks = []
+    for i in range(0, len(text), chunk_size - overlap):
+        chunk = text[i:i + chunk_size]
+        if len(chunk) >= chunk_size / 2:  # Only keep chunks with sufficient content
+            chunks.append(chunk)
+    return chunks
+
+# 2. Generate embeddings
+model = SentenceTransformer('all-MiniLM-L6-v2')
+
+def get_embeddings(texts):
+    """Generate embeddings for a list of texts."""
+    return model.encode(texts)
+
+# 3. Simple vector database
+class SimpleVectorDB:
+    def __init__(self):
+        self.documents = []
+        self.embeddings = []
+        
+    def add_documents(self, documents):
+        """Add documents and their embeddings to the database."""
+        self.documents.extend(documents)
+        new_embeddings = get_embeddings(documents)
+        if len(self.embeddings) == 0:
+            self.embeddings = new_embeddings
+        else:
+            self.embeddings = np.vstack([self.embeddings, new_embeddings])
+    
+    def search(self, query, top_k=3):
+        """Search for most similar documents."""
+        query_embedding = get_embeddings([query])[0]
+        similarities = cosine_similarity([query_embedding], self.embeddings)[0]
+        top_indices = np.argsort(similarities)[-top_k:][::-1]
+        return [(self.documents[i], similarities[i]) for i in top_indices]
+
+# 4. Query processing
+def process_query(db, query, llm_prompt_template):
+    """Process a query using RAG."""
+    # Retrieve relevant documents
+    retrieved_docs = db.search(query)
+    
+    # Format prompt with retrieved context
+    context = "\n".join([doc for doc, _ in retrieved_docs])
+    prompt = llm_prompt_template.format(query=query, context=context)
+    
+    # In a real implementation, you would call your LLM here
+    return f"LLM would process: {prompt[:100]}..."
+          </pre>
+        </div>
+      </div>
+      
+      <div class="tab-content" id="task2">
+        <h3>Build Azure AI Integration</h3>
+        <p>This task may involve setting up integration with Azure AI services, including authentication and model deployment.</p>
+        <div class="code-example">
+          <pre>
+# Azure OpenAI Service integration example
+from azure.ai.ml import MLClient
+from azure.ai.ml.entities import AmlCompute
+from azure.identity import DefaultAzureCredential
+from azure.ai.ml.dsl import pipeline
+from azure.ai.ml import Input, Output
+
+# 1. Authenticate to Azure
+credential = DefaultAzureCredential()
+ml_client = MLClient(
+    credential=credential,
+    subscription_id="your-subscription-id",
+    resource_group_name="your-resource-group",
+    workspace_name="your-workspace-name"
+)
+
+# 2. Define compute
+compute_name = "rag-compute"
+compute_cluster = AmlCompute(
+    name=compute_name,
+    size="Standard_DS3_v2",
+    min_instances=0,
+    max_instances=4,
+    idle_time_before_scale_down=120
+)
+ml_client.begin_create_or_update(compute_cluster).result()
+
+# 3. Define RAG pipeline components
+@pipeline
+def rag_pipeline(documents_path, query_input):
+    # Component for document processing
+    document_processor = ml_client.components.get(
+        name="document_processor", 
+        version="1.0.0"
+    )
+    # Component for embedding generation
+    embedding_generator = ml_client.components.get(
+        name="embedding_generator", 
+        version="1.0.0"
+    )
+    # Component for query processing
+    query_processor = ml_client.components.get(
+        name="query_processor", 
+        version="1.0.0"
+    )
+    
+    # Pipeline definition
+    processed_docs = document_processor(
+        documents=Input(type="uri_folder", path=documents_path)
+    )
+    
+    embeddings = embedding_generator(
+        documents=processed_docs.outputs.processed_documents
+    )
+    
+    response = query_processor(
+        query=query_input,
+        document_embeddings=embeddings.outputs.embeddings
+    )
+    
+    return {"response": response.outputs.response}
+
+# 4. Submit pipeline job
+pipeline_job = rag_pipeline(
+    documents_path="azureml://datastores/workspaceblobstore/paths/documents/",
+    query_input="What are the best practices for IT system maintenance?"
+)
+
+pipeline_job = ml_client.jobs.create_or_update(pipeline_job)
+pipeline_job_status = ml_client.jobs.get(pipeline_job.name)
+          </pre>
+        </div>
+      </div>
+      
+      <div class="tab-content" id="task3">
+        <h3>Create Evaluation Framework</h3>
+        <p>This task focuses on building metrics to evaluate RAG system performance, including hallucination detection.</p>
+        <div class="code-example">
+          <pre>
+# RAG evaluation framework example
+import numpy as np
+from sklearn.metrics.pairwise import cosine_similarity
+from rouge import Rouge
+
+# 1. Context relevance evaluation
+def evaluate_context_relevance(query, retrieved_contexts, model):
+    """Evaluate how relevant the retrieved contexts are to the query."""
+    query_embedding = model.encode([query])[0]
+    context_embeddings = model.encode(retrieved_contexts)
+    
+    similarities = cosine_similarity([query_embedding], context_embeddings)[0]
+    avg_similarity = np.mean(similarities)
+    
+    return {
+        "avg_similarity": avg_similarity,
+        "max_similarity": np.max(similarities),
+        "min_similarity": np.min(similarities)
+    }
+
+# 2. Hallucination detection
+def detect_hallucinations(response, retrieved_contexts, model):
+    """Detect potential hallucinations in the response."""
+    # Split response into sentences
+    sentences = [s.strip() for s in response.split('.') if s.strip()]
+    
+    # Get embeddings
+    sentence_embeddings = model.encode(sentences)
+    context_embeddings = model.encode(retrieved_contexts)
+    
+    # For each sentence, check if it has support in the contexts
+    hallucination_scores = []
+    for sent_emb in sentence_embeddings:
+        # Calculate similarity with each context
+        similarities = cosine_similarity([sent_emb], context_embeddings)[0]
+        # If max similarity is below threshold, might be a hallucination
+        hallucination_scores.append(1.0 - np.max(similarities))
+    
+    return {
+        "hallucination_score_avg": np.mean(hallucination_scores),
+        "high_hallucination_sentences": [
+            sentences[i] for i, score in enumerate(hallucination_scores) 
+            if score > 0.7  # Threshold for potential hallucination
+        ]
+    }
+
+# 3. Answer correctness (if ground truth available)
+def evaluate_answer_correctness(response, ground_truth):
+    """Evaluate the correctness of the response against ground truth."""
+    rouge = Rouge()
+    scores = rouge.get_scores(response, ground_truth)
+    
+    return {
+        "rouge1_f": scores[0]['rouge-1']['f'],
+        "rouge2_f": scores[0]['rouge-2']['f'],
+        "rougeL_f": scores[0]['rouge-l']['f']
+    }
+
+# 4. Complete evaluation
+def evaluate_rag_system(query, response, retrieved_contexts, model, ground_truth=None):
+    """Complete evaluation of the RAG system."""
+    results = {}
+    
+    # Context relevance
+    results["context_relevance"] = evaluate_context_relevance(
+        query, retrieved_contexts, model
+    )
+    
+    # Hallucination detection
+    results["hallucination"] = detect_hallucinations(
+        response, retrieved_contexts, model
+    )
+    
+    # Answer correctness (if ground truth available)
+    if ground_truth:
+        results["correctness"] = evaluate_answer_correctness(
+            response, ground_truth
+        )
+    
+    # Overall score (weighted combination)
+    results["overall_score"] = 0.4 * (1 - results["hallucination"]["hallucination_score_avg"]) + \
+                              0.6 * results["context_relevance"]["avg_similarity"]
+    
+    return results
+          </pre>
+        </div>
+      </div>
+    </section>
+    
+    <section class="progress-container">
+      <h2>Focus Areas by Importance</h2>
+      <p>Based on the job description and your background, here are the key areas to prioritize in your preparation:</p>
+      
+      <div class="progress-item">
+        <div class="progress-label">
+          <span>Retrieval Augmented Generation (RAG)</span>
+          <span>95%</span>
+        </div>
+        <div class="progress-bar">
+          <div class="progress-fill" style="width: 95%"></div>
+        </div>
+      </div>
+      
+      <div class="progress-item">
+        <div class="progress-label">
+          <span>Azure AI Ecosystem</span>
+          <span>90%</span>
+        </div>
+        <div class="progress-bar">
+          <div class="progress-fill" style="width: 90%"></div>
+        </div>
+      </div>
+      
+      <div class="progress-item">
+        <div class="progress-label">
+          <span>IT Operations Applications</span>
+          <span>85%</span>
+        </div>
+        <div class="progress-bar">
+          <div class="progress-fill" style="width: 85%"></div>
+        </div>
+      </div>
+      
+      <div class="progress-item">
+        <div class="progress-label">
+          <span>Advanced Prompt Engineering</span>
+          <span>80%</span>
+        </div>
+        <div class="progress-bar">
+          <div class="progress-fill" style="width: 80%"></div>
+        </div>
+      </div>
+      
+      <div class="progress-item">
+        <div class="progress-label">
+          <span>LLM Architecture & Performance</span>
+          <span>75%</span>
+        </div>
+        <div class="progress-bar">
+          <div class="progress-fill" style="width: 75%"></div>
+        </div>
+      </div>
+      
+      <div class="progress-item">
+        <div class="progress-label">
+          <span>MLOps & Deployment</span>
+          <span>70%</span>
+        </div>
+        <div class="progress-bar">
+          <div class="progress-fill" style="width: 70%"></div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Implementation Timeline for AA's LLM Team</h2>
+      <div class="timeline">
+        <div class="timeline-item timeline-left">
+          <div class="timeline-content">
+            <h3>Phase 1: Foundation</h3>
+            <p>Setting up cloud infrastructure, selecting base models, and establishing the evaluation framework.</p>
+          </div>
+        </div>
+        <div class="timeline-item timeline-right">
+          <div class="timeline-content">
+            <h3>Phase 2: IT Knowledge Base</h3>
+            <p>Developing the knowledge base from IT documentation, incident reports, and technical guides.</p>
+          </div>
+        </div>
+        <div class="timeline-item timeline-left">
+          <div class="timeline-content">
+            <h3>Phase 3: RAG Implementation</h3>
+            <p>Building and optimizing the retrieval system, integrating with Azure AI services.</p>
+          </div>
+        </div>
+        <div class="timeline-item timeline-right">
+          <div class="timeline-content">
+            <h3>Phase 4: Initial Applications</h3>
+            <p>Deploying first use cases for IT knowledge management and support optimization.</p>
+          </div>
+        </div>
+        <div class="timeline-item timeline-left">
+          <div class="timeline-content">
+            <h3>Phase 5: Advanced Features</h3>
+            <p>Implementing specialized features for predictive maintenance and process automation.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <section class="strategies">
+      <h2>Interview Success Strategies</h2>
+      
+      <div class="strategy-item">
+        <i>✓</i>
+        <div>
+          <strong>Connect technical solutions to business value</strong>
+          <p>Frame your answers in terms of how they benefit American Airlines' IT operations, such as reducing system downtime, improving support efficiency, or enhancing knowledge management.</p>
+        </div>
+      </div>
+      
+      <div class="strategy-item">
+        <i>✓</i>
+        <div>
+          <strong>Highlight relevant experience</strong>
+          <p>Draw from your postdoctoral work on foundation models and RAG systems, particularly your experience with LLaMA and DeepSeek models and your expertise in reducing hallucination rates.</p>
+        </div>
+      </div>
+      
+      <div class="strategy-item">
+        <i>✓</i>
+        <div>
+          <strong>Demonstrate problem-solving process</strong>
+          <p>During the coding portion, articulate your thought process clearly. Explain design choices, tradeoffs considered, and how you would evaluate the solution.</p>
+        </div>
+      </div>
+      
+      <div class="strategy-item">
+        <i>✓</i>
+        <div>
+          <strong>Be ready for Azure-specific questions</strong>
+          <p>American Airlines has a clear preference for Azure AI Foundry, so emphasize your understanding of this platform and how it can be leveraged for LLM applications.</p>
+        </div>
+      </div>
+      
+      <div class="strategy-item">
+        <i>✓</i>
+        <div>
+          <strong>Ask clarifying questions</strong>
+          <p>Don't hesitate to seek clarification before diving into complex answers. This demonstrates thoughtfulness and ensures your response addresses their actual concern.</p>
+        </div>
+      </div>
+    </section>
+    
+    <section>
+      <h2>Key Python Libraries to Review</h2>
+      <div class="libraries">
+        <div class="library-badge">LangChain</div>
+        <div class="library-badge">LlamaIndex</div>
+        <div class="library-badge">Transformers (Hugging Face)</div>
+        <div class="library-badge">FAISS</div>
+        <div class="library-badge">Pinecone</div>
+        <div class="library-badge">Weaviate</div>
+        <div class="library-badge">Azure.ai.ml</div>
+        <div class="library-badge">Azure OpenAI</div>
+        <div class="library-badge">Azure Cognitive Search</div>
+        <div class="library-badge">Ragas</div>
+        <div class="library-badge">TruLens</div>
+        <div class="library-badge">Deepeval</div>
+      </div>
+    </section>
+    
+    <footer>
+      <p>Prepared specifically for your American Airlines Gen AI Data Scientist interview. Good luck!</p>
+    </footer>
+  </div>
+
+  <script>
+    // Interview Structure Chart
+    const interviewStructureCtx = document.getElementById('interviewStructureChart').getContext('2d');
+    const interviewStructureChart = new Chart(interviewStructureCtx, {
+      type: 'pie',
+      data: {
+        labels: ['Technical Questions', 'Coding Test'],
+        datasets: [{
+          data: [60, 30],
+          backgroundColor: [
+            '#0078d4',
+            '#00bcd4',
+          ],
+          borderWidth: 0
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: {
+            position: 'bottom',
+          },
+          tooltip: {
+            callbacks: {
+              label: function(context) {
+                return `${context.label}: ${context.raw} minutes`;
+              }
+            }
+          }
+        }
+      }
+    });
+
+    // Technical Focus Chart
+    const technicalFocusCtx = document.getElementById('technicalFocusChart').getContext('2d');
+    const technicalFocusChart = new Chart(technicalFocusCtx, {
+      type: 'radar',
+      data: {
+        labels: [
+          'RAG Systems',
+          'Azure AI',
+          'IT Applications',
+          'Prompt Engineering',
+          'LLM Architecture',
+          'MLOps'
+        ],
+        datasets: [{
+          label: 'Focus Areas',
+          data: [95, 90, 85, 80, 75, 70],
+          fill: true,
+          backgroundColor: 'rgba(0, 120, 212, 0.2)',
+          borderColor: '#0078d4',
+          pointBackgroundColor: '#0078d4',
+          pointBorderColor: '#fff',
+          pointHoverBackgroundColor: '#fff',
+          pointHoverBorderColor: '#0078d4'
+        }]
+      },
+      options: {
+        responsive: true,
+        scales: {
+          r: {
+            angleLines: {
+              display: true
+            },
+            suggestedMin: 0,
+            suggestedMax: 100
+          }
+        },
+        plugins: {
+          legend: {
+            position: 'bottom',
+          }
+        }
+      }
+    });
+
+    // Topic Cards Data
+    const topicData = [
+      {
+        title: "LLM Fundamentals & Architecture",
+        icon: "🧠",
+        questions: [
+          "Explain the architecture differences between LLaMA 3 and DeepSeek-R1 models you've worked with.",
+          "How do different attention mechanisms (self-attention, cross-attention) function in modern LLMs?",
+          "What considerations go into choosing between 7B vs 70B parameter models for enterprise applications?",
+          "How does tokenization affect performance on specialized airline industry terminology?",
+          "What techniques have you used to optimize inference speed and reduce latency?"
+        ]
+      },
+      {
+        title: "Retrieval Augmented Generation (RAG)",
+        icon: "🔍",
+        questions: [
+          "Design a complete RAG pipeline for airline IT operations documentation.",
+          "Compare Pinecone, FAISS, and Weaviate for airline IT operations scenarios.",
+          "What document chunking approaches have you found most effective?",
+          "How do you evaluate RAG performance beyond basic accuracy metrics?",
+          "What strategies do you use when dealing with limited context windows?",
+          "How would you optimize semantic search for technical documentation?"
+        ]
+      },
+      {
+        title: "Azure AI Tools & Integration",
+        icon: "☁️",
+        questions: [
+          "Explain your experience with deploying models on Azure AI Foundry.",
+          "How would you design an end-to-end architecture using Azure's AI tools?",
+          "What strategies would you employ to optimize costs when deploying LLMs on Azure?",
+          "What are key security considerations when deploying LLM applications on Azure?",
+          "How would you implement monitoring for a production LLM system?"
+        ]
+      },
+      {
+        title: "Advanced Prompting & System Design",
+        icon: "💬",
+        questions: [
+          "Describe advanced prompt engineering techniques you've used to reduce hallucinations.",
+          "Design an LLM-based system for IT support ticket classification and routing.",
+          "How would you create an evaluation framework for an LLM application?",
+          "What approach would you take for model and prompt versioning?",
+          "How would you incorporate user feedback to improve system performance?"
+        ]
+      },
+      {
+        title: "IT Operations Applications",
+        icon: "🛠️",
+        questions: [
+          "How would you design an LLM system to manage American Airlines' IT documentation?",
+          "How could LLMs enhance predictive maintenance for IT systems?",
+          "What IT processes could be automated using LLMs, and how would you approach this?",
+          "Design an LLM solution to optimize IT support response times.",
+          "How would you implement a knowledge management system for IT operations?"
+        ]
+      },
+      {
+        title: "MLOps & Deployment",
+        icon: "🚀",
+        questions: [
+          "Describe your approach to monitoring LLM performance in production.",
+          "What does your ideal CI/CD pipeline for LLM applications look like?",
+          "How would you detect and address concept drift in a production LLM system?",
+          "What strategies do you use for model versioning and rollbacks?",
+          "How would you implement a blue-green deployment strategy for LLM models?"
+        ]
+      }
+    ];
+
+    // Populate Topic Cards
+    const topicGrid = document.getElementById('topic-grid');
+    
+    topicData.forEach((topic, index) => {
+      const topicCard = document.createElement('div');
+      topicCard.className = 'topic-card';
+      
+      topicCard.innerHTML = `
+        <h3>${topic.icon} ${topic.title}</h3>
+        <div class="questions" id="questions-${index}">
+          ${topic.questions.map(q => `<div class="question-item">${q}</div>`).join('')}
+        </div>
+        <button class="toggle-btn" data-index="${index}">
+          <i>+</i> Show example questions
+        </button>
+      `;
+      
+      topicGrid.appendChild(topicCard);
+    });
+
+    // Toggle Questions
+    document.querySelectorAll('.toggle-btn').forEach(button => {
+      button.addEventListener('click', () => {
+        const index = button.getAttribute('data-index');
+        const questionsDiv = document.getElementById(`questions-${index}`);
+        const isVisible = questionsDiv.classList.contains('active');
+        
+        if (isVisible) {
+          questionsDiv.classList.remove('active');
+          button.innerHTML = '<i>+</i> Show example questions';
+        } else {
+          questionsDiv.classList.add('active');
+          button.innerHTML = '<i>-</i> Hide example questions';
+        }
+      });
+    });
+
+    // Tab Functionality
+    document.querySelectorAll('.tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        // Remove active class from all tabs
+        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+        
+        // Add active class to clicked tab
+        tab.classList.add('active');
+        document.getElementById(tab.getAttribute('data-tab')).classList.add('active');
+      });
+    });
+
+    // Draw RAG diagram arrows
+    function drawArrow(startEl, endEl) {
+      const start = startEl.getBoundingClientRect();
+      const end = endEl.getBoundingClientRect();
+      const container = document.querySelector('.rag-diagram').getBoundingClientRect();
+      
+      // Calculate relative positions
+      const startX = (start.left + start.right) / 2 - container.left;
+      const startY = (start.top + start.bottom) / 2 - container.top;
+      const endX = (end.left + end.right) / 2 - container.left;
+      const endY = (end.top + end.bottom) / 2 - container.top;
+      
+      // Calculate length and angle
+      const length = Math.sqrt(Math.pow(endX - startX, 2) + Math.pow(endY - startY, 2));
+      const angle = Math.atan2(endY - startY, endX - startX) * 180 / Math.PI;
+      
+      // Create arrow
+      const arrow = document.createElement('div');
+      arrow.className = 'rag-arrow';
+      arrow.style.width = `${length}px`;
+      arrow.style.left = `${startX}px`;
+      arrow.style.top = `${startY}px`;
+      arrow.style.transform = `rotate(${angle}deg)`;
+      
+      document.querySelector('.rag-diagram').appendChild(arrow);
+    }
+
+    // Draw arrows after page loads
+    window.addEventListener('load', () => {
+      // User query to retriever
+      drawArrow(
+        document.getElementById('user-query'),
+        document.getElementById('retriever')
+      );
+      
+      // Retriever to vector database
+      drawArrow(
+        document.getElementById('retriever'),
+        document.getElementById('vectordb')
+      );
+      
+      // Vector database to knowledge base
+      drawArrow(
+        document.getElementById('vectordb'),
+        document.getElementById('knowledge')
+      );
+      
+      // Retriever to LLM
+      drawArrow(
+        document.getElementById('retriever'),
+        document.getElementById('llm')
+      );
+      
+      // LLM to response
+      drawArrow(
+        document.getElementById('llm'),
+        document.getElementById('response')
+      );
+    });
+  </script>
+</body>
+</html>

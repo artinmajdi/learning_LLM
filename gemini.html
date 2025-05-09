@@ -1,0 +1,1407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sophisticated LLM Learning Hub & Interview Prep</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6; /* Lighter gray background */
+            color: #1f2937; /* Darker default text */
+        }
+        .sidebar {
+            background-color: #1f2937; /* Darker sidebar */
+            color: #d1d5db; /* Lighter text in sidebar */
+            transition: width 0.3s ease-in-out;
+        }
+        .sidebar-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem; /* 12px */
+            padding: 0.75rem 1rem; /* 12px 16px */
+            border-radius: 0.375rem; /* 6px */
+            transition: all 0.2s ease-in-out;
+            font-weight: 500;
+        }
+        .sidebar-item svg {
+            width: 1.25rem; /* 20px */
+            height: 1.25rem; /* 20px */
+            flex-shrink: 0;
+        }
+        .sidebar-item:hover, .sidebar-item.active {
+            background-color: #4f46e5; /* Indigo for active/hover */
+            color: #ffffff;
+            transform: translateX(5px);
+        }
+        .sidebar-item.active svg, .sidebar-item:hover svg {
+            color: #ffffff;
+        }
+
+        .content-card {
+            background-color: #ffffff;
+            border-radius: 0.75rem; /* 12px */
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.07), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease-in-out;
+        }
+        .content-card:hover {
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        .btn {
+            padding: 0.625rem 1.25rem; /* 10px 20px */
+            border-radius: 0.5rem; /* 8px */
+            font-weight: 600; /* Bolder buttons */
+            transition: all 0.2s ease-in-out;
+            cursor: pointer;
+            display: inline-flex; /* For icon alignment */
+            align-items: center;
+            gap: 0.5rem; /* 8px */
+        }
+        .btn-primary {
+            background-color: #4f46e5;
+            color: white;
+            box-shadow: 0 4px 6px -1px rgba(79, 70, 229, 0.3), 0 2px 4px -1px rgba(79, 70, 229, 0.2);
+        }
+        .btn-primary:hover {
+            background-color: #4338ca;
+            transform: translateY(-1px);
+            box-shadow: 0 10px 15px -3px rgba(79, 70, 229, 0.3), 0 4px 6px -2px rgba(79, 70, 229, 0.2);
+        }
+        .btn-secondary {
+            background-color: #e5e7eb;
+            color: #374151;
+        }
+        .btn-secondary:hover {
+            background-color: #d1d5db;
+            transform: translateY(-1px);
+        }
+        .btn:active {
+            transform: translateY(0px); /* Remove jump on active if already transformed */
+        }
+        .btn-sm {
+            padding: 0.5rem 1rem;
+            font-size: 0.875rem;
+        }
+
+        .quiz-option {
+            border: 2px solid #e5e7eb; /* Lighter border */
+            padding: 0.875rem; /* 14px */
+            border-radius: 0.5rem; /* 8px */
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+            background-color: #f9fafb; /* Slightly off-white */
+        }
+        .quiz-option:hover {
+            border-color: #6366f1; /* Indigo lighter */
+            background-color: #eef2ff;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+        }
+        .quiz-option.selected {
+            border-color: #4f46e5;
+            background-color: #e0e7ff; /* Indigo lighter */
+            color: #3730a3; /* Darker indigo text */
+            font-weight: 600;
+            box-shadow: 0 2px 4px rgba(79,70,229,0.2);
+        }
+        .quiz-option.correct {
+            border-color: #10b981;
+            background-color: #d1fae5;
+            color: #057a55;
+        }
+        .quiz-option.incorrect {
+            border-color: #ef4444;
+            background-color: #fee2e2;
+            color: #c02626;
+        }
+
+        .progress-bar-bg {
+            background-color: #e5e7eb;
+            border-radius: 9999px;
+            height: 0.75rem; /* 12px */
+        }
+        .progress-bar-fg {
+            background-color: #4f46e5;
+            border-radius: 9999px;
+            height: 0.75rem; /* 12px */
+            transition: width 0.5s ease-in-out;
+        }
+
+        .fade-in-content { /* Renamed for clarity */
+            animation: fadeInContent 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+        }
+        @keyframes fadeInContent {
+            0% { opacity: 0; transform: translateY(20px) scale(0.98); }
+            100% { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .modal {
+            z-index: 1000;
+        }
+        .modal-content {
+            border-radius: 0.75rem; /* 12px */
+        }
+
+        .interactive-box {
+            border: 1px solid #d1d5db;
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            margin-top: 1.5rem;
+            margin-bottom: 1.5rem; /* Added margin bottom */
+            background-color: #f9fafb;
+            box-shadow: inset 0 1px 2px rgba(0,0,0,0.05);
+        }
+        .token {
+            display: inline-block;
+            padding: 0.375rem 0.625rem;
+            margin: 0.25rem;
+            background-color: #e0e7ff;
+            color: #3730a3;
+            border-radius: 0.375rem;
+            font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace;
+            font-size: 0.875rem;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+            transition: transform 0.1s ease-out;
+        }
+        .token:hover {
+            transform: translateY(-1px);
+        }
+
+        .training-flow-diagram {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1.5rem;
+        }
+        .flow-box {
+            padding: 0.75rem 1.25rem;
+            border-radius: 0.5rem;
+            text-align: center;
+            min-width: 180px;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.07), 0 2px 4px -1px rgba(0,0,0,0.04);
+            font-weight: 500;
+            transition: all 0.2s ease-in-out;
+        }
+        .flow-box:hover {
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.07), 0 4px 6px -2px rgba(0,0,0,0.04);
+        }
+        .flow-arrow {
+            font-size: 1.75rem;
+            color: #9ca3af;
+            opacity: 0.8;
+        }
+
+        .attention-word {
+            cursor: pointer;
+            padding: 0.125rem 0.25rem;
+            border-radius: 0.25rem;
+            transition: background-color 0.2s, color 0.2s, box-shadow 0.2s;
+            display: inline-block;
+            margin: 0 1px;
+        }
+        .attention-word:hover {
+            background-color: #c7d2fe;
+            color: #3730a3;
+            box-shadow: 0 0 5px rgba(99, 102, 241, 0.5);
+        }
+        .attention-word.highlighted {
+            background-color: #fb7185;
+            color: #ffffff;
+            font-weight: 700;
+            box-shadow: 0 0 8px rgba(251, 113, 133, 0.7);
+        }
+        .attention-word.related {
+            background-color: #a5b4fc;
+            color: #312e81;
+        }
+        #attention-weights-display {
+            font-size: 0.8rem;
+            color: #4b5563;
+            min-height: 1.5em;
+        }
+
+        .temperature-visual {
+            width: 100%;
+            height: 1.25rem;
+            border-radius: 0.375rem;
+            background: linear-gradient(to right, #3b82f6, #f59e0b, #ef4444);
+            position: relative;
+            margin-top: 0.5rem;
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .temp-indicator {
+            width: 0.375rem;
+            height: 1.75rem;
+            background-color: #111827;
+            position: absolute;
+            top: -0.25rem;
+            border-radius: 0.125rem;
+            transform: translateX(-50%);
+            transition: left 0.1s ease-out;
+            border: 2px solid white;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+        }
+        #mock-output-preview {
+            min-height: 60px;
+            background-color: #f9fafb;
+            border: 1px solid #e5e7eb;
+            padding: 0.75rem;
+            border-radius: 0.375rem;
+            font-style: italic;
+            color: #4b5563;
+            transition: background-color 0.3s ease;
+        }
+
+        .prompt-quality-bar {
+            width: 100%;
+            height: 1.5rem;
+            background-color: #e5e7eb;
+            border-radius: 0.375rem;
+            overflow: hidden;
+            margin-top: 0.5rem;
+            box-shadow: inset 0 1px 2px rgba(0,0,0,0.05);
+        }
+        .prompt-quality-fill {
+            height: 100%;
+            background-color: #22c55e;
+            width: 0%;
+            transition: width 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+        #sidebar-toggle {
+            display: none;
+            position: fixed;
+            top: 1rem;
+            left: 1rem;
+            z-index: 1001;
+            background-color: #1f2937;
+            color: white;
+            padding: 0.5rem;
+            border-radius: 0.375rem;
+        }
+        @media (max-width: 768px) {
+            .sidebar {
+                position: fixed;
+                left: -100%;
+                height: 100%;
+                z-index: 999;
+                box-shadow: 0 0 15px rgba(0,0,0,0.2);
+            }
+            .sidebar.open {
+                left: 0;
+            }
+            #sidebar-toggle {
+                display: block;
+            }
+            main {
+                margin-left: 0;
+            }
+        }
+        /* Custom styles for visual comparisons */
+        .visual-comparison-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1rem;
+            margin-bottom: 2rem;
+        }
+        .visual-comparison-item {
+            border: 1px solid #e5e7eb;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            background-color: #f9fafb;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.03);
+        }
+        .visual-comparison-item h5 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #4f46e5; /* Indigo */
+            margin-bottom: 0.75rem;
+            text-align: center;
+        }
+        .visual-comparison-item svg {
+            width: 100%;
+            height: auto;
+            max-height: 200px; /* Adjust as needed */
+            margin-bottom: 0.75rem;
+            border: 1px dashed #cbd5e1;
+            border-radius: 0.25rem;
+            padding: 0.5rem;
+        }
+        .visual-comparison-item ul {
+            font-size: 0.875rem;
+            padding-left: 1rem;
+            list-style-type: disc;
+        }
+        .visual-comparison-item ul li {
+            margin-bottom: 0.25rem;
+        }
+        .comparison-table { /* Keep table styles if still used */
+            width: 100%;
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+            border-collapse: collapse;
+        }
+        .comparison-table th, .comparison-table td {
+            border: 1px solid #e5e7eb;
+            padding: 0.75rem;
+            text-align: left;
+            font-size: 0.9rem;
+        }
+        .comparison-table th {
+            background-color: #f3f4f6;
+            font-weight: 600;
+        }
+        .comparison-table td ul {
+            margin: 0;
+            padding-left: 1rem;
+        }
+
+
+    </style>
+</head>
+<body class="flex h-screen overflow-hidden">
+
+    <button id="sidebar-toggle" aria-label="Toggle sidebar">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+        </svg>
+    </button>
+
+    <aside id="sidebar" class="sidebar w-64 lg:w-72 p-6 space-y-4 overflow-y-auto">
+        <div class="flex items-center justify-between mb-6">
+            <h1 class="text-2xl font-bold text-white">LLM Hub</h1>
+            <button id="sidebar-close" class="lg:hidden text-gray-400 hover:text-white">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+        </div>
+
+        <nav>
+            <h2 class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2 px-1">Learning Modules</h2>
+            <a href="#" class="sidebar-item" data-content="module_intro_llm">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" /></svg>
+                What is an LLM?
+            </a>
+            <a href="#" class="sidebar-item" data-content="module_training_basics">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L1.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.25 12L18 14.25l-.25-2.25a3.375 3.375 0 00-2.475-2.475L13.5 9.25l2.25-.25a3.375 3.375 0 002.475-2.475L18 4.25l.25 2.25a3.375 3.375 0 002.475 2.475L22.75 9.25l-2.25.25a3.375 3.375 0 00-2.475 2.475z" /></svg>
+                How LLMs Learn
+            </a>
+            <a href="#" class="sidebar-item" data-content="module_transformers">
+                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M21 7.5l-9-5.25L3 7.5m18 0l-9 5.25m9-5.25v9l-9 5.25M3 7.5l9 5.25M3 7.5v9l9 5.25m0-9v9" /></svg>
+                Transformers & Attention
+            </a>
+            <a href="#" class="sidebar-item" data-content="module_prompts_params">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M10.343 3.94c.09-.542.56-.94 1.11-.94h1.093c.55 0 1.02.398 1.11.94l.149.894c.07.424.384.764.78.93.398.164.855.142 1.205-.108l.737-.527a1.125 1.125 0 011.45.12l.773.774c.39.389.44 1.002.12 1.45l-.527.737c-.25.35-.272.806-.108 1.204.165.397.505.71.93.78l.893.15c.543.09.94.56.94 1.11v1.093c0 .55-.397 1.02-.94 1.11l-.893.149c-.425.07-.765.383-.93.78-.165.398-.143.854.107 1.204l.527.738c.32.447.269 1.06-.12 1.45l-.774.773a1.125 1.125 0 01-1.449.12l-.738-.527c-.35-.25-.806-.272-1.203-.107-.397.165-.71.505-.78.93l-.15.894c-.09.542-.56.94-1.11.94h-1.094c-.55 0-1.019-.398-1.11-.94l-.149-.894c-.07-.424-.384-.764-.78-.93-.398-.164-.854-.142-1.204.108l-.738.527a1.125 1.125 0 01-1.45-.12l-.773-.774a1.125 1.125 0 01-.12-1.45l.527-.737c.25-.35.273-.806.108-1.204-.165-.397-.506-.71-.93-.78l-.894-.15c-.542-.09-.94-.56-.94-1.11v-1.094c0-.55.398-1.02.94-1.11l.894-.149c.424-.07.765-.383.93-.78.165-.398.143-.854-.107-1.204l-.527-.738a1.125 1.125 0 01.12-1.45l.773-.773a1.125 1.125 0 011.45-.12l.737.527c.35.25.807.272 1.204.107.397-.165.71-.505.78-.93l.15-.894z" /><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+                Prompts & Parameters
+            </a>
+            <a href="#" class="sidebar-item" data-content="module_applications">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 21h16.5M4.5 3h15M5.25 3v18m13.5-18v18M9 6.75h6.375M9 12h6.375M9 17.25h6.375M12 3c-1.304 0-2.418.835-2.83 2.001M12 3c1.304 0 2.418.835 2.83 2.001M12 21c-1.304 0-2.418-.835-2.83-2.001M12 21c1.304 0 2.418-.835 2.83-2.001" /></svg>
+                Common Applications
+            </a>
+            <a href="#" class="sidebar-item" data-content="module_challenges_ethics">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m0-10.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.75c0 5.592 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.57-.598-3.75h-.152c-3.196 0-6.1-1.248-8.25-3.285z" /></svg>
+                Challenges & Ethics
+            </a>
+        </nav>
+
+        <nav class="mt-10">
+            <h2 class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2 px-1">Interview Prep</h2>
+            <a href="#" class="sidebar-item" data-content="interview_fundamentals">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" /></svg>
+                Fundamentals
+            </a>
+            <a href="#" class="sidebar-item" data-content="interview_architecture">
+                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 7.5V6.108c0-1.135.845-2.098 1.976-2.192.373-.03.748-.03 1.125 0 1.131.094 1.976 1.057 1.976 2.192V7.5M8.25 7.5h7.5M8.25 7.5V9a.75.75 0 01-.75.75h-5.25a.75.75 0 01-.75-.75V7.5m0 0H3V12m0 0v7.5A2.25 2.25 0 005.25 21.75h13.5A2.25 2.25 0 0021 19.5V12M3 12V9m0 0c0-1.135.845-2.098 1.976-2.192a48.424 48.424 0 0111.048 0C17.155 7.01 18 7.973 18 9m-9 3.75h.008v.008H9v-.008zm0 0H12m0 0h.008v.008H12v-.008zm0 0h-.008V12H9v.75zm0 0h.008v.008H9v-.008zm3.75 0h.008v.008h-.008v-.008zm0 0H15m0 0h.008v.008h-.008v-.008zm0 0h-.008v.008H12v-.75zm0 0h.008V12h-.008v.75zM9 15h.008v.008H9v-.008zm0 0H12m0 0h.008v.008H12v-.008zm0 0h-.008V15H9v.75zm0 0h.008v.008H9v-.008zm3.75 0h.008v.008h-.008v-.008zm0 0H15m0 0h.008v.008h-.008v-.008zm0 0h-.008v.008H12v-.75zm0 0h.008V15h-.008v.75z" /></svg>
+                Architecture
+            </a>
+            <a href="#" class="sidebar-item" data-content="interview_training">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6 13.5V3.75m0 9.75a1.5 1.5 0 010 3m0-3a1.5 1.5 0 000 3m0 3.75V16.5m12-3V3.75m0 9.75a1.5 1.5 0 010 3m0-3a1.5 1.5 0 000 3m0 3.75V16.5m-6-9V3.75m0 3.75a1.5 1.5 0 010 3m0-3a1.5 1.5 0 000 3m0 9.75V10.5" /></svg>
+                Training & Fine-tuning
+            </a>
+            <a href="#" class="sidebar-item" data-content="interview_advanced">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M11.42 15.17L17.25 21A2.652 2.652 0 0021 17.25l-5.877-5.877M11.42 15.17l2.496-3.03c.528-1.036.94-2.17.94-3.375C14.857 5.036 13.183 3.364 11.25 3.364c-1.933 0-3.607 1.672-3.607 3.607C7.643 8.08 8.057 9.214 8.585 10.25l2.835 4.92z" /></svg>
+                Advanced Topics
+            </a>
+        </nav>
+    </aside>
+
+    <main class="flex-1 p-4 md:p-6 lg:p-10 overflow-y-auto">
+        <div id="content-area" class="max-w-4xl mx-auto"> <div class="content-card p-8 md:p-10">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Welcome to the LLM Learning Hub!</h2>
+                <p class="text-lg text-gray-600 mb-6">Your sophisticated journey into Large Language Models begins here. Select a module or interview section to get started.</p>
+                <img src="https://placehold.co/700x350/E0E7FF/3730A3?text=Explore+Large+Language+Models" alt="LLM Concept Art - Enhanced" class="mt-8 rounded-lg shadow-lg w-full object-cover">
+            </div>
+        </div>
+    </main>
+
+    <div id="feedbackModal" class="modal">
+        <div class="modal-content p-6">
+            <div class="flex justify-between items-center mb-4">
+                <h3 id="modalTitle" class="text-2xl font-semibold"></h3>
+                <span class="close-button cursor-pointer" onclick="closeModal()">&times;</span>
+            </div>
+            <div id="modalMessage" class="text-gray-700 mb-6 prose"></div>
+            <button id="modalNextButton" class="btn btn-primary w-full">Continue</button>
+        </div>
+    </div>
+
+    <script>
+        // --- Content Definitions (with placeholders for more detail) ---
+        const contentData = {
+            'module_intro_llm': [
+                {
+                    type: 'info',
+                    title: 'Module 1: What is an LLM?',
+                    html: `
+                        <div class="prose prose-lg max-w-none text-gray-700">
+                            <p>A Large Language Model (LLM) is a sophisticated type of artificial intelligence (AI) specifically engineered to understand, interpret, generate, and manipulate human language. Think of it as an incredibly advanced text processor with a deep comprehension of linguistic patterns, context, and even nuances like style and tone.</p>
+                            <p><strong>Core Characteristics:</strong></p>
+                            <ul>
+                                <li><strong>Large Scale:</strong> Trained on colossal datasets, often encompassing terabytes of text and code from diverse sources like books, articles, websites, and conversations. This scale is crucial for their broad knowledge and capabilities.</li>
+                                <li><strong>Language Modeling:</strong> At their heart, LLMs are probabilistic models. Their fundamental task is to predict the next word (or, more accurately, "token" - a sub-word unit) in a sequence. This predictive ability forms the basis for generating coherent and contextually relevant text.</li>
+                                <li><strong>Pre-training & Fine-tuning:</strong> They typically undergo a two-stage training process:
+                                    <ol>
+                                        <li><em>Pre-training:</em> An unsupervised phase where the model learns general language patterns, grammar, factual knowledge, and some reasoning capabilities from the massive unlabeled dataset.</li>
+                                        <li><em>Fine-tuning:</em> A supervised phase where the pre-trained model is further trained on a smaller, task-specific dataset to adapt its capabilities for particular applications (e.g., translation, summarization, question answering).</li>
+                                    </ol>
+                                </li>
+                            </ul>
+                            <div class="p-4 my-6 rounded-lg bg-gradient-to-r from-indigo-50 via-purple-50 to-pink-50 border border-indigo-200 shadow-sm">
+                                <h4 class="font-semibold text-indigo-700 mb-2">Analogy: The Universal Translator & Polymath Scribe</h4>
+                                <p class="text-indigo-600 text-sm">Imagine a combination of a universal translator that understands and speaks nearly every language, and a polymath scribe who has read vast libraries and can write on almost any topic with appropriate style and depth. An LLM strives to embody these qualities for text-based interactions.</p>
+                            </div>
+                            <div class="interactive-box">
+                                <h4 class="font-semibold text-gray-700 mb-2 text-lg">Interactive Token Visualizer</h4>
+                                <p class="text-sm text-gray-600 mb-3">Enter a sentence to see a simplified illustration of how an LLM might break it into "tokens." Real tokenization can be more complex (e.g., sub-word units), but this gives a basic idea.</p>
+                                <input type="text" id="token-input" class="w-full p-3 border border-gray-300 rounded-md mb-3 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" placeholder="Type a sentence, e.g., LLMs are fascinating!">
+                                <button class="btn btn-secondary btn-sm" onclick="visualizeTokens()">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L1.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z" /></svg>
+                                    Visualize Tokens
+                                </button>
+                                <div id="token-output" class="mt-4 flex flex-wrap gap-2"></div>
+                            </div>
+                            <p class="mt-4 text-sm text-gray-500"><em>Further exploration: Different tokenization strategies (BPE, WordPiece), vocabulary size.</em></p>
+                        </div>
+                    `
+                },
+                {
+                    type: 'quiz',
+                    question: 'Which of these best describes the core mechanism by which LLMs generate text?',
+                    options: [
+                        { text: 'Retrieving exact sentences from their training data.', correct: false },
+                        { text: 'Probabilistically predicting the next token in a sequence.', correct: true },
+                        { text: 'Following a predefined set of grammatical rules like a parser.', correct: false },
+                        { text: 'Searching the web for answers and rephrasing them.', correct: false }
+                    ],
+                    explanation: 'Correct! LLMs generate text by calculating probabilities for the next token (word or sub-word unit) based on the preceding context and their training, then sampling from those probabilities.'
+                }
+            ],
+            'module_training_basics': [
+                {
+                    type: 'info',
+                    title: 'Module 2: How LLMs Learn',
+                    html: `
+                        <div class="prose prose-lg max-w-none text-gray-700">
+                            <p>The learning process of an LLM is a sophisticated journey, typically divided into large-scale pre-training followed by optional, more targeted fine-tuning and alignment stages.</p>
+                            <div class="interactive-box my-6">
+                                <h4 class="font-semibold text-gray-700 mb-4 text-lg text-center">Interactive Training Flow Overview</h4>
+                                <p class="text-sm text-gray-600 mb-4 text-center">Hover over the stages to see a brief description. This is a high-level view.</p>
+                                <div class="training-flow-diagram">
+                                    <div class="flow-box bg-green-100 text-green-700" data-info="Huge, diverse text & code datasets (e.g., Common Crawl, Wikipedia, books, GitHub).">Vast Unlabeled Data</div>
+                                    <div class="flow-arrow">⬇️</div>
+                                    <div class="flow-box bg-blue-100 text-blue-700" data-info="Model learns general language patterns, grammar, world knowledge, and some reasoning by predicting masked words or next words. Computationally very intensive.">Pre-training (Self-Supervised)</div>
+                                    <div class="flow-arrow">⬇️</div>
+                                    <div class="flow-box bg-indigo-100 text-indigo-700" data-info="A powerful base model with broad language understanding but not specialized for specific tasks.">Base Pre-trained LLM</div>
+                                    <div class="flow-arrow">⬇️ (Optional Path)</div>
+                                    <div class="flow-box bg-purple-100 text-purple-700" data-info="Smaller, curated datasets of input-output pairs or instructions for specific tasks (e.g., Q&A, summarization, specific domain data).">Task-Specific Labeled Data</div>
+                                    <div class="flow-arrow">⬇️</div>
+                                    <div class="flow-box bg-pink-100 text-pink-700" data-info="Adapts the base model to excel at particular tasks or adhere to certain styles. Less data and computation than pre-training.">Fine-tuning (Supervised)</div>
+                                    <div class="flow-arrow">⬇️ (Optional Path)</div>
+                                     <div class="flow-box bg-teal-100 text-teal-700" data-info="Human evaluators rank model outputs; this feedback trains a reward model, which then fine-tunes the LLM using reinforcement learning to be more helpful, harmless, and honest.">Alignment (e.g., RLHF)</div>
+                                    <div class="flow-arrow">⬇️</div>
+                                    <div class="flow-box bg-yellow-100 text-yellow-700" data-info="A specialized and/or aligned LLM ready for deployment (e.g., ChatGPT, a medical Q&A bot).">Deployed LLM</div>
+                                </div>
+                                <div id="flow-info-display" class="mt-4 p-3 bg-gray-50 rounded-md text-sm text-gray-600 min-h-[3em] border border-gray-200">Hover over a stage above.</div>
+                            </div>
+
+                            <h3 class="font-semibold text-2xl mt-8 mb-4">1. Pre-training Objectives: MLM vs. CLM</h3>
+                            <p>Pre-training imbues models with foundational language understanding. The two dominant objectives are Masked Language Modeling (MLM) and Causal Language Modeling (CLM).</p>
+                            <div class="visual-comparison-grid">
+                                <div class="visual-comparison-item">
+                                    <h5>Masked Language Modeling (MLM)</h5>
+                                    <svg viewBox="0 0 300 150" xmlns="http://www.w3.org/2000/svg">
+                                        <style>.txt{font-family:monospace; font-size:16px;} .mask{font-weight:bold; fill: #ef4444;} .arrow{stroke:#60a5fa; stroke-width:1.5; marker-end:url(#arrowhead);}</style>
+                                        <defs><marker id="arrowhead" markerWidth="7" markerHeight="5" refX="0" refY="2.5" orient="auto"><polygon points="0 0, 5 2.5, 0 5" fill="#60a5fa"/></marker></defs>
+                                        <text x="20" y="70" class="txt">The quick</text>
+                                        <rect x="115" y="50" width="60" height="25" fill="#fee2e2" stroke="#fecaca" rx="3"/>
+                                        <text x="120" y="70" class="txt mask">[MASK]</text>
+                                        <text x="185" y="70" class="txt">fox jumps.</text>
+                                        <path class="arrow" d="M50 55 Q 110 40 110 55"/>
+                                        <path class="arrow" d="M90 55 Q 115 45 115 55"/>
+                                        <path class="arrow" d="M200 55 Q 180 40 180 55"/>
+                                        <path class="arrow" d="M240 55 Q 185 45 185 55"/>
+                                        <text x="150" y="130" text-anchor="middle" class="txt" fill="#4b5563">Predicts masked word based on surrounding context.</text>
+                                    </svg>
+                                    <p><strong>Key Idea:</strong> Predict randomly hidden (masked) words in a sentence using context from <em>both left and right</em>.</p>
+                                    <ul>
+                                        <li><strong>Models:</strong> BERT, RoBERTa, ALBERT</li>
+                                        <li><strong>Pros:</strong> Excellent for deep bidirectional understanding. Strong for NLU tasks (sentiment, QA).</li>
+                                        <li><strong>Cons:</strong> Not inherently generative. Pretrain-finetune mismatch due to <code>[MASK]</code> token.</li>
+                                    </ul>
+                                </div>
+                                <div class="visual-comparison-item">
+                                    <h5>Causal Language Modeling (CLM)</h5>
+                                    <svg viewBox="0 0 300 150" xmlns="http://www.w3.org/2000/svg">
+                                        <style>.txt{font-family:monospace; font-size:16px;} .predict{font-weight:bold; fill: #22c55e;} .arrow{stroke:#60a5fa; stroke-width:1.5; marker-end:url(#arrowhead);}</style>
+                                        <text x="20" y="70" class="txt">The quick brown fox</text>
+                                        <path class="arrow" d="M190 65 L 210 65"/>
+                                        <rect x="215" y="50" width="75" height="25" fill="#dcfce7" stroke="#bbf7d0" rx="3"/>
+                                        <text x="220" y="70" class="txt predict">[jumps]</text>
+                                        <text x="150" y="130" text-anchor="middle" class="txt" fill="#4b5563">Predicts the next word based on preceding context.</text>
+                                    </svg>
+                                    <p><strong>Key Idea:</strong> Predict the next word in a sequence given all previous words (left-to-right).</p>
+                                    <ul>
+                                        <li><strong>Models:</strong> GPT series, Llama, PaLM</li>
+                                        <li><strong>Pros:</strong> Naturally suited for text generation. Conceptually simpler for generation.</li>
+                                        <li><strong>Cons:</strong> Unidirectional context might be less optimal for some NLU tasks.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                             <p class="text-sm text-gray-500"><em>Note: Encoder-decoder models like T5 and BART often use variations of both objectives.</em></p>
+
+                            <h3 class="font-semibold text-2xl mt-8 mb-4">2. Fine-tuning Strategies</h3>
+                            <p>Fine-tuning adapts pre-trained models for specific tasks. Key strategies include:</p>
+                            <div class="visual-comparison-grid">
+                                <div class="visual-comparison-item">
+                                    <h5>Full Fine-Tuning (SFT)</h5>
+                                    <svg viewBox="0 0 200 180" xmlns="http://www.w3.org/2000/svg">
+                                        <style>.layer{fill:#a5b4fc; stroke:#6366f1; stroke-width:1;} .trainable{fill:#6366f1;} .txt{font-size:12px; font-family:monospace; text-anchor:middle;}</style>
+                                        <rect x="50" y="20" width="100" height="20" rx="2" class="layer trainable"/>
+                                        <rect x="50" y="50" width="100" height="20" rx="2" class="layer trainable"/>
+                                        <rect x="50" y="80" width="100" height="20" rx="2" class="layer trainable"/>
+                                        <rect x="50" y="110" width="100" height="20" rx="2" class="layer trainable"/>
+                                        <text x="100" y="155" class="txt">All layers updated</text>
+                                        <text x="100" y="170" class="txt">(High cost & memory)</text>
+                                    </svg>
+                                    <p><strong>Mechanism:</strong> Update most/all weights of the pre-trained model on task-specific labeled data.</p>
+                                    <ul>
+                                        <li><strong>Pros:</strong> Can achieve high task performance.</li>
+                                        <li><strong>Cons:</strong> Computationally expensive. Risk of catastrophic forgetting. Needs significant labeled data.</li>
+                                    </ul>
+                                </div>
+                                <div class="visual-comparison-item">
+                                    <h5>Instruction Tuning</h5>
+                                     <svg viewBox="0 0 200 180" xmlns="http://www.w3.org/2000/svg">
+                                        <style>.layer{fill:#a5b4fc; stroke:#6366f1; stroke-width:1;} .trainable{fill:#6366f1;} .txt{font-size:12px; font-family:monospace; text-anchor:middle;} .input{fill:#e0e7ff; stroke:#a5b4fc;}</style>
+                                        <rect x="20" y="60" width="50" height="30" rx="2" class="input"/>
+                                        <text x="45" y="80" class="txt" font-size="10px">Instruction</text>
+                                        <path d="M70 75 L 85 75" stroke="#6366f1" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+                                        <rect x="90" y="20" width="100" height="20" rx="2" class="layer trainable"/>
+                                        <rect x="90" y="50" width="100" height="20" rx="2" class="layer trainable"/>
+                                        <rect x="90" y="80" width="100" height="20" rx="2" class="layer trainable"/>
+                                        <rect x="90" y="110" width="100" height="20" rx="2" class="layer trainable"/>
+                                        <text x="100" y="155" class="txt" transform="translate(45,0)">Tuned on (Instruction, Output) pairs</text>
+                                    </svg>
+                                    <p><strong>Mechanism:</strong> SFT using a dataset of (instruction, output) pairs to teach general instruction following.</p>
+                                    <ul>
+                                        <li><strong>Pros:</strong> Improves zero-shot/few-shot generalization to new tasks. Makes models more steerable.</li>
+                                        <li><strong>Cons:</strong> Quality depends heavily on the instruction dataset.</li>
+                                    </ul>
+                                </div>
+                                <div class="visual-comparison-item">
+                                    <h5>PEFT (e.g., LoRA)</h5>
+                                    <svg viewBox="0 0 200 180" xmlns="http://www.w3.org/2000/svg">
+                                        <style>.layer{fill:#d1d5db; stroke:#9ca3af; stroke-width:1;} .adapter{fill:#f472b6; stroke:#db2777; stroke-width:1.5;} .txt{font-size:12px; font-family:monospace; text-anchor:middle;}</style>
+                                        <rect x="50" y="20" width="100" height="20" rx="2" class="layer"/>
+                                        <rect x="155" y="25" width="15" height="10" rx="1" class="adapter"/>
+                                        <rect x="50" y="50" width="100" height="20" rx="2" class="layer"/>
+                                        <rect x="50" y="80" width="100" height="20" rx="2" class="layer"/>
+                                        <rect x="155" y="85" width="15" height="10" rx="1" class="adapter"/>
+                                        <rect x="50" y="110" width="100" height="20" rx="2" class="layer"/>
+                                        <text x="100" y="155" class="txt">Frozen Base Model</text>
+                                        <text x="100" y="170" class="txt">Trainable Adapters (Low cost)</text>
+                                    </svg>
+                                    <p><strong>Mechanism:</strong> Freeze most pre-trained weights, train only a small set of new/adapted parameters (e.g., LoRA adapters).</p>
+                                    <ul>
+                                        <li><strong>Pros:</strong> Reduces trainable parameters drastically. Faster, less memory. Mitigates catastrophic forgetting.</li>
+                                        <li><strong>Cons:</strong> Might slightly underperform full SFT on very complex tasks.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                             <p class="text-sm text-gray-500"><em>Further exploration: Other PEFT methods (Adapters, Prompt Tuning), trade-offs.</em></p>
+
+                            <h3 class="font-semibold text-2xl mt-8 mb-4">3. Alignment Techniques</h3>
+                            <p>Alignment fine-tunes models to be helpful, harmless, and honest.</p>
+                            <div class="visual-comparison-grid">
+                                <div class="visual-comparison-item">
+                                    <h5>RLHF (Reinforcement Learning from Human Feedback)</h5>
+                                    <svg viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg">
+                                        <style>.txt{font-size:11px; font-family:monospace; text-anchor:middle;} .box{fill:#e0f2fe; stroke:#38bdf8; stroke-width:1; rx:3;} .arrow_rlhf{stroke:#0ea5e9; stroke-width:1.5; marker-end:url(#arrowhead_rlhf); fill:none;} .human{font-size:18px;}</style>
+                                        <defs><marker id="arrowhead_rlhf" markerWidth="7" markerHeight="5" refX="5" refY="2.5" orient="auto"><polygon points="0 0, 5 2.5, 0 5" fill="#0ea5e9"/></marker></defs>
+                                        <rect x="20" y="80" width="70" height="40" class="box"/> <text x="55" y="105" class="txt">SFT LLM</text>
+                                        <text x="150" y="45" class="human">👥</text><text x="150" y="65" class="txt">Human Raters</text>
+                                        <text x="150" y="75" class="txt">(Rank Outputs)</text>
+                                        <rect x="210" y="80" width="70" height="40" class="box"/> <text x="245" y="105" class="txt">Reward Model</text>
+                                        <rect x="115" y="140" width="70" height="40" class="box"/> <text x="150" y="165" class="txt">RL (PPO)</text>
+                                        <path class="arrow_rlhf" d="M90 100 Q 120 70 145 75"/> <path class="arrow_rlhf" d="M155 75 Q 180 70 210 90"/> <path class="arrow_rlhf" d="M210 110 Q 180 140 155 145"/> <path class="arrow_rlhf" d="M115 150 Q 70 130 90 110"/> </svg>
+                                    <p><strong>Mechanism:</strong> Multi-stage: 1. Collect human preferences on model outputs. 2. Train a Reward Model (RM) on these preferences. 3. Fine-tune LLM using RL, with rewards from RM.</p>
+                                    <ul>
+                                        <li><strong>Pros:</strong> Effective for complex preferences. Improves helpfulness/harmlessness.</li>
+                                        <li><strong>Cons:</strong> Complex, data-intensive. Risk of reward hacking.</li>
+                                    </ul>
+                                </div>
+                                <div class="visual-comparison-item">
+                                    <h5>DPO (Direct Preference Optimization)</h5>
+                                    <svg viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg">
+                                        <style>.txt{font-size:11px; font-family:monospace; text-anchor:middle;} .box{fill:#dcfce7; stroke:#22c55e; stroke-width:1; rx:3;} .arrow_dpo{stroke:#16a34a; stroke-width:1.5; marker-end:url(#arrowhead_dpo); fill:none;} .data{font-size:18px;}</style>
+                                        <defs><marker id="arrowhead_dpo" markerWidth="7" markerHeight="5" refX="5" refY="2.5" orient="auto"><polygon points="0 0, 5 2.5, 0 5" fill="#16a34a"/></marker></defs>
+                                        <rect x="20" y="80" width="70" height="40" class="box"/> <text x="55" y="105" class="txt">SFT LLM</text>
+                                        <text x="150" y="45" class="data">👍👎</text> <text x="150" y="65" class="txt">Preference Pairs</text>
+                                        <text x="150" y="75" class="txt">(Chosen/Rejected)</text>
+                                        <rect x="210" y="80" width="70" height="40" class="box"/> <text x="245" y="105" class="txt">Aligned LLM</text>
+                                        <path class="arrow_dpo" d="M90 100 L 120 100"/>
+                                        <path class="arrow_dpo" d="M150 80 L 150 100 L 180 100"/>
+                                        <text x="150" y="135" class="txt">Direct Optimization</text>
+                                        <text x="150" y="150" class="txt">(Single Stage Loss)</text>
+                                        <path class="arrow_dpo" d="M180 100 L 210 100"/>
+                                    </svg>
+                                    <p><strong>Mechanism:</strong> Directly optimizes the LLM on human preference data (chosen/rejected pairs) using a specific loss function, bypassing explicit RM training and RL.</p>
+                                    <ul>
+                                        <li><strong>Pros:</strong> Simpler, more stable, potentially more efficient than RLHF.</li>
+                                        <li><strong>Cons:</strong> Newer; performance vs. large-scale RLHF is an active research area.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                             <p class="text-sm text-gray-500"><em>Further exploration: Constitutional AI, other alignment methods.</em></p>
+                        </div>
+                    `
+                },
+                {
+                    type: 'quiz',
+                    question: 'Which fine-tuning strategy is known for drastically reducing the number of trainable parameters by freezing the base model and only training small, injected matrices?',
+                    options: [
+                        { text: 'Full Supervised Fine-Tuning (SFT)', correct: false },
+                        { text: 'Instruction Tuning', correct: false },
+                        { text: 'LoRA (Low-Rank Adaptation)', correct: true },
+                        { text: 'Reinforcement Learning from Human Feedback (RLHF)', correct: false }
+                    ],
+                    explanation: 'Correct! LoRA is a Parameter-Efficient Fine-Tuning (PEFT) method that significantly reduces computational cost by only training low-rank adapter matrices while keeping the base model weights frozen.'
+                }
+            ],
+            'module_transformers': [
+                {
+                    type: 'info',
+                    title: 'Module 3: Transformers & Attention',
+                    html: `
+                        <div class="prose prose-lg max-w-none text-gray-700">
+                            <p>The <strong class="text-indigo-600">Transformer architecture</strong>, introduced in the seminal paper "Attention Is All You Need," underpins most modern LLMs. Its revolutionary <strong class="text-indigo-600">self-attention mechanism</strong> allows models to weigh the importance of different parts of the input sequence dynamically.</p>
+                            <div class="interactive-box my-6">
+                                <h4 class="font-semibold text-gray-700 mb-2 text-lg">Simplified Attention Mechanism Visualizer</h4>
+                                <p class="text-sm text-gray-600 mb-3">Hover over a word in the example sentence. The highlighting attempts to conceptually show how "attention" might focus on other relevant words to understand its context. Real attention involves complex weight calculations (Query, Key, Value vectors).</p>
+                                <div id="attention-sentence" class="p-4 bg-gray-50 rounded-md text-xl leading-relaxed border border-gray-200">
+                                    </div>
+                                <div id="attention-weights-display" class="mt-3 text-center">Hover over a word to see conceptual "focus".</div>
+                            </div>
+                            <h4 class="text-xl font-semibold text-gray-800 mt-8 mb-2">Key Components of the Transformer:</h4>
+                            <ul>
+                                <li><strong>Self-Attention:</strong> Enables the model to consider other words in the sequence when encoding a particular word, capturing contextual relationships.</li>
+                                <li><strong>Multi-Head Attention:</strong> Runs multiple attention mechanisms in parallel, allowing the model to focus on different types of relationships or information subspaces simultaneously.</li>
+                                <li><strong>Positional Encoding:</strong> Since transformers process tokens in parallel, these encodings are added to give the model information about the order or position of tokens in the sequence.</li>
+                                <li><strong>Encoder-Decoder Stacks:</strong>
+                                    <ul>
+                                        <li><em>Encoder:</em> Processes the input sequence into a set of contextual representations.</li>
+                                        <li><em>Decoder:</em> Generates the output sequence based on the encoder's output (and previously generated tokens in autoregressive models).</li>
+                                        <li>(Note: Some models are encoder-only like BERT, or decoder-only like GPT.)</li>
+                                    </ul>
+                                </li>
+                                <li><strong>Feed-Forward Networks:</strong> Applied independently to each position after attention, further processing the representations.</li>
+                                <li><strong>Layer Normalization & Residual Connections:</strong> Crucial for stabilizing training in deep networks.</li>
+                            </ul>
+                            <p class="mt-4 text-sm text-gray-500"><em>Further exploration: Scaled Dot-Product Attention, Query-Key-Value (QKV) mechanism, differences between encoder/decoder attention.</em></p>
+                        </div>
+                    `
+                },
+                {
+                    type: 'quiz',
+                    question: 'What problem did Positional Encodings in Transformers primarily address?',
+                    options: [
+                        { text: 'The model being too slow to train.', correct: false },
+                        { text: 'The model not understanding the meaning of individual words.', correct: false },
+                        { text: 'The parallel processing nature of Transformers losing word order information.', correct: true },
+                        { text: 'The model generating outputs that are too repetitive.', correct: false }
+                    ],
+                    explanation: 'Correct! Because Transformers process all tokens in a sequence simultaneously (unlike RNNs), positional encodings are necessary to provide the model with information about the relative or absolute positions of the tokens.'
+                }
+            ],
+            'module_prompts_params': [
+                 {
+                    type: 'info',
+                    title: 'Module 4: Prompts & Parameters',
+                    html: `
+                        <div class="prose prose-lg max-w-none text-gray-700">
+                            <p>Interacting effectively with LLMs is an art and a science. It involves crafting precise <strong class="text-indigo-600">prompts</strong> (the input you provide) and understanding how various <strong class="text-indigo-600">parameters</strong> can shape the model's output.</p>
+
+                            <h4 class="text-xl font-semibold text-gray-800 mt-8 mb-2">Advanced Prompt Engineering Techniques</h4>
+                            <ul>
+                                <li><strong>Zero-shot, Few-shot, Chain-of-Thought (CoT):</strong> As previously discussed, these vary the amount of exemplars and reasoning steps shown to the model. CoT is particularly powerful for complex reasoning.</li>
+                                <li><strong>Role Prompting:</strong> Assigning a persona (e.g., "You are an expert physicist explaining quantum entanglement to a high school student.").</li>
+                                <li><strong>Instruction Prompting:</strong> Clearly defining the task, desired format, constraints, and any negative constraints (what *not* to do).</li>
+                                <li><strong>Self-Consistency:</strong> Generating multiple responses (often with CoT) using a higher temperature, then selecting the most common answer to improve reliability.</li>
+                                <li><strong>Tree of Thoughts (ToT):</strong> A more advanced technique where the LLM explores multiple reasoning paths and self-evaluates intermediate thoughts.</li>
+                            </ul>
+
+                            <h4 class="text-xl font-semibold text-gray-800 mt-8 mb-2">Key Parameters & Interactive Demo</h4>
+                            <div class="interactive-box my-6">
+                                <label for="temp-slider" class="block mb-1 text-sm font-medium text-gray-700">Temperature:</label>
+                                <input id="temp-slider" type="range" min="0.0" max="1.5" value="0.7" step="0.05" class="w-full h-3 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-indigo-600">
+                                <div class="temperature-visual mt-2">
+                                    <div id="temp-indicator-bar" class="temp-indicator"></div>
+                                </div>
+                                <p id="temp-slider-value" class="text-sm text-center text-gray-600 mt-2">Current Value: 0.7</p>
+                                <p id="temp-description" class="text-sm text-center text-gray-500 mt-1">Balanced creativity.</p>
+                                <div id="mock-output-preview" class="mt-4">The model's output might be...</div>
+                            </div>
+                            <div class="interactive-box my-6">
+                                 <h4 class="font-semibold text-gray-700 mb-2 text-lg">Prompt Specificity Comparator</h4>
+                                 <p class="text-sm text-gray-600 mb-3">Experiment with how the length and keywords in your specific prompt (conceptually) influence its "quality score." More detailed and instruction-oriented prompts generally yield better results.</p>
+                                 <div class="grid md:grid-cols-2 gap-4 mb-3">
+                                    <div>
+                                        <label for="vague-prompt" class="block text-xs font-medium text-gray-500">Vague Prompt:</label>
+                                        <textarea id="vague-prompt" rows="3" class="w-full p-2 border border-gray-300 rounded-md text-sm focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500" placeholder="e.g., Write about space."></textarea>
+                                    </div>
+                                    <div>
+                                        <label for="specific-prompt" class="block text-xs font-medium text-gray-500">Specific Prompt:</label>
+                                        <textarea id="specific-prompt" rows="3" class="w-full p-2 border border-gray-300 rounded-md text-sm focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500" placeholder="e.g., Generate a short sci-fi story (3 paragraphs) about a lonely astronaut discovering an alien signal. Use a hopeful tone."></textarea>
+                                    </div>
+                                 </div>
+                                 <p class="text-sm font-medium text-gray-700">Conceptual Prompt Quality Score:</p>
+                                 <div class="prompt-quality-bar">
+                                    <div id="prompt-quality-fill-bar" class="prompt-quality-fill">0%</div>
+                                 </div>
+                            </div>
+
+                            <h4 class="text-xl font-semibold text-gray-800 mt-8 mb-2">Other Important Generation Parameters</h4>
+                            <p>Beyond Temperature, several other parameters allow fine-grained control over the LLM's output generation:</p>
+                            <ul class="space-y-3 mt-4">
+                                <li><strong class="text-gray-600">Top-p (Nucleus Sampling):</strong> Instead of considering all possible next tokens, Top-p selects from the smallest possible set of tokens whose cumulative probability mass exceeds the threshold 'p'. For example, if p=0.9, the model considers only the most likely tokens that add up to 90% probability. This dynamically adjusts the number of considered tokens based on the probability distribution. Lower 'p' values (e.g., 0.7) lead to less random, more focused outputs, while higher values (e.g., 0.95) allow more diversity. It's often recommended to adjust either Temperature *or* Top-p, but not both simultaneously.</li>
+                                <li><strong class="text-gray-600">Top-k Sampling:</strong> A simpler method where the model restricts its choice for the next token to only the top 'k' most probable tokens. For example, if k=50, the model will only consider the 50 most likely next tokens, regardless of their combined probability. Lower 'k' values make the output more predictable and less diverse; higher 'k' values allow more possibilities.</li>
+                                <li><strong class="text-gray-600">Max New Tokens / Max Length:</strong> This sets an absolute limit on the number of tokens the model will generate in its response. It's crucial for preventing excessively long or runaway outputs and managing computational resources and costs (as pricing is often per token).</li>
+                                <li><strong class="text-gray-600">Repetition Penalty (Frequency/Presence Penalty):</strong> These parameters discourage the model from repeating itself.
+                                    <ul>
+                                        <li><em>Frequency Penalty:</em> Penalizes tokens based on how often they have already appeared in the generated text. Higher values discourage frequent repetition more strongly.</li>
+                                        <li><em>Presence Penalty:</em> Penalizes tokens simply for having appeared at least once in the generated text. This encourages introducing new concepts or words.</li>
+                                        <li>Values greater than 1.0 typically increase the penalty. Appropriate values depend on the desired output style.</li>
+                                    </ul>
+                                </li>
+                                <li><strong class="text-gray-600">Stop Sequences:</strong> You can define specific sequences of characters (e.g., "\n\n", " Human:", " END") that, if generated by the model, will cause it to immediately stop generating further tokens. This is useful for controlling output formatting (like stopping after a paragraph) or preventing the model from generating unwanted conversational turns.</li>
+                            </ul>
+                            <p class="mt-4 text-sm text-gray-500"><em>Further exploration: Interaction between Temperature and Top-p/Top-k, specific API implementations of these parameters.</em></p>
+                        </div>
+                    `
+                },
+                {
+                    type: 'quiz',
+                    question: 'If you want to prevent an LLM from generating text after it writes "Final Answer:", which parameter would you use?',
+                    options: [
+                        { text: 'Temperature', correct: false },
+                        { text: 'Repetition Penalty', correct: false },
+                        { text: 'Max New Tokens', correct: false },
+                        { text: 'Stop Sequences', correct: true }
+                    ],
+                    explanation: 'Correct! Stop Sequences allow you to define specific text strings that will halt the generation process immediately when the model produces them.'
+                }
+            ],
+             'module_applications': [
+                {
+                    type: 'info',
+                    title: 'Module 5: Common Applications of LLMs',
+                    html: `
+                        <div class="prose prose-lg max-w-none text-gray-700">
+                            <p>LLMs are transforming numerous fields with their versatile language capabilities. Here are some prominent applications, with potential for many more to emerge.</p>
+                            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
+                                <div class="p-6 rounded-xl bg-gradient-to-br from-sky-100 to-blue-100 shadow-lg hover:shadow-xl transition-shadow">
+                                    <h4 class="text-xl font-semibold text-sky-800 mb-2">Content Creation</h4>
+                                    <p class="text-sm text-sky-700">Drafting articles, marketing copy, scripts, emails, social media posts, and even creative writing like poetry or fiction.</p>
+                                </div>
+                                <div class="p-6 rounded-xl bg-gradient-to-br from-lime-100 to-green-100 shadow-lg hover:shadow-xl transition-shadow">
+                                    <h4 class="text-xl font-semibold text-lime-800 mb-2">Conversational AI</h4>
+                                    <p class="text-sm text-lime-700">Powering sophisticated chatbots, virtual assistants, customer service agents, and interactive tutors that can understand context and engage in natural dialogue.</p>
+                                </div>
+                                <div class="p-6 rounded-xl bg-gradient-to-br from-amber-100 to-yellow-100 shadow-lg hover:shadow-xl transition-shadow">
+                                    <h4 class="text-xl font-semibold text-amber-800 mb-2">Summarization</h4>
+                                    <p class="text-sm text-amber-700">Condensing long documents, research papers, articles, meeting transcripts, or legal texts into concise summaries, extracting key information.</p>
+                                </div>
+                                <div class="p-6 rounded-xl bg-gradient-to-br from-violet-100 to-purple-100 shadow-lg hover:shadow-xl transition-shadow">
+                                    <h4 class="text-xl font-semibold text-violet-800 mb-2">Translation</h4>
+                                    <p class="text-sm text-violet-700">Translating text between numerous languages with improved fluency, nuance, and contextual understanding compared to older statistical methods.</p>
+                                </div>
+                                <div class="p-6 rounded-xl bg-gradient-to-br from-rose-100 to-pink-100 shadow-lg hover:shadow-xl transition-shadow">
+                                    <h4 class="text-xl font-semibold text-rose-800 mb-2">Code Generation</h4>
+                                    <p class="text-sm text-rose-700">Assisting developers by generating code snippets, explaining code, debugging, translating between programming languages, and autocompleting code (e.g., GitHub Copilot).</p>
+                                </div>
+                                <div class="p-6 rounded-xl bg-gradient-to-br from-cyan-100 to-teal-100 shadow-lg hover:shadow-xl transition-shadow">
+                                    <h4 class="text-xl font-semibold text-cyan-800 mb-2">Q&A / Info Retrieval</h4>
+                                    <p class="text-sm text-cyan-700">Answering questions based on provided context (Retrieval Augmented Generation - RAG) or general knowledge, and powering more natural search engine interactions.</p>
+                                </div>
+                                <div class="p-6 rounded-xl bg-gradient-to-br from-fuchsia-100 to-purple-100 shadow-lg hover:shadow-xl transition-shadow">
+                                    <h4 class="text-xl font-semibold text-fuchsia-800 mb-2">Sentiment Analysis</h4>
+                                    <p class="text-sm text-fuchsia-700">Determining the emotional tone (positive, negative, neutral, or more granular emotions) of text from customer reviews, social media, etc.</p>
+                                </div>
+                                <div class="p-6 rounded-xl bg-gradient-to-br from-orange-100 to-red-100 shadow-lg hover:shadow-xl transition-shadow">
+                                    <h4 class="text-xl font-semibold text-orange-800 mb-2">Data Augmentation</h4>
+                                    <p class="text-sm text-orange-700">Generating synthetic text data to expand smaller datasets for training other machine learning models, especially in low-resource scenarios.</p>
+                                </div>
+                                <div class="p-6 rounded-xl bg-gradient-to-br from-gray-100 to-slate-100 shadow-lg hover:shadow-xl transition-shadow">
+                                    <h4 class="text-xl font-semibold text-gray-800 mb-2">Personalization</h4>
+                                    <p class="text-sm text-gray-700">Tailoring educational content, product recommendations, or news feeds to individual user preferences and interaction history.</p>
+                                </div>
+                            </div>
+                            <p class="mt-6 text-sm text-gray-500"><em>Further exploration: LLMs in scientific research, drug discovery, legal tech, financial analysis.</em></p>
+                        </div>
+                    `
+                },
+                {
+                    type: 'quiz',
+                    question: 'Using an LLM to generate varied examples of user queries for training a chatbot is an example of which application?',
+                    options: [
+                        { text: 'Code Generation', correct: false },
+                        { text: 'Data Augmentation', correct: true },
+                        { text: 'Sentiment Analysis', correct: false },
+                        { text: 'Personalization', correct: false }
+                    ],
+                    explanation: 'Correct! Data augmentation involves creating synthetic data to enlarge or diversify training sets. LLMs can generate realistic text variations for this purpose.'
+                }
+            ],
+            'module_challenges_ethics': [
+                {
+                    type: 'info',
+                    title: 'Module 6: Challenges & Ethical Considerations',
+                    html: `
+                        <div class="prose prose-lg max-w-none text-gray-700">
+                            <p>The rapid advancement of LLMs brings forth a host of complex challenges and profound ethical considerations that demand careful attention from developers, policymakers, and society at large.</p>
+
+                            <h4 class="text-xl font-semibold text-gray-800 mt-8 mb-3">Key Challenges:</h4>
+                            <div class="space-y-5">
+                                <div class="p-5 border-l-4 border-red-500 bg-red-50 rounded-r-lg shadow">
+                                    <h5 class="font-semibold text-red-700 text-lg">1. Bias and Fairness</h5>
+                                    <p class="text-red-600">LLMs learn from vast internet data, which inherently contains human biases. These biases can be perpetuated or even amplified by models, leading to unfair, discriminatory, or stereotypical outputs concerning gender, race, religion, and other characteristics.</p>
+                                </div>
+                                <div class="p-5 border-l-4 border-orange-500 bg-orange-50 rounded-r-lg shadow">
+                                    <h5 class="font-semibold text-orange-700 text-lg">2. Hallucinations & Factual Inaccuracy</h5>
+                                    <p class="text-orange-600">LLMs can generate "hallucinations" – outputs that are plausible-sounding but factually incorrect, nonsensical, or unfaithful to provided source material. Ensuring reliability and truthfulness is a major ongoing research area.</p>
+                                </div>
+                                <div class="p-5 border-l-4 border-yellow-500 bg-yellow-50 rounded-r-lg shadow">
+                                    <h5 class="font-semibold text-yellow-800 text-lg">3. Misinformation and Malicious Uses</h5>
+                                    <p class="text-yellow-700">The ability to generate fluent, convincing text makes LLMs potent tools for creating and disseminating misinformation, propaganda, spam, phishing emails, or impersonating individuals, posing significant societal risks.</p>
+                                </div>
+                                <div class="p-5 border-l-4 border-green-500 bg-green-50 rounded-r-lg shadow">
+                                    <h5 class="font-semibold text-green-700 text-lg">4. Explainability and Transparency (The "Black Box" Problem)</h5>
+                                    <p class="text-green-600">Understanding precisely *why* an LLM produces a specific output is extremely difficult due to their immense complexity (billions of parameters). This lack of interpretability can be problematic in critical applications where accountability is paramount.</p>
+                                </div>
+                                <div class="p-5 border-l-4 border-blue-500 bg-blue-50 rounded-r-lg shadow">
+                                    <h5 class="font-semibold text-blue-700 text-lg">5. Computational Cost & Environmental Impact</h5>
+                                    <p class="text-blue-600">Training state-of-the-art LLMs requires vast computational resources (specialized hardware, extensive training times) and consumes significant amounts of energy, raising concerns about their carbon footprint and accessibility.</p>
+                                </div>
+                                <div class="p-5 border-l-4 border-purple-500 bg-purple-50 rounded-r-lg shadow">
+                                    <h5 class="font-semibold text-purple-700 text-lg">6. Data Privacy and Security</h5>
+                                    <p class="text-purple-600">LLMs trained on large datasets might inadvertently memorize and reproduce sensitive personal information. Ensuring data privacy during training and inference, and preventing model extraction or data leakage, are critical.</p>
+                                </div>
+                                <div class="p-5 border-l-4 border-pink-500 bg-pink-50 rounded-r-lg shadow">
+                                    <h5 class="font-semibold text-pink-700 text-lg">7. Job Displacement and Economic Shifts</h5>
+                                    <p class="text-pink-600">As LLMs automate tasks previously performed by humans (e.g., content writing, basic coding, customer support), there are legitimate concerns about job displacement and the need for workforce adaptation and reskilling.</p>
+                                </div>
+                                <div class="p-5 border-l-4 border-gray-500 bg-gray-50 rounded-r-lg shadow">
+                                    <h5 class="font-semibold text-gray-700 text-lg">8. Over-reliance and Deskilling</h5>
+                                    <p class="text-gray-600">Excessive reliance on LLMs without critical evaluation of their outputs could lead to a decline in human critical thinking and domain-specific skills.</p>
+                                </div>
+                            </div>
+
+                            <h4 class="text-xl font-semibold text-gray-800 mt-10 mb-3">Principles of Responsible AI Development:</h4>
+                            <ul class="list-disc list-inside space-y-1">
+                                <li><strong>Fairness & Inclusivity:</strong> Actively working to identify, measure, and mitigate biases.</li>
+                                <li><strong>Accountability:</strong> Establishing clear responsibility for AI system outcomes.</li>
+                                <li><strong>Transparency & Explainability:</strong> Striving for more interpretable models and clear communication about capabilities and limitations.</li>
+                                <li><strong>Reliability & Safety:</strong> Designing robust systems that operate safely and as intended.</li>
+                                <li><strong>Security & Privacy:</strong> Protecting data and preventing malicious exploitation.</li>
+                                <li><strong>Human Oversight:</strong> Ensuring meaningful human control and intervention, especially in high-stakes scenarios.</li>
+                                <li><strong>Societal Benefit:</strong> Prioritizing applications that contribute positively to human well-being and address societal challenges.</li>
+                            </ul>
+                            <p class="mt-6 text-sm text-gray-500"><em>Further exploration: Specific bias mitigation techniques, robustness testing, AI safety research, regulatory frameworks for AI.</em></p>
+                        </div>
+                    `
+                },
+                {
+                    type: 'quiz',
+                    question: 'The "Black Box" problem in LLMs refers to:',
+                    options: [
+                        { text: 'Their inability to process information from non-text sources.', correct: false },
+                        { text: 'The difficulty in understanding why they produce a specific output.', correct: true },
+                        { text: 'Their vulnerability to adversarial attacks that "poison" training data.', correct: false },
+                        { text: 'The high energy consumption during their training phase.', correct: false }
+                    ],
+                    explanation: 'Correct! The "Black Box" nature of LLMs stems from their immense complexity, making it very challenging to trace the exact reasoning path or influences that lead to a particular response. This lack of explainability is a significant concern.'
+                }
+            ],
+             'interview_fundamentals': [
+                { type: 'interview_question', question: "What is a Large Language Model (LLM)? Explain it in simple terms.", answer_points: ["AI models trained on vast text data.", "Core function: Understand, generate, and manipulate human language.", "Analogy: Advanced autocomplete or knowledgeable conversational partner.", "Predicts next token based on learned patterns.", "Examples: ChatGPT, Llama, BERT.", "Pre-training (general) and fine-tuning (specific)."], tips: "Concise definition, analogy, key characteristics, examples." }
+            ],
+            'interview_architecture': [
+                { type: 'interview_question', question: "What is the Transformer architecture, and why is it important for LLMs?", answer_points: ["'Attention Is All You Need'.", "Self-attention mechanism: weighs word importance for context.", "Overcame RNN/LSTM limitations (sequential processing, vanishing gradients).", "Enables parallel processing, faster training.", "Components: Encoders, Decoders, Multi-Head Attention, Positional Encoding.", "Standard for state-of-the-art NLP."], tips: "Origin, core innovation (self-attention), why it's better, key components." }
+            ],
+            'interview_training': [
+                { type: 'interview_question', question: "Describe the typical training process for an LLM.", answer_points: ["1. Data Collection & Prep: Massive text datasets, cleaning, tokenizing.", "2. Pre-training: General dataset. Objectives: Masked Language Modeling (MLM) or Causal Language Modeling (CLM). Unsupervised/self-supervised.", "3. Fine-tuning (Optional): Specific, smaller, labeled dataset. Supervised Fine-Tuning (SFT), Instruction Tuning.", "4. RLHF (Optional, for alignment): Human feedback to refine for helpfulness, harmlessness, honesty."], tips: "Stages, purpose & techniques for each, pre-training vs. fine-tuning." }
+            ],
+            'interview_advanced': [
+                { type: 'interview_question', question: "What is Retrieval Augmented Generation (RAG)? How does it work and why is it useful?", answer_points: ["Combines LLM with external knowledge retrieval.", "Workflow: Query -> Search vector DB/knowledge source -> Retrieve relevant docs -> Add docs as context to prompt -> LLM generates response.", "Useful for: Reducing hallucinations, accessing current/proprietary data, improving accuracy, citeable sources, cost-effective knowledge updates vs. full fine-tuning."], tips: "Definition, workflow, benefits." }
+            ]
+        };
+
+        // --- Global State ---
+        let currentModuleKey = null;
+        let currentStep = 0;
+        let currentQuestionKey = null;
+        let currentInterviewQuestionIndex = 0;
+        let selectedQuizOption = null;
+
+        // --- DOM Elements ---
+        const contentArea = document.getElementById('content-area');
+        const sidebar = document.getElementById('sidebar');
+        const sidebarToggle = document.getElementById('sidebar-toggle');
+        const sidebarClose = document.getElementById('sidebar-close');
+        const sidebarItems = document.querySelectorAll('.sidebar-item');
+        const feedbackModal = document.getElementById('feedbackModal');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalMessage = document.getElementById('modalMessage');
+        const modalNextButton = document.getElementById('modalNextButton');
+
+        // --- Interactive Element Functions ---
+        function visualizeTokens() {
+            const input = document.getElementById('token-input');
+            const output = document.getElementById('token-output');
+            if (!input || !output) return;
+
+            const sentence = input.value.trim();
+            output.innerHTML = '';
+            if (sentence === '') {
+                output.innerHTML = '<p class="text-sm text-gray-500 italic">Please enter a sentence to visualize tokens.</p>';
+                return;
+            }
+            const mockTokens = sentence.match(/\w+|[^\s\w]+/g) || [];
+            mockTokens.forEach(tokenText => {
+                const tokenDiv = document.createElement('div');
+                tokenDiv.classList.add('token', 'animate-pulse', 'once');
+                tokenDiv.textContent = tokenText;
+                output.appendChild(tokenDiv);
+                setTimeout(() => tokenDiv.classList.remove('animate-pulse', 'once'), 500);
+            });
+        }
+
+        function setupTrainingFlowInteractive() {
+            const flowBoxes = document.querySelectorAll('.training-flow-diagram .flow-box');
+            const infoDisplay = document.getElementById('flow-info-display');
+            if (!infoDisplay || flowBoxes.length === 0) return;
+
+            flowBoxes.forEach(box => {
+                box.addEventListener('mouseenter', () => {
+                    infoDisplay.textContent = box.dataset.info || 'Hover over a stage for details.';
+                    infoDisplay.classList.add('bg-indigo-50', 'text-indigo-700', 'font-semibold');
+                });
+                box.addEventListener('mouseleave', () => {
+                    infoDisplay.textContent = 'Hover over a stage above.';
+                     infoDisplay.classList.remove('bg-indigo-50', 'text-indigo-700', 'font-semibold');
+                });
+            });
+        }
+
+        function setupAttentionVisualizer() {
+            const sentenceContainer = document.getElementById('attention-sentence');
+            const weightsDisplay = document.getElementById('attention-weights-display');
+            if (!sentenceContainer || !weightsDisplay) return;
+
+            const sampleSentence = "The intelligent model analyzed complex linguistic patterns";
+            const words = sampleSentence.split(" ");
+            sentenceContainer.innerHTML = '';
+
+            words.forEach((word, index) => {
+                const span = document.createElement('span');
+                span.textContent = word;
+                span.classList.add('attention-word');
+                span.dataset.index = index;
+                span.dataset.word = word.toLowerCase();
+
+                span.onmouseenter = () => {
+                    document.querySelectorAll('#attention-sentence .attention-word').forEach(w => {
+                        w.classList.remove('highlighted', 'related');
+                    });
+                    span.classList.add('highlighted');
+                    weightsDisplay.textContent = `Focusing on "${word}". Conceptual attention weights:`;
+
+                    words.forEach((otherWord, otherIndex) => {
+                        if (index === otherIndex) return;
+                        const otherSpan = document.querySelector(`#attention-sentence .attention-word[data-index="${otherIndex}"]`);
+                        let relevance = 0;
+                        if (Math.abs(index - otherIndex) <= 2) relevance += 0.3;
+                        if (word.toLowerCase() === "model" && (otherWord.toLowerCase() === "intelligent" || otherWord.toLowerCase() === "analyzed")) relevance += 0.5;
+                        if (word.toLowerCase() === "patterns" && otherWord.toLowerCase() === "linguistic") relevance += 0.6;
+
+                        if (relevance > 0.2 && otherSpan) {
+                            otherSpan.classList.add('related');
+                            otherSpan.style.opacity = Math.min(1, 0.5 + relevance).toString();
+                            weightsDisplay.textContent += ` ${otherWord}(${relevance.toFixed(1)})`;
+                        } else if (otherSpan) {
+                            otherSpan.style.opacity = '0.7';
+                        }
+                    });
+                };
+                span.onmouseleave = () => {
+                     document.querySelectorAll('#attention-sentence .attention-word').forEach(w => {
+                        w.style.opacity = '1';
+                    });
+                    weightsDisplay.textContent = 'Hover over a word to see conceptual "focus".';
+                };
+                sentenceContainer.appendChild(span);
+            });
+        }
+
+        function updateTemperatureVisual(value) {
+            const indicator = document.getElementById('temp-indicator-bar');
+            const description = document.getElementById('temp-description');
+            const mockOutput = document.getElementById('mock-output-preview');
+            if (!indicator || !description || !mockOutput) return;
+
+            const percentage = ((value - 0.0) / (1.5 - 0.0)) * 100;
+            indicator.style.left = `${percentage}%`;
+
+            if (value < 0.3) {
+                description.textContent = "Highly factual, deterministic output expected.";
+                mockOutput.textContent = "The capital of France is Paris. LLMs are based on Transformers.";
+                mockOutput.style.backgroundColor = "#eff6ff";
+            } else if (value < 0.8) {
+                description.textContent = "Balanced, slightly creative, and coherent output.";
+                mockOutput.textContent = "France's capital, Paris, is known for its art. LLMs, powered by Transformers, can write stories.";
+                mockOutput.style.backgroundColor = "#f0fdf4";
+            } else if (value < 1.2) {
+                description.textContent = "More creative, diverse, potentially surprising output.";
+                mockOutput.textContent = "Imagine Paris, not as a city, but a dream woven by AI... Transformers are like cosmic looms!";
+                mockOutput.style.backgroundColor = "#fffbeb";
+            } else {
+                description.textContent = "Highly random, experimental, possibly incoherent output.";
+                mockOutput.textContent = "Parisian transformers dance on moonbeams, whispering LLM sonnets to the digital wind...";
+                mockOutput.style.backgroundColor = "#fff1f2";
+            }
+        }
+
+
+        function setupTemperatureSlider() {
+            const slider = document.getElementById('temp-slider');
+            const display = document.getElementById('temp-slider-value');
+            if (!slider || !display) return;
+
+            display.textContent = `Current Value: ${slider.value}`;
+            updateTemperatureVisual(parseFloat(slider.value));
+
+            slider.addEventListener('input', (event) => {
+                const val = parseFloat(event.target.value);
+                display.textContent = `Current Value: ${val.toFixed(2)}`;
+                updateTemperatureVisual(val);
+            });
+        }
+
+        function setupPromptComparator() {
+            const vaguePromptEl = document.getElementById('vague-prompt');
+            const specificPromptEl = document.getElementById('specific-prompt');
+            const qualityFillEl = document.getElementById('prompt-quality-fill-bar');
+
+            if (!vaguePromptEl || !specificPromptEl || !qualityFillEl) return;
+
+            function updateQuality() {
+                const vagueText = vaguePromptEl.value.trim();
+                const specificText = specificPromptEl.value.trim();
+                let quality = 0;
+
+                if (specificText.length > 0) quality += 10;
+                quality += Math.min(30, specificText.length * 0.5);
+                if (specificText.length > vagueText.length + 10 && vagueText.length > 0) {
+                    quality += Math.min(20, (specificText.length - vagueText.length) * 0.3);
+                }
+                const instructionKeywords = /\b(explain|compare|list|define|summarize|generate|create|write|analyze|differentiate|contrast|provide|detail)\b/i;
+                if (instructionKeywords.test(specificText)) {
+                    quality += 25;
+                }
+                const constraintKeywords = /\b(paragraphs|bullet points|words|limit|style of|tone|format|include|exclude)\b/i;
+                if (constraintKeywords.test(specificText)) {
+                    quality += 15;
+                }
+                quality = Math.min(100, Math.max(0, Math.round(quality)));
+
+                qualityFillEl.style.width = `${quality}%`;
+                qualityFillEl.textContent = `${quality}%`;
+
+                if (quality < 33) qualityFillEl.style.backgroundColor = '#ef4444';
+                else if (quality < 66) qualityFillEl.style.backgroundColor = '#f59e0b';
+                else qualityFillEl.style.backgroundColor = '#22c55e';
+            }
+
+            vaguePromptEl.addEventListener('input', updateQuality);
+            specificPromptEl.addEventListener('input', updateQuality);
+            updateQuality();
+        }
+
+
+        // --- Core Rendering & Navigation Functions ---
+        function renderContent() {
+            contentArea.innerHTML = '';
+            contentArea.classList.remove('fade-in-content');
+            void contentArea.offsetWidth;
+            contentArea.classList.add('fade-in-content');
+
+            let html = '';
+            let currentData;
+
+            if (currentModuleKey && contentData[currentModuleKey]) {
+                currentData = contentData[currentModuleKey][currentStep];
+                const moduleProgress = ((currentStep + 1) / contentData[currentModuleKey].length) * 100;
+
+                html += `<div class="content-card p-6 md:p-8">`;
+                html += `<div class="mb-6">
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="text-xl font-semibold text-indigo-700">${currentData.title || contentData[currentModuleKey][0].title}</span>
+                                <span class="text-sm font-medium text-indigo-600 bg-indigo-100 px-2 py-1 rounded-full">${currentStep + 1} / ${contentData[currentModuleKey].length}</span>
+                            </div>
+                            <div class="w-full progress-bar-bg">
+                                <div class="progress-bar-fg" style="width: ${moduleProgress}%"></div>
+                            </div>
+                         </div>`;
+
+                if (currentData.type === 'info') {
+                    html += `<h2 class="text-3xl font-bold text-gray-800 mb-6">${currentData.title}</h2>`;
+                    html += currentData.html;
+                    html += `<div class="mt-10 pt-6 border-t border-gray-200 flex justify-end">
+                                <button class="btn btn-primary" onclick="nextStep()">
+                                    ${(currentStep === contentData[currentModuleKey].length - 1) ? 'Finish Module &nbsp;🎉' : 'Next Concept &nbsp;→'}
+                                </button>
+                             </div>`;
+                } else if (currentData.type === 'quiz') {
+                    html += `<h2 class="text-2xl font-semibold text-gray-800 mb-8">${currentData.question}</h2>`;
+                    html += `<div class="space-y-4 mb-8">`;
+                    currentData.options.forEach((opt, index) => {
+                        html += `<div class="quiz-option" data-index="${index}" onclick="selectOption(this, ${index})">${opt.text}</div>`;
+                    });
+                    html += `</div>`;
+                    html += `<div class="mt-10 pt-6 border-t border-gray-200 flex justify-between items-center">
+                                <button class="btn btn-secondary" onclick="prevStep()" ${currentStep === 0 ? 'disabled class="btn btn-secondary opacity-50 cursor-not-allowed"' : 'class="btn btn-secondary"'}>←&nbsp; Previous</button>
+                                <button id="submitQuizBtn" class="btn btn-primary" onclick="submitQuiz()" disabled>Submit Answer</button>
+                             </div>`;
+                }
+                 html += `</div>`;
+            } else if (currentQuestionKey && contentData[currentQuestionKey]) {
+                const questions = contentData[currentQuestionKey];
+                currentData = questions[currentInterviewQuestionIndex];
+
+                html += `<div class="content-card p-6 md:p-8">`;
+                html += `<h2 class="text-2xl font-bold text-gray-800 mb-2">Interview Question</h2>`;
+                html += `<p class="text-sm text-gray-500 mb-6">Category: <span class="font-semibold text-indigo-600">${currentQuestionKey.replace('interview_', '').replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}</span></p>`;
+                html += `<h3 class="text-xl font-semibold text-gray-700 mb-6 leading-relaxed">${currentData.question}</h3>`;
+
+                html += `<div id="answerSection" class="hidden bg-gray-50 p-6 rounded-lg mt-6 border border-gray-200 prose prose-sm max-w-none">`;
+                html += `<h4 class="font-semibold text-gray-700 mb-2">Key Talking Points:</h4>`;
+                html += `<ul class="text-gray-600 space-y-1 mb-4">`;
+                (currentData.answer_points || []).forEach(point => {
+                    html += `<li>${point}</li>`;
+                });
+                html += `</ul>`;
+                if (currentData.tips) {
+                    html += `<h4 class="font-semibold text-gray-700 mt-4 mb-2">Tips & Considerations:</h4>`;
+                    html += `<p class="text-sm text-gray-600 italic">${currentData.tips}</p>`;
+                }
+                html += `</div>`;
+
+                html += `<div class="mt-10 pt-6 border-t border-gray-200 flex flex-wrap gap-4 justify-between items-center">
+                            <button class="btn btn-secondary" onclick="prevInterviewQuestion()" ${currentInterviewQuestionIndex === 0 ? 'disabled class="btn btn-secondary opacity-50 cursor-not-allowed"' : 'class="btn btn-secondary"'}>←&nbsp; Previous</button>
+                            <button id="revealAnswerBtn" class="btn btn-primary" onclick="revealAnswer()">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5"><path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.432 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" /><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+                                Reveal Answer
+                            </button>
+                            <button class="btn btn-primary" onclick="nextInterviewQuestion()" ${currentInterviewQuestionIndex === questions.length - 1 ? 'disabled class="btn btn-primary opacity-50 cursor-not-allowed"' : 'class="btn btn-primary"'}>Next &nbsp;→</button>
+                         </div>`;
+                html += `</div>`;
+            } else {
+                html = `<div class="content-card p-8 md:p-10 text-center">
+                            <h2 class="text-4xl font-bold text-gray-800 mb-4">Welcome to the LLM Learning Hub!</h2>
+                            <p class="text-lg text-gray-600 mb-8">Your sophisticated journey into Large Language Models begins here. Select a module or interview section to get started.</p>
+                            <img src="https://placehold.co/700x350/E0E7FF/3730A3?text=Explore+Large+Language+Models" alt="LLM Concept Art - Enhanced" class="mt-8 rounded-lg shadow-xl w-full object-cover mx-auto max-w-2xl">
+                        </div>`;
+            }
+            contentArea.innerHTML = html;
+
+            if (document.getElementById('token-input')) visualizeTokens();
+            if (document.querySelector('.training-flow-diagram')) setupTrainingFlowInteractive();
+            if (document.getElementById('attention-sentence')) setupAttentionVisualizer();
+            if (document.getElementById('temp-slider')) setupTemperatureSlider();
+            if (document.getElementById('vague-prompt')) setupPromptComparator();
+        }
+
+        function selectOption(element, index) {
+            const options = document.querySelectorAll('.quiz-option');
+            options.forEach(opt => opt.classList.remove('selected'));
+            element.classList.add('selected');
+            selectedQuizOption = index;
+            document.getElementById('submitQuizBtn').disabled = false;
+        }
+
+        function submitQuiz() {
+            if (selectedQuizOption === null) return;
+            const currentQuizData = contentData[currentModuleKey][currentStep];
+            const selectedOptData = currentQuizData.options[selectedQuizOption];
+            const optionsElements = document.querySelectorAll('.quiz-option');
+
+            optionsElements.forEach((optElem, idx) => {
+                optElem.onclick = null;
+                if (currentQuizData.options[idx].correct) {
+                    optElem.classList.add('correct');
+                } else if (idx === selectedQuizOption && !selectedOptData.correct) {
+                    optElem.classList.add('incorrect');
+                }
+                optElem.style.cursor = 'default';
+            });
+
+            document.getElementById('submitQuizBtn').style.display = 'none';
+
+            modalTitle.textContent = selectedOptData.correct ? "Excellent! 🎉" : "Good Try! 🤔";
+            modalMessage.innerHTML = `<p class="mb-3">${currentQuizData.explanation}</p>`;
+            if (!selectedOptData.correct) {
+                 modalMessage.innerHTML += `<p>Your answer: "<em>${selectedOptData.text}</em>"</p>`;
+                 const correctAns = currentQuizData.options.find(opt => opt.correct);
+                 if(correctAns) modalMessage.innerHTML += `<p>Correct answer: "<strong>${correctAns.text}</strong>"</p>`;
+            }
+            modalNextButton.onclick = () => {
+                closeModal();
+                nextStep();
+            };
+            feedbackModal.style.display = "block";
+        }
+
+        function closeModal() {
+            feedbackModal.style.display = "none";
+        }
+
+        function nextStep() {
+            if (currentModuleKey && currentStep < contentData[currentModuleKey].length - 1) {
+                currentStep++;
+                selectedQuizOption = null;
+                renderContent();
+            } else if (currentModuleKey) {
+                contentArea.innerHTML = `<div class="content-card p-8 md:p-10 text-center">
+                                            <h2 class="text-3xl font-bold text-green-600 mb-4">Module Complete! 🌟</h2>
+                                            <p class="text-gray-700 text-lg mb-6">Fantastic work! You've successfully completed the module: <strong class="text-indigo-600">"${contentData[currentModuleKey][0].title}"</strong>.</p>
+                                            <svg class="w-28 h-28 text-green-500 mx-auto mb-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12.75L11.25 15 15 9.75M21 12c0 5.186-4.03 9.443-9 9.953A1.749 1.749 0 0110.251 22.5H13.5A8.25 8.25 0 0021.75 14.25V12zM12 2.25A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25"></path></svg>
+                                            <button class="btn btn-primary text-lg" onclick="resetToWelcome()">Explore Other Modules</button>
+                                         </div>`;
+            }
+        }
+
+        function prevStep() {
+            if (currentModuleKey && currentStep > 0) {
+                currentStep--;
+                selectedQuizOption = null;
+                renderContent();
+            }
+        }
+
+        function resetToWelcome() {
+            currentModuleKey = null;
+            currentQuestionKey = null;
+            currentStep = 0;
+            currentInterviewQuestionIndex = 0;
+            sidebarItems.forEach(item => item.classList.remove('active'));
+            renderContent();
+            if (sidebar.classList.contains('open')) {
+                sidebar.classList.remove('open');
+            }
+        }
+
+        function revealAnswer() {
+            const answerSection = document.getElementById('answerSection');
+            const revealBtn = document.getElementById('revealAnswerBtn');
+            if (answerSection) {
+                answerSection.classList.remove('hidden');
+                answerSection.classList.add('fade-in-content');
+            }
+            if(revealBtn) revealBtn.style.display = 'none';
+        }
+
+        function nextInterviewQuestion() {
+            if (currentQuestionKey && currentInterviewQuestionIndex < contentData[currentQuestionKey].length - 1) {
+                currentInterviewQuestionIndex++;
+                renderContent();
+            }
+        }
+
+        function prevInterviewQuestion() {
+             if (currentQuestionKey && currentInterviewQuestionIndex > 0) {
+                currentInterviewQuestionIndex--;
+                renderContent();
+            }
+        }
+
+        // --- Event Listeners ---
+        sidebarItems.forEach(item => {
+            item.addEventListener('click', (e) => {
+                e.preventDefault();
+                sidebarItems.forEach(i => i.classList.remove('active'));
+                item.classList.add('active');
+
+                const contentId = item.dataset.content;
+                if (contentId.startsWith('module_')) {
+                    currentModuleKey = contentId;
+                    currentQuestionKey = null;
+                    currentStep = 0;
+                } else if (contentId.startsWith('interview_')) {
+                    currentQuestionKey = contentId;
+                    currentModuleKey = null;
+                    currentInterviewQuestionIndex = 0;
+                }
+                selectedQuizOption = null;
+                renderContent();
+                if (sidebar.classList.contains('open')) {
+                    sidebar.classList.remove('open');
+                }
+            });
+        });
+
+        sidebarToggle.addEventListener('click', () => {
+            sidebar.classList.toggle('open');
+        });
+        sidebarClose.addEventListener('click', () => {
+            sidebar.classList.remove('open');
+        });
+
+        window.onclick = function(event) {
+            if (event.target == feedbackModal) {
+                closeModal();
+            }
+        }
+        window.addEventListener('keydown', function (event) {
+            if (event.key === 'Escape' && feedbackModal.style.display === "block") {
+                closeModal();
+            }
+        });
+
+        renderContent();
+
+    </script>
+</body>
+</html>

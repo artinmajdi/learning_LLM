@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=42", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "rag-pipeline"
+version = "0.1.0"
+description = "Basic RAG Pipeline"
+requires-python = ">=3.12"
+license = "MIT"
+authors = [
+    {name = "Artin Majdi", email = "msm2024@gmail.com"}
+]
+dynamic = ["dependencies"]
+
+[project.scripts]
+rag-pipeline = "ragpipeline:main"
+
+[project.optional-dependencies]
+dev = []
+
+[tool.setuptools]
+packages = []
+py-modules = ["ragpipeline"]
+
+[tool.setuptools.dynamic]
+dependencies = {file = ["requirements.txt"]}

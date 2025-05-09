@@ -1,0 +1,2673 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>American Airlines AI Interview Prep</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.6.1/mermaid.min.js"></script>
+    <style>
+        :root {
+            --primary: #0078D2; /* American Airlines blue */
+            --secondary: #C8102E; /* American Airlines red */
+            --light: #F8F9FA;
+            --dark: #212529;
+            --gray: #6c757d;
+            --light-gray: #e9ecef;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary), #005aa3);
+            color: white;
+            padding: 30px 0;
+            text-align: center;
+            border-bottom: 5px solid var(--secondary);
+            margin-bottom: 30px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            font-weight: 700;
+        }
+        
+        .subheading {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-top: 10px;
+        }
+        
+        .tab-container {
+            margin-bottom: 30px;
+        }
+        
+        .tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            margin-bottom: 15px;
+        }
+        
+        .tab {
+            padding: 12px 24px;
+            background-color: #e6e6e6;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+        }
+        
+        .tab:hover {
+            background-color: #d4d4d4;
+        }
+        
+        .tab.active {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .tab-content {
+            display: none;
+            background-color: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+        
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .card {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            padding: 25px;
+            margin-bottom: 30px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        
+        .card-title {
+            color: var(--primary);
+            font-size: 1.4rem;
+            margin-top: 0;
+            margin-bottom: 15px;
+            border-bottom: 2px solid var(--light-gray);
+            padding-bottom: 10px;
+        }
+        
+        .qa-container {
+            margin-bottom: 30px;
+        }
+        
+        .question {
+            background-color: var(--light);
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            position: relative;
+            transition: background-color 0.3s;
+        }
+        
+        .question:hover {
+            background-color: #e9e9e9;
+        }
+        
+        .question::after {
+            content: '+';
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.5rem;
+            color: var(--primary);
+        }
+        
+        .question.active::after {
+            content: '-';
+        }
+        
+        .answer {
+            display: none;
+            padding: 20px;
+            background-color: white;
+            border-radius: 0 0 8px 8px;
+            border-left: 3px solid var(--primary);
+            margin-bottom: 20px;
+        }
+        
+        .mermaid {
+            margin: 30px 0;
+            text-align: center;
+        }
+        
+        .viz-container {
+            margin: 30px 0;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .concept-viz {
+            display: flex;
+            flex-direction: column;
+            justify-content: start;
+            width: 250px;
+            margin: 10px;
+            padding: 15px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+            text-align: center;
+            transition: transform 0.3s;
+        }
+        
+        .concept-viz:hover {
+            transform: translateY(-5px);
+        }
+        
+        .concept-viz img, .concept-viz .icon {
+            height: 80px;
+            margin-bottom: 15px;
+            font-size: 3rem;
+            color: var(--primary);
+        }
+        
+        .concept-viz h4 {
+            margin: 0 0 10px 0;
+            color: var(--primary);
+        }
+        
+        .interactive-demo {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            margin: 30px 0;
+        }
+        
+        .demo-title {
+            font-size: 1.2rem;
+            color: var(--primary);
+            margin-top: 0;
+            margin-bottom: 20px;
+        }
+        
+        .interactive-input {
+            display: block;
+            width: 100%;
+            padding: 12px 15px;
+            font-size: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--primary);
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s;
+        }
+        
+        .btn:hover {
+            background-color: #005aa3;
+        }
+        
+        .highlight {
+            background-color: #fff8e1;
+            padding: 2px 5px;
+            border-radius: 3px;
+        }
+        
+        .tooltip {
+            position: relative;
+            display: inline-block;
+            border-bottom: 1px dotted var(--primary);
+            cursor: help;
+        }
+        
+        .tooltip .tooltip-text {
+            visibility: hidden;
+            width: 200px;
+            background-color: var(--dark);
+            color: white;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .tooltip:hover .tooltip-text {
+            visibility: visible;
+            opacity: 1;
+        }
+        
+        .tooltip .tooltip-text::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: var(--dark) transparent transparent transparent;
+        }
+        
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        
+        .comparison-table th,
+        .comparison-table td {
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            text-align: left;
+        }
+        
+        .comparison-table th {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .comparison-table tr:nth-child(even) {
+            background-color: var(--light);
+        }
+        
+        .progress-container {
+            margin: 30px 0;
+        }
+        
+        .progress-bar {
+            height: 20px;
+            background-color: #e9ecef;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .progress {
+            height: 100%;
+            background-color: var(--primary);
+            width: 0;
+            transition: width 0.5s;
+        }
+        
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 30px 0;
+            text-align: center;
+            margin-top: 50px;
+        }
+        
+        /* Airline-specific styling */
+        .plane-icon {
+            font-size: 1.2em;
+            margin-right: 5px;
+        }
+        
+        .aa-example {
+            background-color: #f8f9fa;
+            border-left: 4px solid var(--secondary);
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        
+        .airline-benefit {
+            background-color: #e8f4fd;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 15px 0;
+            border-left: 4px solid var(--primary);
+        }
+        
+        .key-term {
+            background-color: #fff3cd;
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-weight: 500;
+        }
+        
+        /* Quiz styling */
+        .quiz-container {
+            background-color: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            margin: 30px 0;
+        }
+        
+        .quiz-question {
+            margin-bottom: 20px;
+        }
+        
+        .quiz-options {
+            list-style-type: none;
+            padding: 0;
+        }
+        
+        .quiz-option {
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .quiz-option:hover {
+            background-color: var(--light);
+        }
+        
+        .quiz-option.selected {
+            border-color: var(--primary);
+            background-color: #e6f0ff;
+        }
+        
+        .quiz-option.correct {
+            border-color: #28a745;
+            background-color: #d4edda;
+        }
+        
+        .quiz-option.incorrect {
+            border-color: #dc3545;
+            background-color: #f8d7da;
+        }
+        
+        .feedback {
+            margin-top: 10px;
+            padding: 10px 15px;
+            border-radius: 5px;
+            display: none;
+        }
+        
+        .feedback.correct {
+            background-color: #d4edda;
+            color: #155724;
+            display: block;
+        }
+        
+        .feedback.incorrect {
+            background-color: #f8d7da;
+            color: #721c24;
+            display: block;
+        }
+        
+        .submit-quiz {
+            background-color: var(--primary);
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            margin-top: 20px;
+        }
+        
+        .submit-quiz:hover {
+            background-color: #005aa3;
+        }
+        
+        .progression-indicator {
+            display: flex;
+            justify-content: space-between;
+            margin: 30px 0;
+        }
+        
+        .progress-step {
+            flex: 1;
+            text-align: center;
+            position: relative;
+        }
+        
+        .progress-step::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 3px;
+            background-color: #e9ecef;
+            top: 15px;
+            left: 50%;
+            z-index: -1;
+        }
+        
+        .progress-step:last-child::after {
+            display: none;
+        }
+        
+        .step-indicator {
+            height: 30px;
+            width: 30px;
+            border-radius: 50%;
+            background-color: #e9ecef;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .progress-step.active .step-indicator {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .progress-step.completed .step-indicator {
+            background-color: #28a745;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>American Airlines AI Interview Prep</h1>
+            <p class="subheading">Interactive Guide for Data Science & ML Positions</p>
+        </div>
+    </header>
+    
+    <div class="container">
+        <div class="card">
+            <h2 class="card-title">How to Use This Guide</h2>
+            <p>Welcome to your interactive interview preparation guide for the Data Scientist - Machine Learning position at American Airlines. This resource has been tailored to help visual learners understand complex AI concepts with airline industry examples.</p>
+            
+            <div class="aa-example">
+                <strong>Why This Matters at American Airlines:</strong> As a data scientist at American, you'll be working with vast amounts of flight, passenger, and operational data to optimize routes, improve customer experience, predict maintenance needs, and enhance revenue management systems.
+            </div>
+            
+            <p>Navigate through the tabs below to explore key AI concepts, visualize them through interactive diagrams, and practice with airline-specific examples that might come up in your interview.</p>
+        </div>
+        
+        <div class="tab-container">
+            <div class="tabs">
+                <button class="tab active" onclick="openTab(event, 'llm-basics')">LLM Basics</button>
+                <button class="tab" onclick="openTab(event, 'rag')">RAG</button>
+                <button class="tab" onclick="openTab(event, 'chunking')">Chunking</button>
+                <button class="tab" onclick="openTab(event, 'embeddings')">Embeddings</button>
+                <button class="tab" onclick="openTab(event, 'vector-db')">Vector DBs</button>
+                <button class="tab" onclick="openTab(event, 'search')">Search Algorithms</button>
+                <button class="tab" onclick="openTab(event, 'llm-internals')">LLM Internals</button>
+                <button class="tab" onclick="openTab(event, 'quiz')">Practice Quiz</button>
+            </div>
+            
+            <!-- LLM Basics Tab -->
+            <div id="llm-basics" class="tab-content active">
+                <h2>LLM and Prompting Basics</h2>
+                
+                <div class="mermaid">
+                    flowchart TD
+                        A["Types of AI Models"] --> B["Predictive/Discriminative Models"]
+                        A --> C["Generative Models"]
+                        B --> D["Flight Delay Prediction<br>Classifies flights as delayed/on-time"]
+                        C --> E["Route Suggestion Generator<br>Creates new possible routes"]
+                        style A fill:#0078D2,color:white
+                        style B fill:#e9ecef
+                        style C fill:#e9ecef
+                        style D fill:#f8f9fa
+                        style E fill:#f8f9fa
+                </div>
+                
+                <div class="qa-container">
+                    <div class="question" onclick="toggleAnswer(this)">
+                        What is the difference between Predictive/Discriminative and Generative AI Models?
+                    </div>
+                    <div class="answer">
+                        <p>In the airline industry context:</p>
+                        
+                        <p><strong>Predictive/Discriminative Model:</strong> These models classify or predict specific outcomes based on input data. At American Airlines, we use these for:</p>
+                        <ul>
+                            <li>Predicting flight delays based on weather patterns, aircraft type, and historical performance</li>
+                            <li>Classifying customer feedback into categories for efficient response</li>
+                            <li>Forecasting passenger load factors for specific routes</li>
+                        </ul>
+                        
+                        <p><strong>Generative Model:</strong> These models learn the underlying distribution of data to generate new, similar content. At American Airlines, applications include:</p>
+                        <ul>
+                            <li>Creating synthetic passenger itineraries for testing new booking systems</li>
+                            <li>Generating optimal flight schedules based on historical performance</li>
+                            <li>Developing natural language responses for customer service chatbots</li>
+                        </ul>
+                        
+                        <div class="aa-example">
+                            <strong>American Airlines Example:</strong> Our premium cabin upgrade prediction system is discriminative (predicting which customers are likely to purchase upgrades), while our dynamic pricing suggestion system is generative (creating new pricing strategies based on demand patterns).
+                        </div>
+                    </div>
+                    
+                    <div class="question" onclick="toggleAnswer(this)">
+                        What is a Large Language Model (LLM)?
+                    </div>
+                    <div class="answer">
+                        <p>A Large Language Model (LLM) is a sophisticated AI system trained on vast amounts of text data to understand and generate human-like language. Building on the definition:</p>
+                        
+                        <p><strong>Language Models (LMs):</strong> Probabilistic models that learn language patterns, ranging from simple statistical models to complex neural networks. These understand the probability of word sequences.</p>
+                        
+                        <p><strong>Large:</strong> Trained on massive datasets (like Common Crawl) with billions of parameters, enabling them to capture nuanced language understanding.</p>
+                        
+                        <p><strong>Large Language Model:</strong> The combination - a model with billions of parameters, trained on vast text data, capable of understanding context and generating coherent text.</p>
+                        
+                        <div class="aa-example">
+                            <strong>American Airlines Application:</strong> We leverage LLMs to power our customer service systems, analyzing customer feedback across millions of interactions to identify trends and improvement opportunities. They also help generate and categorize responses to common customer inquiries, improving response time and consistency.
+                        </div>
+                    </div>
+                    
+                    <div class="question" onclick="toggleAnswer(this)">
+                        How are Large Language Models trained?
+                    </div>
+                    <div class="answer">
+                        <p>LLMs are typically trained in three key stages:</p>
+                        
+                        <p><strong>1. Pretraining:</strong> The model learns from massive text datasets in an unsupervised manner. For airline applications, this might include flight manuals, safety protocols, customer service scripts, and aviation literature.</p>
+                        
+                        <p><strong>2. Fine-tuning:</strong> The model is specialized on domain-specific tasks using labeled data. At American Airlines, we might fine-tune models on:</p>
+                        <ul>
+                            <li>Historical customer service interactions</li>
+                            <li>Maintenance logs and reports</li>
+                            <li>Flight operation communications</li>
+                        </ul>
+                        
+                        <p><strong>3. Alignment:</strong> The model is aligned with human preferences and airline-specific values using techniques like RLHF (Reinforcement Learning from Human Feedback).</p>
+                        
+                        <div class="aa-example">
+                            <strong>American Airlines Implementation:</strong> When developing our customer service AI assistants, we first use models pretrained on general language, then fine-tune them on thousands of real American Airlines customer interactions, and finally align them to ensure responses match our brand voice and service standards.
+                        </div>
+                    </div>
+                    
+                    <div class="question" onclick="toggleAnswer(this)">
+                        What are some common prompt engineering techniques?
+                    </div>
+                    <div class="answer">
+                        <p>Prompt engineering is crucial for getting optimal results from LLMs. Here are key techniques with airline industry applications:</p>
+                        
+                        <p><strong>Zero-shot Prompting:</strong> Using the model with no examples, just instructions.</p>
+                        <div class="aa-example">
+                            <strong>AA Example:</strong> "Analyze this customer feedback about their recent flight AA1234 and identify the main issues."
+                        </div>
+                        
+                        <p><strong>Few-shot Prompting:</strong> Providing a few examples before the actual task.</p>
+                        <div class="aa-example">
+                            <strong>AA Example:</strong> Giving examples of how to classify customer feedback as "Service Issue," "In-flight Entertainment," or "Check-in Experience" before asking the model to classify new feedback.
+                        </div>
+                        
+                        <p><strong>Chain-of-Thought Prompting:</strong> Asking the model to work through a problem step-by-step.</p>
+                        <div class="aa-example">
+                            <strong>AA Example:</strong> "Think step by step to determine if this flight needs to be rerouted based on weather conditions, fuel efficiency, and passenger connection times."
+                        </div>
+                        
+                        <p><strong>ReAct (Reasoning + Acting):</strong> Combining reasoning with actions.</p>
+                        <div class="aa-example">
+                            <strong>AA Example:</strong> Having the model analyze disruption events, reason through options, and suggest specific action plans for operations teams.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="interactive-demo">
+                    <h3 class="demo-title">Interactive Prompt Builder for Airline Use Cases</h3>
+                    <p>Build a prompt for an LLM to analyze customer feedback:</p>
+                    
+                    <select id="prompt-type" class="interactive-input">
+                        <option value="zero">Zero-shot prompting</option>
+                        <option value="few">Few-shot prompting</option>
+                        <option value="cot">Chain-of-Thought prompting</option>
+                        <option value="react">ReAct prompting</option>
+                    </select>
+                    
+                    <select id="airline-task" class="interactive-input">
+                        <option value="feedback">Customer feedback analysis</option>
+                        <option value="delay">Flight delay prediction</option>
+                        <option value="routing">Flight route optimization</option>
+                        <option value="maintenance">Predictive maintenance</option>
+                    </select>
+                    
+                    <div id="prompt-output" style="background-color: #f8f9fa; padding: 15px; border-radius: 5px; margin-top: 15px;">
+                        Your prompt will appear here...
+                    </div>
+                    
+                    <button class="btn" onclick="generatePrompt()">Generate Prompt</button>
+                </div>
+            </div>
+            
+            <!-- RAG Tab -->
+            <div id="rag" class="tab-content">
+                <h2>Retrieval Augmented Generation (RAG)</h2>
+                
+                <div class="mermaid">
+                    flowchart TD
+                        A["Customer Query<br>About Flight Benefits"] --> B["Query Processing"]
+                        B --> C["Retrieval Engine"]
+                        C --> D["American Airlines<br>Knowledge Base"]
+                        D --> E["Relevant Documents<br>Retrieved"]
+                        E --> F["LLM Generator"]
+                        F --> G["Personalized Response<br>About AAdvantage Benefits"]
+                        style A fill:#e9ecef
+                        style B fill:#e9ecef
+                        style C fill:#0078D2,color:white
+                        style D fill:#C8102E,color:white
+                        style E fill:#e9ecef
+                        style F fill:#0078D2,color:white
+                        style G fill:#e9ecef
+                </div>
+                
+                <div class="qa-container">
+                    <div class="question" onclick="toggleAnswer(this)">
+                        What is a common design pattern for grounding LLM answers in facts?
+                    </div>
+                    <div class="answer">
+                        <p>Retrieval Augmented Generation (RAG) is the leading design pattern for ensuring LLMs provide factual, grounded responses. This is particularly critical in the airline industry, where accuracy in information about flights, policies, and safety is paramount.</p>
+                        
+                        <p>RAG combines the creative capabilities of language models with the factual grounding of retrieving information from verified sources.</p>
+                        
+                        <div class="aa-example">
+                            <strong>American Airlines Implementation:</strong> Our customer service AI assistants use RAG to access the latest information about:
+                            <ul>
+                                <li>Flight status and schedule changes</li>
+                                <li>Current baggage policies and fees</li>
+                                <li>AAdvantage program rules and promotions</li>
+                                <li>COVID-19 and other safety protocols</li>
+                            </ul>
+                            This ensures customers receive accurate, up-to-date information rather than potentially outdated or hallucinated responses.
+                        </div>
+                    </div>
+                    
+                    <div class="question" onclick="toggleAnswer(this)">
+                        Explain the intuition and methodology behind Retrieval Augmented Generation (RAG)
+                    </div>
+                    <div class="answer">
+                        <p>RAG combines two powerful components to deliver accurate, contextually relevant responses:</p>
+                        
+                        <p><strong>1. Retriever:</strong> This component searches a knowledge base to find information relevant to the query. In American Airlines' systems, this might search through:</p>
+                        <ul>
+                            <li>Flight schedules and route information</li>
+                            <li>Company policies and procedures</li>
+                            <li>Customer account and booking data</li>
+                            <li>Historical operational data</li>
+                        </ul>
+                        
+                        <p><strong>2. Generator:</strong> An LLM that uses the retrieved information to create coherent, helpful responses.</p>
+                        
+                        <p>The intuition is straightforward: by retrieving relevant factual information first, then having the LLM generate responses based on this information, we get the best of both worlds—factual accuracy and natural language generation.</p>
+                        
+                        <div class="aa-example">
+                            <strong>American Airlines Example:</strong> When a customer asks about baggage allowance for their specific upcoming international flight, our RAG system:
+                            <ol>
+                                <li>Retrieves their booking details and the specific baggage policy for their route/fare class</li>
+                                <li>Supplies this information to the LLM</li>
+                                <li>The LLM generates a personalized response explaining their exact allowance and any applicable fees</li>
+                            </ol>
+                            This is more accurate than having the LLM attempt to answer based only on its general knowledge of airline policies.
+                        </div>
+                    </div>
+                    
+                    <div class="question" onclick="toggleAnswer(this)">
+                        Provide a high-level overview of implementing a RAG solution for airline operations
+                    </div>
+                    <div class="answer">
+                        <p>Implementing a RAG system for American Airlines operations would involve:</p>
+                        
+                        <p><strong>1. Data Ingestion:</strong> Import and process critical operational documents:</p>
+                        <ul>
+                            <li>Flight operation manuals</li>
+                            <li>Maintenance procedures</li>
+                            <li>Safety protocols</li>
+                            <li>Crew scheduling guidelines</li>
+                            <li>Aircraft technical specifications</li>
+                        </ul>
+                        
+                        <p><strong>2. Indexing:</strong> Create efficient indexes of the processed documents, optimizing for quick retrieval of relevant information during operations.</p>
+                        
+                        <p><strong>3. Retrieval:</strong> When an operations staff member submits a query (e.g., "What's the procedure for a CFM56 engine maintenance check?"), the system retrieves the most relevant documents/sections.</p>
+                        
+                        <p><strong>4. Generation:</strong> The LLM uses the retrieved information to generate a clear, concise answer that follows American Airlines procedures exactly.</p>
+                        
+                        <p><strong>5. Post-processing:</strong> Ensure all responses include proper citations to source documents, enabling verification and compliance with FAA regulations.</p>
+                        
+                        <div class="aa-example">
+                            <strong>Real-world Implementation:</strong> American Airlines' operations support system could use RAG to help maintenance crews quickly access specific procedures for different aircraft types, ensuring all maintenance follows approved protocols while reducing time spent searching through manuals.
+                        </div>
+                    </div>
+                    
+                    <div class="question" onclick="toggleAnswer(this)">
+                        Discuss the case for RAG vs. Full Fine-tuning for airline-specific AI systems
+                    </div>
+                    <div class="answer">
+                        <p>For American Airlines' AI systems, choosing between RAG and fine-tuning requires careful consideration:</p>
+                        
+                        <table class="comparison-table">
+                            <tr>
+                                <th>Consideration</th>
+                                <th>RAG Approach</th>
+                                <th>Fine-tuning Approach</th>
+                            </tr>
+                            <tr>
+                                <td><strong>Up-to-date Information</strong></td>
+                                <td>✅ Can access the latest information on flight schedules, policies, and promotions without retraining</td>
+                                <td>❌ Knowledge is frozen at training time; would need regular retraining</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Implementation Speed</strong></td>
+                                <td>✅ Faster to implement; doesn't require extensive training data</td>
+                                <td>❌ Requires significant training data and computational resources</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Maintenance</strong></td>
+                                <td>✅ Just update the knowledge base; model remains the same</td>
+                                <td>❌ Requires periodic retraining as information changes</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Transparency</strong></td>
+                                <td>✅ Sources of information can be traced back to specific documents</td>
+                                <td>❌ Reasoning is internal to the model and less transparent</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Specialized Knowledge</strong></td>
+                                <td>⚠️ May miss subtle connections in airline-specific terminology</td>
+                                <td>✅ Can deeply learn airline-specific language and concepts</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Inference Speed</strong></td>
+                                <td>⚠️ Slower due to retrieval step</td>
+                                <td>✅ Typically faster at inference time</td>
+                            </tr>
+                        </table>
+                        
+                        <div class="aa-example">
+                            <strong>American Airlines Hybrid Approach:</strong> For our customer service systems, we use a hybrid approach: fine-tuning models on core American Airlines terminology and procedures, then using RAG for specific factual information like flight statuses, fare rules, and frequently changing policies. This gives us the best of both worlds—deep understanding of airline concepts with access to up-to-date information.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Chunking Tab -->
+            <div id="chunking" class="tab-content">
+                <h2>Chunking Strategies</h2>
+                
+                <div class="mermaid">
+                    flowchart TD
+                        A["Airline Documents"] --> B["Chunking Process"]
+                        B --> C["Document-Level<br>Entire flight manuals"]
+                        B --> D["Section-Level<br>Individual procedures"]
+                        B --> E["Paragraph-Level<br>Specific instructions"]
+                        B --> F["Sentence-Level<br>Specific rules"]
+                        C & D & E & F --> G["Vector Database"]
+                        G --> H["Retrieval System"]
+                        style A fill:#C8102E,color:white
+                        style B fill:#0078D2,color:white
+                        style G fill:#e9ecef
+                        style H fill:#e9ecef
+                </div>
+                
+                <div class="qa-container">
+                    <div class="question" onclick="toggleAnswer(this)">
+                        Explain the concept of chunking and its importance to RAG systems
+                    </div>
+                    <div class="answer">
+                        <p>Chunking is the process of breaking down documents into smaller, manageable pieces for efficient storage and retrieval in RAG systems. This is especially important for airlines with vast documentation.</p>
+                        
+                        <p><strong>Why Chunking Matters for American Airlines:</strong></p>
+                        <ul>
+                            <li><strong>Document Volume:</strong> We maintain thousands of documents covering flight operations, maintenance, customer service, and corporate policies—too large to process as whole documents</li>
+                            <li><strong>Information Precision:</strong> When a pilot needs specific information about an emergency procedure, they need the exact relevant section, not an entire manual</li>
+                            <li><strong>Embedding Efficiency:</strong> Most embedding models have token limits (typically 512-8192 tokens), making it impossible to embed entire manuals</li>
+                            <li><strong>Semantic Clarity:</strong> Smaller chunks maintain clearer semantic meaning, improving retrieval accuracy</li>
+                        </ul>
+                        
+                        <div class="aa-example">
+                            <strong>American Airlines Application:</strong> Our aircraft maintenance knowledge system chunks maintenance manuals by procedure sections rather than entire chapters. This allows maintenance technicians to quickly retrieve specific procedures (e.g., "CFM56 engine oil check procedure") without wading through irrelevant information.
+                        </div>
+                    </div>
+                    
+                    <div class="question" onclick="toggleAnswer(this)">
+                        Explain the intuition behind chunk sizes using an airline documentation example
+                    </div>
+                    <div class="answer">
+                        <p>Consider an American Airlines Aircraft Operating Manual (AOM) for a Boeing 787:</p>
+                        <ul>
+                            <li>The complete manual is approximately 1,200 pages</li>
+                            <li>It contains 24 chapters (about 50 pages each)</li>
+                            <li>Each chapter has roughly 15 sections</li>
+                            <li>Each section contains about 10 paragraphs</li>
+                            <li>A typical paragraph has 5-8 sentences</li>
+                        </ul>
+                        
+                        <p><strong>Chunking Options and Trade-offs:</strong></p>
+                        
+                        <table class="comparison-table">
+                            <tr>
+                                <th>Chunk Size</th>
+                                <th>Pros</th>
+                                <th>Cons</th>
+                                <th>Best For</th>
+                            </tr>
+                            <tr>
+                                <td>Entire Manual</td>
+                                <td>Maintains complete context</td>
+                                <td>Far exceeds token limits; loses specific information</td>
+                                <td>Never practical</td>
+                            </tr>
+                            <tr>
+                                <td>Chapter-level</td>
+                                <td>Preserves broad context</td>
+                                <td>Still too large for most models; information dilution</td>
+                                <td>High-level overviews</td>
+                            </tr>
+                            <tr>
+                                <td>Section-level</td>
+                                <td>Balances context and specificity; covers complete procedures</td>
+                                <td>May split related information across sections</td>
+                                <td>Procedure lookup for pilots/mechanics</td>
+                            </tr>
+                            <tr>
+                                <td>Paragraph-level</td>
+                                <td>Very specific; excellent for precise information retrieval</td>
+                                <td>May lose context from surrounding paragraphs</td>
+                                <td>Specific rule or specification lookup</td>
+                            </tr>
+                            <tr>
+                                <td>Sentence-level</td>
+                                <td>Highest specificity</td>
+                                <td>Loses almost all context; disconnected information</td>
+                                <td>Only for very specific factual lookup</td>
+                            </tr>
+                        </table>
+                        
+                        <div class="aa-example">
+                            <strong>American Airlines Implementation:</strong> For our technical operations knowledge base, we typically chunk at the section level for procedure documents and paragraph level for reference materials. This provides the right balance between context preservation and retrieval specificity for our maintenance and flight operations teams.
+                        </div>
+                    </div>
+                    
+                    <div class="question" onclick="toggleAnswer(this)">
+                        What are different chunking strategies used in RAG systems and how would you evaluate them for airline applications?
+                    </div>
+                    <div class="answer">
+                        <p><strong>Key Chunking Strategies for Airline Documentation:</strong></p>
+                        
+                        <p><strong>1. Fixed-Size Chunking:</strong> Dividing text into chunks of a predetermined size (e.g., 512 tokens).</p>
+                        <div class="aa-example">
+                            <strong>AA Application:</strong> Works well for standardized documents like service manuals where content is uniformly formatted.
+                        </div>
+                        
+                        <p><strong>2. Semantic Chunking:</strong> Creating chunks based on semantic meaning, ensuring related concepts stay together.</p>
+                        <div class="aa-example">
+                            <strong>AA Application:</strong> Ideal for policy documents where keeping related rules together improves comprehension.
+                        </div>
+                        
+                        <p><strong>3. Structural Chunking:</strong> Using document structure (headings, sections) to define chunks.</p>
+                        <div class="aa-example">
+                            <strong>AA Application:</strong> Perfect for aircraft manuals with clear hierarchical organization (chapters, sections, procedures).
+                        </div>
+                        
+                        <p><strong>4. Sliding Window Chunking:</strong> Creating overlapping chunks to preserve context across boundaries.</p>
+                        <div class="aa-example">
+                            <strong>AA Application:</strong> Useful for maintenance troubleshooting documents where context from adjacent sections may be relevant.
+                        </div>
+                        
+                        <p><strong>Evaluation Methods for Airline Documentation:</strong></p>
+                        <ul>
+                            <li><strong>Retrieval Accuracy:</strong> Measure how often the system retrieves the most relevant chunks when queried with typical operational questions</li>
+                            <li><strong>Context Preservation:</strong> Evaluate if critical context is maintained (especially important for safety procedures)</li>
+                            <li><strong>Response Completeness:</strong> Assess if generated responses contain all necessary information for a complete answer</li>
+                            <li><strong>Subject Matter Expert Review:</strong> Have pilots, mechanics, or customer service specialists review answers for technical accuracy</li>
+                            <li><strong>Chunk Visualization:</strong> Use visualization tools to analyze overlap and coverage of information</li>
+                        </ul>
+                        
+                        <div class="aa-example">
+                            <strong>American Airlines Best Practice:</strong> For our flight operations documentation, we use structural chunking based on procedure boundaries with slight overlaps (sliding window) to ensure context preservation. We evaluate our chunking by having experienced pilots and dispatchers verify that retrieved information maintains all safety-critical context.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="interactive-demo">
+                    <h3 class="demo-title">Interactive Chunk Visualization</h3>
+                    <p>Select a document type to see recommended chunking strategies:</p>
+                    
+                    <select id="document-type" class="interactive-input">
+                        <option value="manual">Aircraft Operating Manual</option>
+                        <option value="policy">Customer Service Policy</option>
+                        <option value="maintenance">Maintenance Procedure</option>
+                        <option value="emergency">Emergency Response Plan</option>
+                    </select>
+                    
+                    <div id="chunking-viz" style="height: 300px; background-color: #f8f9fa; padding: 15px; border-radius: 5px; margin-top: 15px; position: relative;">
+                        <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center;">
+                            Select a document type to visualize chunking
+                        </div>
+                    </div>
+                    
+                    <button class="btn" onclick="visualizeChunking()">Visualize Chunking</button>
+                </div>
+            </div>
+            
+            <!-- Embeddings Tab -->
+            <div id="embeddings" class="tab-content">
+                <h2>Embedding Models for Retrieval</h2>
+                
+                <div class="mermaid">
+                    flowchart LR
+                        A["Customer Query:<br>'Baggage Allowance for<br>International First Class'"] --> B["Embedding Model"]
+                        C["American Airlines<br>Knowledge Documents"] --> D["Chunking"]
+                        D --> E["Embedding Model"]
+                        B --> F{{"Vector Similarity<br>Search"}}
+                        E --> F
+                        F --> G["Retrieved<br>Relevant Chunks"]
+                        style A fill:#e9ecef
+                        style B fill:#0078D2,color:white
+                        style C fill:#C8102E,color:white
+                        style D fill:#e9ecef
+                        style E fill:#0078D2,color:white
+                        style F fill:#e9ecef
+                        style G fill:#e9ecef
+                </div>
+                
+                <div class="qa-container">
+                    <div class="question" onclick="toggleAnswer(this)">
+                        Explain the concept of a vector embedding
+                    </div>
+                    <div class="answer">
+                        <p>Vector embeddings are numerical representations of text in multi-dimensional space, where semantic meaning is encoded in the relationships between vectors. Similar texts have vectors that are close together in this space.</p>
+                        
+                        <p><strong>Key Properties:</strong></p>
+                        <ul>
+                            <li><strong>Dimensionality:</strong> Typically between 768-1536 dimensions for modern embedding models</li>
+                            <li><strong>Semantic Encoding:</strong> Similar concepts appear close together in vector space</li>
+                            <li><strong>Language Understanding:</strong> Captures nuanced meaning beyond simple keyword matching</li>
+                        </ul>
+                        
+                        <div class="aa-example">
+                            <strong>American Airlines Application:</strong> In our customer support systems, queries about "baggage fees," "luggage costs," and "checked bag charges" all map to nearby vectors in embedding space, allowing our system to retrieve relevant information even when customers use different terminology than our official documentation.
+                        </div>
+                        
+                        <p>This is particularly valuable in the airline industry where customers may use varied terminology to describe the same concepts (e.g., "red-eye flight" vs. "overnight flight" vs. "late-night flight").</p>
+                    </div>
+                    
+                    <div class="question" onclick="toggleAnswer(this)">
+                        How do embedding models work in the context of airline information systems?
+                    </div>
+                    <div class="answer">
+                        <p>Embedding models serve as the bridge between natural language and the mathematical representations that computers can efficiently process. In airline systems, they fulfill several critical functions:</p>
+                        
+                        <p><strong>1. Document Indexing:</strong> Convert airline documentation (policy manuals, FAQs, procedures) into vector representations for storage in vector databases.</p>
+                        
+                        <p><strong>2. Query Processing:</strong> Transform customer or employee questions into the same vector space as the stored documents.</p>
+                        
+                        <p><strong>3. Semantic Matching:</strong> Use similarity measures (cosine similarity, dot product) to find the most relevant information regardless of exact keyword matches.</p>
+                        
+                        <div class="aa-example">
+                            <strong>American Airlines Example:</strong> When a customer asks "Can I bring my support animal on board?", the embedding model converts this query into a vector. This vector is compared against all our policy document vectors to find semantically similar content, even if the documentation uses terms like "emotional support animals," "service animals," or "assistance animals."
+                        </div>
+                        
+                        <p><strong>Implementation in Airline Systems:</strong></p>
+                        <ul>
+                            <li><strong>Customer Support:</strong> Map customer inquiries to relevant policy information</li>
+                            <li><strong>Operations:</strong> Find similar historical incidents when troubleshooting</li>
+                            <li><strong>Training:</strong> Connect employee questions to relevant training materials</li>
+                            <li><strong>Safety:</strong> Identify related safety reports and procedures</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="question" onclick="toggleAnswer(this)">
+                        Explain the difference between a cross-encoder and a bi-encoder in airline customer support systems
+                    </div>
+                    <div class="answer">
+                        <p>In American Airlines' information retrieval systems, we might use both cross-encoders and bi-encoders at different stages of processing:</p>
+                        
+                        <table class="comparison-table">
+                            <tr>
+                                <th>Feature</th>
+                                <th>Bi-Encoder</th>
+                                <th>Cross-Encoder</th>
+                            </tr>
+                            <tr>
+                                <td><strong>Architecture</strong></td>
+                                <td>Encodes query and documents separately</td>
+                                <td>Encodes query and document pairs together</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Computation</strong></td>
+                                <td>More efficient; documents can be pre-encoded</td>
+                                <td>More computationally expensive; requires processing each query-document pair</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Accuracy</strong></td>
+                                <td>Good but less precise than cross-encoders</td>
+                                <td>Higher accuracy; captures query-document interactions</td>
+                            </tr>
+                            <tr>
+                                <td><strong>AA Use Case</strong></td>
+                                <td>Initial retrieval of potentially relevant documents from large knowledge base</td>
+                                <td>Re-ranking the top results for more precise answers</td>
+                            </tr>
+                        </table>
+                        
+                        <div class="aa-example">
+                            <strong>American Airlines Implementation:</strong> Our customer support system uses a two-stage retrieval process:
+                            <ol>
+                                <li><strong>Bi-encoder Stage:</strong> When a customer asks about baggage policies, a bi-encoder quickly retrieves the top 20 most relevant document chunks from our knowledge base</li>
+                                <li><strong>Cross-encoder Stage:</strong> These 20 chunks are then re-ranked using a cross-encoder to determine the most precisely relevant information for the specific query</li>
+                            </ol>
+                            This approach balances efficiency with accuracy—critical for providing fast, accurate responses to thousands of daily customer inquiries.
+                        </div>
+                    </div>
+                    
+                    <div class="question" onclick="toggleAnswer(this)">
+                        How would you benchmark the performance of an embedding model for an airline knowledge base?
+                    </div>
+                    <div class="answer">
+                        <p>Benchmarking embedding models for American Airlines' knowledge retrieval systems requires airline-specific evaluation strategies:</p>
+                        
+                        <p><strong>1. Retrieval Accuracy Metrics:</strong></p>
+                        <ul>
+                            <li><strong>Precision@k:</strong> Percentage of relevant documents in the top k retrieved results</li>
+                            <li><strong>Recall@k:</strong> Percentage of all relevant documents that were retrieved in the top k results</li>
+                            <li><strong>Mean Reciprocal Rank (MRR):</strong> Average position of the first relevant document</li>
+                            <li><strong>Normalized Discounted Cumulative Gain (NDCG):</strong> Measures ranking quality, accounting for position</li>
+                        </ul>
+                        
+                        <p><strong>2. Airline-Specific Evaluation Dataset:</strong></p>
+                        <ul>
+                            <li>Create a test set of real customer queries paired with expert-identified relevant documents</li>
+                            <li>Include queries with airline terminology variations (e.g., "overhead bin" vs. "overhead compartment")</li>
+                            <li>Incorporate queries with airline acronyms (AAdvantage, DFW, MCT)</li>
+                            <li>Include both technical (operations) and non-technical (customer) queries</li>
+                        </ul>
+                        
+                        <p><strong>3. Comparison Methodology:</strong></p>
+                        <ul>
+                            <li>Compare embedding models against baseline methods (BM25, TF-IDF)</li>
+                            <li>Test both general embedding models and airline/travel-specific fine-tuned models</li>
+                            <li>Evaluate performance across different query types (policies, schedules, technical operations)</li>
+                        </ul>
+                        
+                        <div class="aa-example">
+                            <strong>American Airlines Implementation:</strong> We benchmark our embedding models using a proprietary dataset of 10,000 actual customer and employee queries matched to correct answers by our subject matter experts. We measure both retrieval accuracy and response time, as our systems need to handle peak loads during major disruption events when thousands of customers seek information simultaneously.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="interactive-demo">
+                    <h3 class="demo-title">Vector Similarity Visualization</h3>
+                    <p>Enter an airline-related query to see how similar it is to other queries in vector space:</p>
+                    
+                    <input type="text" id="vector-query" class="interactive-input" placeholder="Type a query (e.g., 'baggage allowance')">
+                    
+                    <div id="vector-viz" style="height: 300px; background-color: #f8f9fa; padding: 15px; border-radius: 5px; margin-top: 15px; position: relative;">
+                        <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center;">
+                            Enter a query to visualize similar queries in vector space
+                        </div>
+                    </div>
+                    
+                    <button class="btn" onclick="visualizeVectors()">Visualize Similarity</button>
+                </div>
+            </div>
+            
+            <!-- Vector DB Tab -->
+            <div id="vector-db" class="tab-content">
+                <h2>Vector Retrieval, Databases and Indexes</h2>
+                
+                <div class="mermaid">
+                    flowchart TD
+                        A["Flight Manuals<br>Customer Policies<br>Technical Documents"] --> B["Chunking"]
+                        B --> C["Embedding Model"]
+                        C --> D["Vector Database"]
+                        D --> E["HNSW Index"]
+                        D --> F["IVF Index"]
+                        D --> G["Flat Index"]
+                        E & F & G --> H["Retrieval System"]
+                        H --> I["Semantic Search for<br>American Airlines Data"]
+                        style A fill:#C8102E,color:white
+                        style B fill:#e9ecef
+                        style C fill:#e9ecef
+                        style D fill:#0078D2,color:white
+                        style E fill:#e9ecef
+                        style F fill:#e9ecef
+                        style G fill:#e9ecef
+                        style H fill:#e9ecef
+                        style I fill:#e9ecef
+                </div>
+                
+                <div class="qa-container">
+                    <div class="question" onclick="toggleAnswer(this)">
+                        What is a vector database?
+                    </div>
+                    <div class="answer">
+                        <p>A vector database is a specialized database designed to store, index, and query vector embeddings efficiently. For American Airlines' AI systems, vector databases serve as the foundation for semantic search and retrieval.</p>
+                        
+                        <p><strong>Key Components of a Vector Database:</strong></p>
+                        <ul>
+                            <li><strong>Vector Storage:</strong> Efficient storage of high-dimensional vectors (typically 768-1536 dimensions for modern embedding models)</li>
+                            <li><strong>Indexing Structures:</strong> Advanced data structures that enable fast similarity search (e.g., HNSW, IVF)</li>
+                            <li><strong>Similarity Search:</strong> Algorithms for finding the most similar vectors using distance metrics (cosine similarity, Euclidean distance)</li>
+                            <li><strong>Metadata Storage:</strong> Associated information about each vector (source document, timestamps, categories)</li>
+                            <li><strong>Filtering Capabilities:</strong> Ability to filter search results based on metadata</li>
+                        </ul>
+                        
+                        <div class="aa-example">
+                            <strong>American Airlines Implementation:</strong> Our customer support knowledge base uses a vector database to store embeddings of thousands of policy documents, FAQs, and procedural guides. When agents or customers search for information, the vector database finds semantically relevant content even when the exact keywords don't match.
+                        </div>
+                    </div>
+                    
+                    <div class="question" onclick="toggleAnswer(this)">
+                        How are vector databases different from traditional databases for airline data?
+                    </div>
+                    <div class="answer">
+                        <p>For American Airlines' data management needs, both traditional and vector databases serve important but distinct purposes:</p>
+                        
+                        <table class="comparison-table">
+                            <tr>
+                                <th>Feature</th>
+                                <th>Traditional Database</th>
+                                <th>Vector Database</th>
+                            </tr>
+                            <tr>
+                                <td><strong>Data Type</strong></td>
+                                <td>Structured data (booking records, flight schedules)</td>
+                                <td>Vector embeddings of text/images (knowledge documents, customer feedback)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Query Type</strong></td>
+                                <td>Exact matching (SQL) - "Find all flights from DFW to LGA"</td>
+                                <td>Similarity search - "Find information similar to this customer question"</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Indexing</strong></td>
+                                <td>B-trees, hash indices for exact matching</td>
+                                <td>HNSW, IVF, and other approximate nearest neighbor indices</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Use Case at AA</strong></td>
+                                <td>Reservation systems, crew scheduling, inventory management</td>
+                                <td>Semantic search, document retrieval, customer query understanding</td>
+                            </tr>
+                        </table>
+                        
+                        <div class="aa-example">
+                            <strong>American Airlines Hybrid System:</strong> Our customer service platform uses both database types in concert:
+                            <ul>
+                                <li>Traditional database: Retrieves a customer's specific flight details, booking class, and AAdvantage status</li>
+                                <li>Vector database: Finds relevant policy information based on their natural language question</li>
+                            </ul>
+                            This hybrid approach allows us to combine precise data lookups with semantic understanding.
+                        </div>
+                    </div>
+                    
+                    <div class="question" onclick="toggleAnswer(this)">
+                        Explain the concept of Hierarchical Navigable Small Worlds (HNSW) for flight operations documentation
+                    </div>
+                    <div class="answer">
+                        <p>Hierarchical Navigable Small Worlds (HNSW) is a state-of-the-art indexing algorithm for vector search that could significantly improve retrieval of flight operations documentation at American Airlines.</p>
+                        
+                        <p><strong>How HNSW Works:</strong></p>
+                        <ol>
+                            <li><strong>Multilayer Graph Structure:</strong> HNSW builds a hierarchical graph where each node represents a vector (document chunk)</li>
+                            <li><strong>Proximity Connections:</strong> Similar documents are connected with edges, creating a navigable small world</li>
+                            <li><strong>Search Refinement:</strong> Searches start at the top layer (sparse connections) and gradually refine to lower layers (dense connections)</li>
+                            <li><strong>Logarithmic Search Time:</strong> This approach reduces search complexity from linear to logarithmic</li>
+                        </ol>
+                        
+                        <div class="aa-example">
+                            <strong>American Airlines Implementation:</strong> For our flight operations documentation system, HNSW provides crucial advantages:
+                            <ul>
+                                <li><strong>Speed:</strong> Pilots and dispatchers can retrieve critical procedures in milliseconds rather than seconds</li>
+                                <li><strong>Scale:</strong> Efficiently handles our entire library of aircraft manuals, operating procedures, and regulatory documents</li>
+                                <li><strong>Accuracy:</strong> Maintains high retrieval quality even with approximate search</li>
+                            </ul>
+                            During an operational disruption, this speed difference could be critical for flight safety and decision-making.
+                        </div>
+                        
+                        <p><strong>Technical Details for Implementation:</strong></p>
+                        <ul>
+                            <li><strong>Index Parameters:</strong> Tune M (max connections per node) and ef_construction (search width during construction) based on aviation documentation characteristics</li>
+                            <li><strong>Query Parameters:</strong> Adjust ef_search to balance between search speed and accuracy based on operational requirements</li>
+                            <li><strong>Memory Usage:</strong> Configure for in-memory operation to ensure sub-10ms response times for critical safety procedures</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="question" onclick="toggleAnswer(this)">
+                        Compare vector databases for an airline customer feedback analysis system
+                    </div>
+                    <div class="answer">
+                        <p>For American Airlines' customer feedback analysis system, selecting the right vector database requires evaluating several options against our specific needs:</p>
+                        
+                        <table class="comparison-table">
+                            <tr>
+                                <th>Database</th>
+                                <th>Strengths</th>
+                                <th>Limitations</th>
+                                <th>Best For at AA</th>
+                            </tr>
+                            <tr>
+                                <td><strong>Pinecone</strong></td>
+                                <td>Fully-managed, serverless; excellent horizontal scaling</td>
+                                <td>Higher cost; less control over infrastructure</td>
+                                <td>High-volume customer feedback with minimal maintenance</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Weaviate</strong></td>
+                                <td>GraphQL interface; rich schema capabilities</td>
+                                <td>More complex setup; steeper learning curve</td>
+                                <td>Complex relationships between feedback and operational data</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Milvus</strong></td>
+                                <td>Open-source; highly scalable; wide algorithm support</td>
+                                <td>Requires more infrastructure management</td>
+                                <td>Large-scale deployment with customization needs</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Qdrant</strong></td>
+                                <td>Excellent filtering; simple API; containerized deployment</td>
+                                <td>Newer with smaller community</td>
+                                <td>Feedback analysis with heavy metadata filtering</td>
+                            </tr>
+                            <tr>
+                                <td><strong>pgvector</strong></td>
+                                <td>PostgreSQL extension; integrates with existing data</td>
+                                <td>Less specialized; slower on large-scale</td>
+                                <td>Integration with existing PostgreSQL booking databases</td>
+                            </tr>
+                        </table>
+                        
+                        <div class="aa-example">
+                            <strong>American Airlines Selection Criteria:</strong> For our customer feedback analysis system, key requirements include:
+                            <ul>
+                                <li><strong>Scale:</strong> Handling millions of customer feedback entries across all channels</li>
+                                <li><strong>Metadata Filtering:</strong> Ability to segment by route, aircraft type, cabin class, and loyalty tier</li>
+                                <li><strong>Integration:</strong> Connecting with existing operational databases for root cause analysis</li>
+                                <li><strong>Security:</strong> Compliance with our data protection requirements for customer information</li>
+                                <li><strong>Performance:</strong> Sub-second query response for customer experience dashboards</li>
+                            </ul>
+                            Based on these criteria, we'd likely choose Milvus or Qdrant for our implementation, depending on our specific infrastructure preferences.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="interactive-demo">
+                    <h3 class="demo-title">Vector Database Query Simulator</h3>
+                    <p>Simulate a query to American Airlines' knowledge base:</p>
+                    
+                    <input type="text" id="vector-db-query" class="interactive-input" placeholder="Enter your customer query">
+                    
+                    <select id="index-type" class="interactive-input">
+                        <option value="hnsw">HNSW Index</option>
+                        <option value="ivf">IVF Index</option>
+                        <option value="flat">Flat Index</option>
+                    </select>
+                    
+                    <div id="query-results" style="height: 300px; background-color: #f8f9fa; padding: 15px; border-radius: 5px; margin-top: 15px; overflow-y: auto;">
+                        Query results will appear here...
+                    </div>
+                    
+                    <button class="btn" onclick="simulateVectorQuery()">Run Query</button>
+                </div>
+            </div>
+            
+            <!-- Search Algorithms Tab -->
+            <div id="search" class="tab-content">
+                <h2>Advanced Search Algorithms</h2>
+                
+                <div class="mermaid">
+                    flowchart TD
+                        A["Customer Query"] --> B["Query Understanding"]
+                        B --> C["Query Decomposition"]
+                        C --> D["BM25 Retrieval<br>(Keyword Search)"]
+                        C --> E["Dense Retrieval<br>(Vector Search)"]
+                        D --> F["Candidate Pool"]
+                        E --> F
+                        F --> G["Cross-Encoder<br>Reranking"]
+                        G --> H["Final Results"]
+                        style A fill:#e9ecef
+                        style B fill:#0078D2,color:white
+                        style C fill:#0078D2,color:white
+                        style D fill:#e9ecef
+                        style E fill:#e9ecef
+                        style F fill:#e9ecef
+                        style G fill:#C8102E,color:white
+                        style H fill:#e9ecef
+                </div>
+                
+                <div class="qa-container">
+                    <div class="question" onclick="toggleAnswer(this)">
+                        Explain some architectures and patterns in retrieval systems for airline information
+                    </div>
+                    <div class="answer">
+                        <p>Advanced retrieval architectures for American Airlines information systems combine multiple techniques to achieve optimal performance:</p>
+                        
+                        <p><strong>1. Multi-Stage Retrieval Pipeline:</strong></p>
+                        <ul>
+                            <li><strong>Stage 1:</strong> Fast but approximate retrieval (BM25 or efficient vector search)</li>
+                            <li><strong>Stage 2:</strong> More precise but computationally expensive reranking (cross-encoders)</li>
+                            <li><strong>AA Application:</strong> Our customer support system uses BM25 to quickly find relevant documents from thousands of policy pages, then applies a cross-encoder to precisely rank the top results.</li>
+                        </ul>
+                        
+                        <p><strong>2. Hybrid Retrieval:</strong></p>
+                        <ul>
+                            <li>Combines multiple retrieval strategies (keyword-based, semantic, structural)</li>
+                            <li>Uses techniques like Reciprocal Rank Fusion to merge results</li>
+                            <li><strong>AA Application:</strong> Our flight operations knowledge base combines keyword search (for specific procedure identifiers) with semantic search (for natural language queries).</li>
+                        </ul>
+                        
+                        <p><strong>3. Query Decomposition:</strong></p>
+                        <ul>
+                            <li>Breaks complex queries into simpler sub-queries</li>
+                            <li>Retrieves information for each component and recombines</li>
+                            <li><strong>AA Application:</strong> When agents ask complex questions like "What's our policy on unaccompanied minors connecting from international to domestic flights with a service animal?", our system decomposes into multiple retrieval operations.</li>
+                        </ul>
+                        
+                        <p><strong>4. Conversational Search:</strong></p>
+                        <ul>
+                            <li>Maintains context across multiple interactions</li>
+                            <li>Reformulates queries based on conversation history</li>
+                            <li><strong>AA Application:</strong> Our customer chatbot remembers previous questions in a session to provide contextually relevant answers to follow-up questions.</li>
+                        </ul>
+                        
+                        <div class="aa-example">
+                            <strong>American Airlines Implementation:</strong> Our enterprise search platform uses a hybrid architecture that combines:
+                            <ol>
+                                <li>Fast BM25 retrieval for initial candidate selection</li>
+                                <li>Dense vector retrieval for semantic understanding</li>
+                                <li>Cross-encoder reranking for precision</li>
+                                <li>Metadata filters (aircraft type, route, date) for contextual relevance</li>
+                            </ol>
+                            This ensures employees across departments can quickly find the most relevant information, whether they're using exact terminology or natural language queries.
+                        </div>
+                    </div>
+                    
+                    <div class="question" onclick="toggleAnswer(this)">
+                        How do you achieve good search in large-scale airline systems?
+                    </div>
+                    <div class="answer">
+                        <p>Building effective search for American Airlines' large-scale information systems requires a comprehensive strategy:</p>
+                        
+                        <p><strong>1. Multi-Phase Retrieval:</strong></p>
+                        <ul>
+                            <li><strong>Initial Retrieval:</strong> Use lightweight methods like BM25 or efficient vector search to identify candidate documents</li>
+                            <li><strong>Reranking:</strong> Apply more sophisticated models to precisely rank top candidates</li>
+                            <li><strong>AA Example:</strong> Our maintenance knowledge base uses this approach to help technicians quickly find relevant procedures among thousands of documents.</li>
+                        </ul>
+                        
+                        <p><strong>2. Domain-Specific Enhancements:</strong></p>
+                        <ul>
+                            <li><strong>Airline Terminology Handling:</strong> Special handling for aviation acronyms, codes, and industry terminology</li>
+                            <li><strong>Entity Recognition:</strong> Identify flight numbers, airports, aircraft types, and other entities</li>
+                            <li><strong>AA Example:</strong> Our system recognizes that "DFW-LGA 1082" refers to flight AA1082 from Dallas to LaGuardia, improving search precision.</li>
+                        </ul>
+                        
+                        <p><strong>3. Metadata Filtering:</strong></p>
+                        <ul>
+                            <li><strong>Faceted Search:</strong> Allow filtering by aircraft type, policy category, date, etc.</li>
+                            <li><strong>Contextual Awareness:</strong> Incorporate user role and context in ranking</li>
+                            <li><strong>AA Example:</strong> A mechanic searching for "737 engine inspection" sees different results than a flight attendant searching the same term.</li>
+                        </ul>
+                        
+                        <p><strong>4. Continuous Evaluation and Improvement:</strong></p>
+                        <ul>
+                            <li><strong>Search Quality Metrics:</strong> Track retrieval accuracy, user satisfaction, and click-through rates</li>
+                            <li><strong>Feedback Loop:</strong> Incorporate user interactions to improve future results</li>
+                            <li><strong>AA Example:</strong> Our systems learn from which documents users actually open and use.</li>
+                        </ul>
+                        
+                        <div class="aa-example">
+                            <strong>American Airlines Case Study:</strong> Our improved operations knowledge search led to:
+                            <ul>
+                                <li>50% reduction in time spent looking for information</li>
+                                <li>30% decrease in internal support tickets for information location</li>
+                                <li>Improved accuracy of maintenance procedures followed</li>
+                                <li>Better cross-departmental knowledge sharing</li>
+                            </ul>
+                            Critical during irregular operations when quick access to procedures is essential.
+                        </div>
+                    </div>
+                    
+                    <div class="question" onclick="toggleAnswer(this)">
+                        Explain how reranking models would be trained for airline customer inquiries
+                    </div>
+                    <div class="answer">
+                        <p>Training reranking models for American Airlines' customer inquiry system requires airline-specific approaches:</p>
+                        
+                        <p><strong>1. Training Data Collection:</strong></p>
+                        <ul>
+                            <li><strong>Historical Interactions:</strong> Collect pairs of customer questions and the documents agents actually used to answer them</li>
+                            <li><strong>Expert Annotation:</strong> Have customer service experts annotate relevance of documents to common queries</li>
+                            <li><strong>Synthetic Data Creation:</strong> Generate variations of questions to improve robustness</li>
+                        </ul>
+                        
+                        <p><strong>2. Training Methodology:</strong></p>
+                        <ul>
+                            <li><strong>Cross-Encoder Architecture:</strong> Train a model to take a query-document pair and output a relevance score</li>
+                            <li><strong>Contrastive Learning:</strong> Train the model to rank relevant documents higher than irrelevant ones</li>
+                            <li><strong>Domain Adaptation:</strong> Start with a general reranker and adapt to airline-specific data</li>
+                        </ul>
+                        
+                        <p><strong>3. Airline-Specific Considerations:</strong></p>
+                        <ul>
+                            <li><strong>Special Entity Handling:</strong> Teach the model to recognize flight numbers, routes, fare classes, etc.</li>
+                            <li><strong>Policy Recency:</strong> Incorporate document freshness for frequently changing policies</li>
+                            <li><strong>Contextual Weighting:</strong> Consider customer status, booking details, and travel context</li>
+                        </ul>
+                        
+                        <p><strong>4. Evaluation:</strong></p>
+                        <ul>
+                            <li><strong>Offline Metrics:</strong> Precision@k, NDCG, MRR on a held-out test set</li>
+                            <li><strong>Expert Evaluation:</strong> Have service experts evaluate result quality</li>
+                            <li><strong>A/B Testing:</strong> Compare different rerankers in production environment</li>
+                        </ul>
+                        
+                        <div class="aa-example">
+                            <strong>American Airlines Implementation:</strong> Our customer service reranking model was trained on:
+                            <ul>
+                                <li>100,000+ historical customer inquiries with agent-selected answers</li>
+                                <li>Expert annotation of 10,000 query-document pairs by senior service agents</li>
+                                <li>Specialized handling of 500+ airline-specific entities and terms</li>
+                            </ul>
+                            This airline-specific training resulted in a 40% improvement in first-answer resolution rate compared to generic reranking models.
+                        </div>
+                    </div>
+                    
+                    <div class="question" onclick="toggleAnswer(this)">
+                        How would you evaluate an end-to-end RAG system for airline operations?
+                    </div>
+                    <div class="answer">
+                        <p>Evaluating a RAG system for American Airlines operations requires comprehensive assessment across multiple dimensions:</p>
+                        
+                        <p><strong>1. Retrieval Accuracy Evaluation:</strong></p>
+                        <ul>
+                            <li><strong>Precision:</strong> Are retrieved documents relevant to the query?</li>
+                            <li><strong>Recall:</strong> Are all relevant documents being retrieved?</li>
+                            <li><strong>Ranking Quality:</strong> Are the most relevant documents ranked highest?</li>
+                            <li><strong>AA Metric:</strong> "Critical Procedure Recovery Rate" - percentage of safety-critical procedures correctly retrieved</li>
+                        </ul>
+                        
+                        <p><strong>2. Generation Quality Evaluation:</strong></p>
+                        <ul>
+                            <li><strong>Factual Accuracy:</strong> Does the generated response align with official airline policies?</li>
+                            <li><strong>Completeness:</strong> Does it cover all necessary aspects of the answer?</li>
+                            <li><strong>Conciseness:</strong> Is the answer appropriately focused without irrelevant information?</li>
+                            <li><strong>AA Metric:</strong> "Policy Adherence Score" - measures how well responses match official documentation</li>
+                        </ul>
+                        
+                        <p><strong>3. Operational Metrics:</strong></p>
+                        <ul>
+                            <li><strong>Response Time:</strong> End-to-end latency from query to response</li>
+                            <li><strong>System Scalability:</strong> Performance during high-demand periods (irregular operations)</li>
+                            <li><strong>Throughput:</strong> Queries handled per second</li>
+                            <li><strong>AA Metric:</strong> "Operational Readiness Factor" - system availability during critical situations</li>
+                        </ul>
+                        
+                        <p><strong>4. Subject Matter Expert Validation:</strong></p>
+                        <ul>
+                            <li><strong>Blind Comparison:</strong> Experts evaluate system responses vs. manual responses</li>
+                            <li><strong>Safety Assessment:</strong> Aviation safety experts verify responses for compliance</li>
+                            <li><strong>Scenario Testing:</strong> Test system with complex operational scenarios</li>
+                            <li><strong>AA Metric:</strong> "Expert Alignment Score" - rated by maintenance, flight ops, and dispatch experts</li>
+                        </ul>
+                        
+                        <div class="aa-example">
+                            <strong>American Airlines RAG Evaluation Framework:</strong> Our flight operations RAG system is evaluated through:
+                            <ol>
+                                <li><strong>Test Suite:</strong> 1,000 real operational queries with expert-verified answers</li>
+                                <li><strong>Simulated Disruption:</strong> Performance testing during simulated irregular operations</li>
+                                <li><strong>Safety Review:</strong> FAA compliance assessment of system responses</li>
+                                <li><strong>Field Testing:</strong> Pilot program with actual dispatchers and operations controllers</li>
+                            </ol>
+                            We've found that end-to-end evaluation with domain experts is essential for mission-critical airline applications.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="interactive-demo">
+                    <h3 class="demo-title">Multi-Stage Retrieval Simulator</h3>
+                    <p>Simulate how a multi-stage retrieval system would process an airline operations query:</p>
+                    
+                    <input type="text" id="multi-stage-query" class="interactive-input" placeholder="Enter an operations query (e.g., 'fuel requirements for DFW to NRT')">
+                    
+                    <div id="retrieval-stages" style="height: 400px; background-color: #f8f9fa; padding: 15px; border-radius: 5px; margin-top: 15px; overflow-y: auto;">
+                        <div style="text-align: center; color: #6c757d; margin-top: 180px;">
+                            Enter a query to see the multi-stage retrieval process
+                        </div>
+                    </div>
+                    
+                    <button class="btn" onclick="simulateMultiStageRetrieval()">Simulate Retrieval</button>
+                </div>
+            </div>
+            
+            <!-- LLM Internals Tab -->
+            <div id="llm-internals" class="tab-content">
+                <h2>LLM Internal Workings</h2>
+                
+                <div class="mermaid">
+                    flowchart TD
+                        A["Input: 'What are AA's<br>baggage policies?'"] --> B["Tokenization"]
+                        B --> C["Embedding Layer"]
+                        C --> D["Self-Attention<br>Mechanism"]
+                        D --> E["Feed Forward<br>Networks"]
+                        E --> F["Output Layer"]
+                        F --> G["Next Token<br>Prediction"]
+                        G --> H["Generated Response<br>About Baggage Policies"]
+                        style A fill:#e9ecef
+                        style B fill:#e9ecef
+                        style C fill:#e9ecef
+                        style D fill:#0078D2,color:white
+                        style E fill:#e9ecef
+                        style F fill:#e9ecef
+                        style G fill:#e9ecef
+                        style H fill:#e9ecef
+                </div>
+                
+                <div class="qa-container">
+                    <div class="question" onclick="toggleAnswer(this)">
+                        Explain the concept of attention (and self-attention) in LLMs
+                    </div>
+                    <div class="answer">
+                        <p>Attention mechanisms are fundamental to modern LLMs and have important applications in airline data processing:</p>
+                        
+                        <p><strong>Attention Mechanism Basics:</strong></p>
+                        <ul>
+                            <li><strong>Purpose:</strong> Allows the model to focus on different parts of the input when generating each part of the output</li>
+                            <li><strong>Components:</strong> Queries, Keys, and Values transformed from the input</li>
+                            <li><strong>Operation:</strong> Calculates similarity between Queries and Keys to determine attention weights for Values</li>
+                        </ul>
+                        
+                        <p><strong>Self-Attention:</strong></p>
+                        <ul>
+                            <li><strong>Mechanism:</strong> Each position attends to all positions in the same sequence</li>
+                            <li><strong>Benefit:</strong> Captures relationships between words regardless of their distance</li>
+                            <li><strong>Implementation:</strong> Transforms input into Query, Key, and Value vectors for attention calculation</li>
+                        </ul>
+                        
+                        <div class="aa-example">
+                            <strong>American Airlines Application:</strong> Self-attention is particularly valuable for airline documentation where context is critical:
+                            <ul>
+                                <li><strong>Safety Protocols:</strong> Understanding conditional statements like "If engine parameter X exceeds threshold AND oil pressure is below range, THEN..."</li>
+                                <li><strong>Policy Interpretation:</strong> Connecting related but separated parts of policies (e.g., exemptions mentioned far from the main rule)</li>
+                                <li><strong>Customer Communications:</strong> Maintaining consistency across long explanations of complex policies</li>
+                            </ul>
+                        </div>
+                        
+                        <p>In flight operations systems, attention mechanisms help models properly weigh various factors in complex scenarios like routing decisions, where multiple variables (weather, fuel, crew time, maintenance) must be considered together.</p>
+                    </div>
+                    
+                    <div class="question" onclick="toggleAnswer(this)">
+                        What are the disadvantages of the self-attention mechanism in LLMs?
+                    </div>
+                    <div class="answer">
+                        <p>In the context of American Airlines' AI systems, self-attention mechanisms present several challenges:</p>
+                        
+                        <p><strong>1. Quadratic Complexity:</strong></p>
+                        <ul>
+                            <li><strong>Technical Issue:</strong> Computational cost scales quadratically with sequence length (O(n²))</li>
+                            <li><strong>AA Impact:</strong> Processing long documents like aircraft maintenance manuals or comprehensive policy documents becomes prohibitively expensive</li>
+                            <li><strong>Real Example:</strong> Analyzing a full 300-page aircraft manual would be computationally infeasible</li>
+                        </ul>
+                        
+                        <p><strong>2. Memory Limitations:</strong></p>
+                        <ul>
+                            <li><strong>Technical Issue:</strong> Requires storing attention weights for all token pairs</li>
+                            <li><strong>AA Impact:</strong> Limits context length for crucial airline documentation</li>
+                            <li><strong>Real Example:</strong> Unable to process an entire flight operations manual in a single context window</li>
+                        </ul>
+                        
+                        <p><strong>3. Information Dilution:</strong></p>
+                        <ul>
+                            <li><strong>Technical Issue:</strong> Each token attends to all others, potentially diluting focus on the most relevant tokens</li>
+                            <li><strong>AA Impact:</strong> May miss critical details in technical aviation procedures</li>
+                            <li><strong>Real Example:</strong> In a lengthy maintenance procedure, critical warnings might not receive sufficient attention</li>
+                        </ul>
+                        
+                        <div class="aa-example">
+                            <strong>American Airlines Solution Approaches:</strong> To address these limitations in our operational systems:
+                            <ul>
+                                <li><strong>Document Chunking:</strong> Breaking aircraft manuals into logical procedure-based sections before processing</li>
+                                <li><strong>Sparse Attention:</strong> Using models with optimized attention patterns for long documents like regulatory compilations</li>
+                                <li><strong>Alternative Architectures:</strong> Testing state space models like Mamba for certain documentation processing tasks</li>
+                                <li><strong>Retrieval-Based Systems:</strong> Using RAG to process only the most relevant portions of large documentation</li>
+                            </ul>
+                        </div>
+                        
+                        <p>For our customer service applications, we balance between model efficiency and comprehensiveness by using carefully designed chunking strategies for our knowledge base.</p>
+                    </div>
+                    
+                    <div class="question" onclick="toggleAnswer(this)">
+                        Explain the concept of KV Caching in LLM Inference for airline applications
+                    </div>
+                    <div class="answer">
+                        <p>KV Caching is a critical optimization technique for LLM inference that has significant implications for American Airlines' AI systems:</p>
+                        
+                        <p><strong>Basic Concept:</strong></p>
+                        <ul>
+                            <li><strong>What it is:</strong> Storing and reusing the Key (K) and Value (V) tensors from previous tokens during autoregressive generation</li>
+                            <li><strong>Why it matters:</strong> Prevents redundant recalculation of attention for tokens that have already been processed</li>
+                            <li><strong>Performance impact:</strong> Dramatically reduces computational cost for generating each new token</li>
+                        </ul>
+                        
+                        <p><strong>Technical Implementation:</strong></p>
+                        <ul>
+                            <li><strong>Storage:</strong> K and V tensors from each layer are stored in memory after initial computation</li>
+                            <li><strong>Reuse:</strong> When generating the next token, only new K and V values are calculated</li>
+                            <li><strong>Concatenation:</strong> New values are appended to the cached values for complete attention calculation</li>
+                        </ul>
+                        
+                        <div class="aa-example">
+                            <strong>American Airlines Implementation Benefits:</strong>
+                            <ul>
+                                <li><strong>Customer Service Chatbots:</strong> Enable real-time responses to customer queries about flight status, baggage policies, etc.</li>
+                                <li><strong>Operations Support:</strong> Provide rapid procedure generation for non-standard operational situations</li>
+                                <li><strong>Scale Handling:</strong> Process thousands of concurrent customer inquiries during irregular operations (IRROPS) events</li>
+                                <li><strong>Mobile App Experience:</strong> Deliver responsive AI features within bandwidth and battery constraints</li>
+                            </ul>
+                        </div>
+                        
+                        <p><strong>Real-World Performance Impact:</strong></p>
+                        <ul>
+                            <li><strong>Response Time:</strong> Reduces average response time from 10+ seconds to under 2 seconds</li>
+                            <li><strong>Throughput:</strong> Increases the number of concurrent users our systems can support by 5x</li>
+                            <li><strong>Cost Efficiency:</strong> Reduces inference computing costs by approximately 70%</li>
+                        </ul>
+                        
+                        <p>For American Airlines' customer-facing systems, this optimization translates directly to improved customer satisfaction through more responsive interactions.</p>
+                    </div>
+                </div>
+                
+                <div class="interactive-demo">
+                    <h3 class="demo-title">Attention Mechanism Visualization</h3>
+                    <p>Enter an airline-related sentence to visualize how attention works:</p>
+                    
+                    <input type="text" id="attention-input" class="interactive-input" placeholder="Enter a sentence (e.g., 'Passengers should arrive 2 hours before international flights')">
+                    
+                    <div id="attention-viz" style="height: 300px; background-color: #f8f9fa; padding: 15px; border-radius: 5px; margin-top: 15px; position: relative;">
+                        <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center;">
+                            Enter a sentence to visualize attention weights
+                        </div>
+                    </div>
+                    
+                    <button class="btn" onclick="visualizeAttention()">Visualize Attention</button>
+                </div>
+            </div>
+            
+            <!-- Quiz Tab -->
+            <div id="quiz" class="tab-content">
+                <h2>Practice Quiz for American Airlines Interview</h2>
+                
+                <div class="quiz-container">
+                    <div class="quiz-question">
+                        <h4>1. Which of the following best describes how American Airlines might use Retrieval Augmented Generation (RAG)?</h4>
+                        <ul class="quiz-options">
+                            <li class="quiz-option" onclick="selectOption(this)">Fine-tuning LLMs on all American Airlines documentation</li>
+                            <li class="quiz-option" onclick="selectOption(this)">Using LLMs to generate fictional answers about airline policies</li>
+                            <li class="quiz-option" onclick="selectOption(this)">Retrieving relevant information from AA knowledge base and using it to generate accurate responses</li>
+                            <li class="quiz-option" onclick="selectOption(this)">Creating new flight routes using generative AI</li>
+                        </ul>
+                        <div class="feedback"></div>
+                    </div>
+                    
+                    <div class="quiz-question">
+                        <h4>2. When creating an embedding system for American Airlines' technical documentation, which chunking strategy would be most appropriate?</h4>
+                        <ul class="quiz-options">
+                            <li class="quiz-option" onclick="selectOption(this)">Always chunk at exact 512-token intervals regardless of content</li>
+                            <li class="quiz-option" onclick="selectOption(this)">Structural chunking based on document sections and procedures</li>
+                            <li class="quiz-option" onclick="selectOption(this)">Chunk at the sentence level for maximum granularity</li>
+                            <li class="quiz-option" onclick="selectOption(this)">Embed entire manuals as single chunks</li>
+                        </ul>
+                        <div class="feedback"></div>
+                    </div>
+                    
+                    <div class="quiz-question">
+                        <h4>3. How could American Airlines use vector databases for customer experience improvement?</h4>
+                        <ul class="quiz-options">
+                            <li class="quiz-option" onclick="selectOption(this)">Storing passenger credit card information</li>
+                            <li class="quiz-option" onclick="selectOption(this)">Maintaining flight schedules and air traffic control data</li>
+                            <li class="quiz-option" onclick="selectOption(this)">Semantic search across customer feedback to identify experience patterns</li>
+                            <li class="quiz-option" onclick="selectOption(this)">Replacing traditional reservation databases</li>
+                        </ul>
+                        <div class="feedback"></div>
+                    </div>
+                    
+                    <div class="quiz-question">
+                        <h4>4. What is the main advantage of using a cross-encoder rather than a bi-encoder for American Airlines' support system?</h4>
+                        <ul class="quiz-options">
+                            <li class="quiz-option" onclick="selectOption(this)">Cross-encoders are always faster</li>
+                            <li class="quiz-option" onclick="selectOption(this)">Cross-encoders can provide more accurate relevance ranking by processing query-document pairs together</li>
+                            <li class="quiz-option" onclick="selectOption(this)">Cross-encoders don't require any training</li>
+                            <li class="quiz-option" onclick="selectOption(this)">Cross-encoders use less memory than bi-encoders</li>
+                        </ul>
+                        <div class="feedback"></div>
+                    </div>
+                    
+                    <div class="quiz-question">
+                        <h4>5. In the context of prompt engineering for an airline chatbot, what is Chain-of-Thought prompting useful for?</h4>
+                        <ul class="quiz-options">
+                            <li class="quiz-option" onclick="selectOption(this)">Creating visual charts of flight routes</li>
+                            <li class="quiz-option" onclick="selectOption(this)">Enhancing the model's reasoning capabilities for complex airline-specific questions</li>
+                            <li class="quiz-option" onclick="selectOption(this)">Limiting the model to only factual responses</li>
+                            <li class="quiz-option" onclick="selectOption(this)">Making responses shorter</li>
+                        </ul>
+                        <div class="feedback"></div>
+                    </div>
+                    
+                    <button class="submit-quiz" onclick="checkQuiz()">Submit Answers</button>
+                </div>
+                
+                <div class="progression-indicator">
+                    <div class="progress-step" id="step1">
+                        <div class="step-indicator">1</div>
+                        <div>LLM Basics</div>
+                    </div>
+                    <div class="progress-step" id="step2">
+                        <div class="step-indicator">2</div>
+                        <div>RAG Systems</div>
+                    </div>
+                    <div class="progress-step" id="step3">
+                        <div class="step-indicator">3</div>
+                        <div>Embeddings</div>
+                    </div>
+                    <div class="progress-step" id="step4">
+                        <div class="step-indicator">4</div>
+                        <div>Retrieval</div>
+                    </div>
+                    <div class="progress-step" id="step5">
+                        <div class="step-indicator">5</div>
+                        <div>Review</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <div class="container">
+            <p>American Airlines AI Interview Prep Guide | Created for Data Science & ML Position Candidates</p>
+        </div>
+    </footer>
+    
+    <script>
+        // Initialize mermaid
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'neutral',
+            flowchart: {
+                useMaxWidth: true,
+                htmlLabels: true,
+                curve: 'basis'
+            }
+        });
+        
+        // Tab functionality
+        function openTab(evt, tabName) {
+            var i, tabContent, tabButtons;
+            
+            tabContent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabContent.length; i++) {
+                tabContent[i].className = tabContent[i].className.replace(" active", "");
+            }
+            
+            tabButtons = document.getElementsByClassName("tab");
+            for (i = 0; i < tabButtons.length; i++) {
+                tabButtons[i].className = tabButtons[i].className.replace(" active", "");
+            }
+            
+            document.getElementById(tabName).className += " active";
+            evt.currentTarget.className += " active";
+        }
+        
+        // Toggle answer functionality
+        function toggleAnswer(element) {
+            element.classList.toggle("active");
+            var answer = element.nextElementSibling;
+            if (answer.style.display === "block") {
+                answer.style.display = "none";
+            } else {
+                answer.style.display = "block";
+            }
+        }
+        
+        // Generate prompt based on selections
+        function generatePrompt() {
+            const promptType = document.getElementById("prompt-type").value;
+            const airlineTask = document.getElementById("airline-task").value;
+            let prompt = "";
+            
+            if (promptType === "zero") {
+                if (airlineTask === "feedback") {
+                    prompt = "Analyze the following customer feedback about their flight experience on American Airlines Flight AA1234 from DFW to LAX. Identify the main issues, categorize them by department (Cabin Service, Check-in, Baggage, etc.), and rate the severity of each issue on a scale of 1-5. Provide specific recommendations for improvement based on our customer service standards.";
+                } else if (airlineTask === "delay") {
+                    prompt = "Predict whether American Airlines Flight AA2857 from ORD to MIA tomorrow is likely to experience a delay based on the following factors: historical performance of this route, current weather forecast, aircraft maintenance schedule, and crew availability. Provide a probability of delay and explain your reasoning.";
+                } else if (airlineTask === "routing") {
+                    prompt = "Optimize the route for American Airlines Flight AA7325 from JFK to LHR considering the following factors: fuel efficiency, air traffic congestion, weather patterns, and passenger connection times. Suggest the optimal flight path and explain your reasoning.";
+                } else if (airlineTask === "maintenance") {
+                    prompt = "Analyze the following engine performance data from a Boeing 787-9 in American Airlines' fleet. Identify any anomalies that might indicate potential maintenance issues, prioritize them by urgency, and recommend appropriate maintenance actions according to our standard procedures.";
+                }
+            } else if (promptType === "few") {
+                if (airlineTask === "feedback") {
+                    prompt = "Categorize the following customer feedback about American Airlines services. For each piece of feedback, identify the main department responsible and the sentiment.\n\nExample 1:\nFeedback: \"The flight attendant was extremely helpful when I needed assistance with my connecting flight information.\"\nDepartment: Cabin Service\nSentiment: Positive\n\nExample 2:\nFeedback: \"My bag was damaged when I picked it up at baggage claim.\"\nDepartment: Baggage Handling\nSentiment: Negative\n\nNow categorize this new feedback:\n\"I waited in line for over an hour to check in for my flight AA1042 from DFW to LGA, and missed my flight as a result.\"";
+                } else if (airlineTask === "delay") {
+                    prompt = "Predict whether the following American Airlines flights will be delayed based on given factors.\n\nExample 1:\nFlight: AA1234 DFW-LAX\nFactors: Clear weather, Aircraft on schedule, Full crew roster\nPrediction: On-time (5% chance of delay)\nReason: All operational factors are favorable\n\nExample 2:\nFlight: AA5678 ORD-MIA\nFactors: Thunderstorms at departure airport, Aircraft arriving late from previous leg\nPrediction: Delayed (85% chance of delay)\nReason: Weather conditions plus late incoming aircraft\n\nNow predict this flight:\nFlight: AA9876 JFK-SEA\nFactors: Light snow forecast, Aircraft maintenance completed on time, Crew delayed from connecting flight";
+                } else if (airlineTask === "routing") {
+                    prompt = "Recommend the optimal route for these American Airlines flights considering given factors.\n\nExample 1:\nRoute: JFK-LHR\nFactors: Strong headwinds over North Atlantic, Clear weather\nRecommendation: Northern route over Greenland\nReason: Avoids strongest headwinds despite longer distance\n\nExample 2:\nRoute: DFW-NRT\nFactors: Volcanic activity, Closed Russian airspace\nRecommendation: Southern Pacific route\nReason: Avoids both volcanic ash clouds and restricted airspace\n\nNow recommend for this route:\nRoute: MIA-GRU\nFactors: Tropical storm developing in Caribbean, High fuel prices";
+                } else if (airlineTask === "maintenance") {
+                    prompt = "Analyze aircraft maintenance data and recommend actions for American Airlines fleet.\n\nExample 1:\nAircraft: Boeing 777-300ER (N731AN)\nData: Oil pressure fluctuating between 42-47 PSI, 3 alerts in past 24 hours\nRecommendation: Priority 2 inspection of oil system at next station\nReason: Fluctuations within caution range but not critical\n\nExample 2:\nAircraft: Airbus A321 (N102NN)\nData: APU shutdown during flight, error code APS2342\nRecommendation: Priority 1 maintenance, ground aircraft until resolved\nReason: APU failure with specific error code indicating critical issue\n\nNow analyze this case:\nAircraft: Boeing 787-9 (N820AL)\nData: Cabin pressure differential showing 7.8 PSI vs. normal 8.1 PSI, gradual decrease over past 5 flights";
+                }
+            } else if (promptType === "cot") {
+                if (airlineTask === "feedback") {
+                    prompt = "Analyze the following customer feedback: \"My recent flight AA1857 was disappointing. I had to wait 30 minutes for my bag at DFW and the meal ran out before they reached my seat in row 32. The gate agent was helpful about my connecting flight though.\"\n\nThink step by step to:\n1. Identify each separate issue in the feedback\n2. Categorize each issue by department\n3. Determine the sentiment for each aspect\n4. Recommend specific improvements for each issue\n5. Prioritize the improvements based on customer impact\n\nAfter thinking through each step, provide a comprehensive analysis of the feedback with actionable recommendations.";
+                } else if (airlineTask === "delay") {
+                    prompt = "Predict whether American Airlines Flight AA2857 (ORD-MIA) scheduled for tomorrow will be delayed.\n\nThink step by step:\n1. Analyze the historical on-time performance of this specific flight number and route\n2. Evaluate tomorrow's weather forecast for both departure and arrival airports\n3. Check the aircraft's maintenance history and upcoming requirements\n4. Review the assigned crew's recent schedule and rest periods\n5. Consider airport congestion patterns for scheduled departure/arrival times\n6. Assess the probability of delay based on all factors combined\n\nAfter thinking through each step, provide a final prediction with confidence level and reasoning.";
+                } else if (airlineTask === "routing") {
+                    prompt = "Optimize the route for American Airlines Flight AA7325 from JFK to LHR.\n\nThink step by step:\n1. Identify standard routing options between JFK and LHR\n2. Analyze current and forecasted weather patterns across the North Atlantic\n3. Evaluate jet stream positioning and strength for fuel efficiency\n4. Consider air traffic congestion along potential routes\n5. Check for any NOTAMs or airspace restrictions\n6. Calculate fuel consumption for each viable route option\n7. Assess impact on passenger connection times at LHR\n\nAfter thinking through each step, recommend the optimal route with justification.";
+                } else if (airlineTask === "maintenance") {
+                    prompt = "Analyze the following engine performance data from Boeing 787-9 (N805AN) in American Airlines' fleet:\n- EGT margin reduced by 15% over last 10 flights\n- N1 vibration increased from 0.2 to 0.7 over same period\n- Fuel flow 3% above expected values\n- No error codes triggered\n\nThink step by step:\n1. Evaluate each parameter against normal operating ranges\n2. Identify patterns or correlations between different measurements\n3. Consider possible causes for the observed trends\n4. Reference similar patterns in maintenance history\n5. Assess urgency based on safety implications\n6. Determine appropriate maintenance response\n7. Estimate operational impact of recommended actions\n\nAfter thinking through each step, provide maintenance recommendations with justification.";
+                }
+            } else if (promptType === "react") {
+                if (airlineTask === "feedback") {
+                    prompt = "You are analyzing customer feedback for American Airlines. Follow the ReAct (Reasoning + Action) process:\n\nCustomer Feedback: \"My family and I were split up on AA1432 despite booking 4 months in advance. The cabin was freezing and flight attendants said they couldn't adjust the temperature. At least we arrived on time.\"\n\nThought: First, I need to identify the key issues mentioned in this feedback.\nAction: Extract key issues from feedback\nObservation: 1) Family seating separation 2) Cabin temperature too cold 3) Positive note about on-time arrival\n\nThought: I should check our seating policy for families booking in advance.\nAction: Review family seating policy\nObservation: American Airlines prioritizes seating families with children under 15 together, especially when booked in advance.\n\nThought: I should check the technical capabilities for cabin temperature adjustments.\nAction: Review cabin temperature control specifications\nObservation: Flight attendants can request temperature adjustments from pilots within a specified range.\n\nThought: Now I need to formulate appropriate responses to each issue.\nAction: Develop response and recommendations\nObservation: 1) Family seating issue appears to be a policy implementation failure 2) Temperature issue may be misinformation or equipment malfunction\n\nProvide your final analysis and recommendations based on this process.";
+                } else if (airlineTask === "delay") {
+                    prompt = "You are predicting potential delays for American Airlines flights. Follow the ReAct (Reasoning + Action) process:\n\nScenario: Predict potential delays for flight AA3298 from ORD to DFW scheduled for tomorrow at 2:15 PM.\n\nThought: I need to check weather forecasts for both airports.\nAction: Review weather forecasts for ORD and DFW\nObservation: ORD: Thunderstorms predicted starting at 1:00 PM. DFW: Clear conditions.\n\nThought: I should check the aircraft's prior routing to see if earlier delays might cascade.\nAction: Check aircraft routing schedule\nObservation: Aircraft will arrive at ORD from LGA at 1:05 PM, 70 minutes before scheduled departure.\n\nThought: I need to review historical performance of this flight number.\nAction: Check historical on-time performance\nObservation: AA3298 has a 65% on-time performance over past 30 days, with weather at ORD being the primary delay factor.\n\nThought: Let me check if there are any NOTAMs affecting operations.\nAction: Review NOTAMs for both airports\nObservation: ORD has runway 9R/27L closed for maintenance until 3:00 PM tomorrow, reducing airport capacity.\n\nProvide your final prediction and recommendations based on this process.";
+                } else if (airlineTask === "routing") {
+                    prompt = "You are optimizing flight routing for American Airlines. Follow the ReAct (Reasoning + Action) process:\n\nScenario: Optimize routing for AA8042 from DFW to HND (Tokyo) departing tomorrow.\n\nThought: I need to review current North Pacific routing options.\nAction: Check standard North Pacific routes\nObservation: Standard routes include NOPAC (Northern Pacific), KOMPAS (Central Pacific), and routes through Alaska.\n\nThought: I should check weather patterns along these routes.\nAction: Review Pacific weather forecasts\nObservation: Strong jet stream (170kt) along NOPAC route. Moderate turbulence forecast near KOMPAS route.\n\nThought: Let me verify any airspace restrictions.\nAction: Check for airspace restrictions\nObservation: Russian airspace remains restricted for US carriers, eliminating polar route options.\n\nThought: I need to calculate fuel efficiency for viable routes.\nAction: Calculate fuel burn for each viable route\nObservation: Alaska route requires 3% more fuel but avoids forecast turbulence. KOMPAS route optimal for fuel but has turbulence risk.\n\nThought: I should check payload factors affecting range.\nAction: Review flight payload information\nObservation: Flight booked at 92% capacity with 12,000kg cargo, within performance limits for all routes.\n\nProvide your final routing recommendation based on this process.";
+                } else if (airlineTask === "maintenance") {
+                    prompt = "You are conducting predictive maintenance analysis for American Airlines. Follow the ReAct (Reasoning + Action) process:\n\nScenario: Analyze maintenance needs for A321 (N921US) with reported hydraulic system pressure fluctuations.\n\nThought: I need to review the specific hydraulic system parameters reported.\nAction: Review hydraulic system data\nObservation: System A pressure fluctuating between 2,800-3,100 PSI (normal is 3,000±50). Occasionally dropping to 2,650 PSI during gear extension.\n\nThought: I should check the maintenance history of this system.\nAction: Review hydraulic system maintenance history\nObservation: System A pump replaced 1,200 flight hours ago. No recent hydraulic fluid servicing or filter replacements.\n\nThought: Let me check related component health.\nAction: Review related component data\nObservation: System accumulator precharge showing 10% below specification. Relief valve operating normally.\n\nThought: I should assess operational impact and safety implications.\nAction: Evaluate safety and operational risk\nObservation: Pressure fluctuations within acceptable safety limits but outside normal operating parameters. No redundancy loss yet but trending toward potential system degradation.\n\nThought: Let me check parts availability and maintenance schedule.\nAction: Check part availability and upcoming schedule\nObservation: Aircraft scheduled for overnight maintenance at DFW tomorrow. Required parts (accumulator and filters) available at station.\n\nProvide your final maintenance recommendation based on this process.";
+                }
+            }
+            
+            document.getElementById("prompt-output").innerText = prompt;
+        }
+        
+        // Chunking visualization functionality
+        function visualizeChunking() {
+            try {
+                // Get the current selection
+                const selectElement = document.getElementById("document-type");
+                if (!selectElement) {
+                    console.error("Could not find document-type select element");
+                    return;
+                }
+                
+                const docType = selectElement.value;
+                
+                // Get the visualization container
+                const chunkingViz = document.getElementById("chunking-viz");
+                if (!chunkingViz) {
+                    console.error("Could not find chunking-viz element");
+                    return;
+                }
+                
+                let vizContent = "";
+                
+                // Generate visualization based on document type
+                if (docType === "manual") {
+                    vizContent = `
+                        <h4 style="text-align: center;">Aircraft Operating Manual Chunking Strategy</h4>
+                        <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 20px;">
+                            <div style="width: 100%; padding: 10px; background-color: #e9ecef; border-radius: 5px; text-align: center;">Complete B787 Manual (1,200+ pages)</div>
+                            <div style="display: flex; width: 100%; justify-content: space-between;">
+                                <div style="width: 23%; padding: 10px; background-color: #0078D2; color: white; border-radius: 5px; text-align: center;">Chapter 1<br>Normal Procedures</div>
+                                <div style="width: 23%; padding: 10px; background-color: #0078D2; color: white; border-radius: 5px; text-align: center;">Chapter 2<br>Abnormal Procedures</div>
+                                <div style="width: 23%; padding: 10px; background-color: #0078D2; color: white; border-radius: 5px; text-align: center;">Chapter 3<br>Emergency Procedures</div>
+                                <div style="width: 23%; padding: 10px; background-color: #0078D2; color: white; border-radius: 5px; text-align: center;">Chapter 4<br>Performance</div>
+                            </div>
+                            <div style="display: flex; width: 100%; justify-content: space-between; margin-top: 10px;">
+                                <div style="width: 32%; padding: 8px; background-color: #C8102E; color: white; border-radius: 5px; text-align: center;">Section 2.1<br>Hydraulic System</div>
+                                <div style="width: 32%; padding: 8px; background-color: #C8102E; color: white; border-radius: 5px; text-align: center;">Section 2.2<br>Electrical System</div>
+                                <div style="width: 32%; padding: 8px; background-color: #C8102E; color: white; border-radius: 5px; text-align: center;">Section 2.3<br>Engine Systems</div>
+                            </div>
+                            <div style="margin-top: 15px; text-align: center;">
+                                <p><strong>Recommended Chunking Level:</strong> Section-level with procedure boundaries</p>
+                                <p>Section-level chunking preserves complete procedures while keeping chunks small enough for efficient retrieval. This ensures pilots can quickly access exactly the procedure they need.</p>
+                            </div>
+                        </div>
+                    `;
+                } else if (docType === "policy") {
+                    vizContent = `
+                        <h4 style="text-align: center;">Customer Service Policy Chunking Strategy</h4>
+                        <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 20px;">
+                            <div style="width: 100%; padding: 10px; background-color: #e9ecef; border-radius: 5px; text-align: center;">American Airlines Customer Service Policy Manual</div>
+                            <div style="display: flex; width: 100%; justify-content: space-between;">
+                                <div style="width: 30%; padding: 10px; background-color: #0078D2; color: white; border-radius: 5px; text-align: center;">Baggage Policies</div>
+                                <div style="width: 30%; padding: 10px; background-color: #0078D2; color: white; border-radius: 5px; text-align: center;">Refund Policies</div>
+                                <div style="width: 30%; padding: 10px; background-color: #0078D2; color: white; border-radius: 5px; text-align: center;">AAdvantage Policies</div>
+                            </div>
+                            <div style="display: flex; width: 100%; justify-content: space-between; margin-top: 10px;">
+                                <div style="width: 48%; padding: 8px; background-color: #C8102E; color: white; border-radius: 5px; text-align: center;">International Baggage Policy</div>
+                                <div style="width: 48%; padding: 8px; background-color: #C8102E; color: white; border-radius: 5px; text-align: center;">Domestic Baggage Policy</div>
+                            </div>
+                            <div style="display: flex; width: 100%; justify-content: space-between; margin-top: 10px;">
+                                <div style="width: 23%; padding: 6px; background-color: #6c757d; color: white; border-radius: 5px; text-align: center;">Size Limits</div>
+                                <div style="width: 23%; padding: 6px; background-color: #6c757d; color: white; border-radius: 5px; text-align: center;">Weight Limits</div>
+                                <div style="width: 23%; padding: 6px; background-color: #6c757d; color: white; border-radius: 5px; text-align: center;">Special Items</div>
+                                <div style="width: 23%; padding: 6px; background-color: #6c757d; color: white; border-radius: 5px; text-align: center;">Fees</div>
+                            </div>
+                            <div style="margin-top: 15px; text-align: center;">
+                                <p><strong>Recommended Chunking Level:</strong> Policy topic with related rules (paragraph level)</p>
+                                <p>For customer service policies, chunking at the paragraph level with semantically related content keeps related rules together. This allows agents to retrieve complete policy information on specific topics.</p>
+                            </div>
+                        </div>
+                    `;
+                } else if (docType === "maintenance") {
+                    vizContent = `
+                        <h4 style="text-align: center;">Maintenance Procedure Chunking Strategy</h4>
+                        <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 20px;">
+                            <div style="width: 100%; padding: 10px; background-color: #e9ecef; border-radius: 5px; text-align: center;">Aircraft Maintenance Manual (AMM)</div>
+                            <div style="display: flex; width: 100%; justify-content: space-between;">
+                                <div style="width: 30%; padding: 10px; background-color: #0078D2; color: white; border-radius: 5px; text-align: center;">Chapter 27<br>Flight Controls</div>
+                                <div style="width: 30%; padding: 10px; background-color: #0078D2; color: white; border-radius: 5px; text-align: center;">Chapter 32<br>Landing Gear</div>
+                                <div style="width: 30%; padding: 10px; background-color: #0078D2; color: white; border-radius: 5px; text-align: center;">Chapter 71<br>Power Plant</div>
+                            </div>
+                            <div style="display: flex; width: 100%; justify-content: space-between; margin-top: 10px;">
+                                <div style="width: 48%; padding: 8px; background-color: #C8102E; color: white; border-radius: 5px; text-align: center;">Task 71-00-00-400-801<br>Engine Fan Blade Inspection</div>
+                                <div style="width: 48%; padding: 8px; background-color: #C8102E; color: white; border-radius: 5px; text-align: center;">Task 71-00-00-200-004<br>Engine Oil Servicing</div>
+                            </div>
+                            <div style="display: flex; width: 100%; flex-direction: column; gap: 5px; margin-top: 10px;">
+                                <div style="padding: 6px; background-color: #6c757d; color: white; border-radius: 5px; text-align: left;">1. Job Setup and Safety Precautions <span style="float: right;">✅ Complete procedure chunk</span></div>
+                                <div style="padding: 6px; background-color: #6c757d; color: white; border-radius: 5px; text-align: left;">2. Inspection Procedure <span style="float: right;">✅ Complete procedure chunk</span></div>
+                                <div style="padding: 6px; background-color: #6c757d; color: white; border-radius: 5px; text-align: left;">3. Acceptance Criteria <span style="float: right;">✅ Complete procedure chunk</span></div>
+                                <div style="padding: 6px; background-color: #6c757d; color: white; border-radius: 5px; text-align: left;">4. Reassembly <span style="float: right;">✅ Complete procedure chunk</span></div>
+                            </div>
+                            <div style="margin-top: 15px; text-align: center;">
+                                <p><strong>Recommended Chunking Level:</strong> Complete individual procedures with task boundaries</p>
+                                <p>For maintenance documentation, chunking by complete tasks and procedures ensures technicians retrieve all necessary steps, warnings, and acceptance criteria together, maintaining procedural integrity and safety compliance.</p>
+                            </div>
+                        </div>
+                    `;
+                } else if (docType === "emergency") {
+                    vizContent = `
+                        <h4 style="text-align: center;">Emergency Response Plan Chunking Strategy</h4>
+                        <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 20px;">
+                            <div style="width: 100%; padding: 10px; background-color: #e9ecef; border-radius: 5px; text-align: center;">American Airlines Emergency Response Manual</div>
+                            <div style="display: flex; width: 100%; justify-content: space-between;">
+                                <div style="width: 30%; padding: 10px; background-color: #0078D2; color: white; border-radius: 5px; text-align: center;">Aircraft Incidents</div>
+                                <div style="width: 30%; padding: 10px; background-color: #0078D2; color: white; border-radius: 5px; text-align: center;">Terminal Evacuations</div>
+                                <div style="width: 30%; padding: 10px; background-color: #0078D2; color: white; border-radius: 5px; text-align: center;">Medical Emergencies</div>
+                            </div>
+                            <div style="display: flex; width: 100%; justify-content: space-between; margin-top: 10px;">
+                                <div style="width: 48%; padding: 8px; background-color: #C8102E; color: white; border-radius: 5px; text-align: center;">Hard Landing Protocol</div>
+                                <div style="width: 48%; padding: 8px; background-color: #C8102E; color: white; border-radius: 5px; text-align: center;">Engine Fire Protocol</div>
+                            </div>
+                            <div style="width: 100%; margin-top: 10px; padding: 15px; background-color: #6c757d; color: white; border-radius: 5px; text-align: left;">
+                                <p style="font-weight: bold; margin-top: 0;">Engine Fire - Immediate Response Protocol:</p>
+                                <p>1. Notify ATC immediately with aircraft ID, nature of emergency, and intentions.</p>
+                                <p>2. Execute Engine Fire Checklist from QRH (cross-reference aircraft type).</p>
+                                <p>3. Squawk 7700 and communicate with cabin crew per CRM protocol.</p>
+                                <p>4. Determine diversion airport if necessary using criteria in Section 4.3.</p>
+                                <p style="font-weight: bold; margin-bottom: 0;">ALL STEPS MUST BE KEPT TOGETHER WITH CHECKLIST INTACT</p>
+                            </div>
+                            <div style="margin-top: 15px; text-align: center;">
+                                <p><strong>Recommended Chunking Level:</strong> Complete emergency procedure with no splits</p>
+                                <p>For emergency protocols, complete procedure chunking with zero splitting is absolutely critical. Each emergency response must be maintained as a complete unit to ensure all steps are performed in the correct sequence with no missing elements.</p>
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    vizContent = `
+                        <div style="text-align: center; padding: 20px;">
+                            <p>Please select a document type to visualize chunking strategy</p>
+                        </div>
+                    `;
+                }
+                
+                // Update the visualization
+                chunkingViz.innerHTML = vizContent;
+                
+                console.log("Visualization updated successfully for document type:", docType);
+            } catch (error) {
+                console.error("Error in visualizeChunking function:", error);
+                alert("There was an error updating the visualization. Please try again.");
+            }
+        }
+        
+        // Vector similarity visualization
+        function visualizeVectors() {
+            const query = document.getElementById("vector-query").value;
+            const vectorViz = document.getElementById("vector-viz");
+            
+            if (!query) {
+                alert("Please enter a query to visualize");
+                return;
+            }
+            
+            // Sample airline queries and their simulated vector similarities
+            const airlineQueries = {
+                "baggage allowance": ["checked bag fees", "luggage policy", "carry-on limits", "baggage restrictions", "special items"],
+                "flight status": ["flight tracker", "arrival time", "departure status", "flight delays", "gate information"],
+                "booking change": ["change reservation", "modify ticket", "reschedule flight", "change fee", "booking modification"],
+                "refund policy": ["ticket refund", "cancellation policy", "refund eligibility", "refund request", "refund processing time"],
+                "seat selection": ["seat assignment", "preferred seating", "main cabin extra", "bulkhead seats", "exit row seats"],
+                "aadvantage miles": ["loyalty program", "mile redemption", "elite status", "miles expiration", "earning miles"],
+                "in-flight service": ["meal service", "wifi availability", "entertainment options", "premium cabin service", "special meals"],
+                "check-in process": ["online check-in", "airport check-in", "mobile boarding pass", "check-in time", "kiosk check-in"],
+                "upgrade options": ["business class upgrade", "first class upgrade", "upgrade with miles", "systemwide upgrades", "day-of-departure upgrades"],
+                "special assistance": ["wheelchair service", "service animals", "unaccompanied minors", "medical assistance", "accessible travel"]
+            };
+            
+            // Find the closest match or use the query directly
+            let closestQuery = query.toLowerCase();
+            let similarQueries = [];
+            
+            // Find exact or close match
+            if (airlineQueries[closestQuery]) {
+                similarQueries = airlineQueries[closestQuery];
+            } else {
+                // Find closest query
+                const allQueries = Object.keys(airlineQueries);
+                
+                // Simple string matching (in a real system, this would use vector similarity)
+                for (const q of allQueries) {
+                    if (q.includes(closestQuery) || closestQuery.includes(q)) {
+                        closestQuery = q;
+                        similarQueries = airlineQueries[q];
+                        break;
+                    }
+                }
+                
+                // If no match found, show a default visualization
+                if (similarQueries.length === 0) {
+                    closestQuery = query.toLowerCase();
+                    similarQueries = ["no exact matches found", "try a query like 'baggage allowance'", "or 'flight status'", "or 'refund policy'", "or 'seat selection'"];
+                }
+            }
+            
+            // Create visualization
+            const vizContent = `
+                <h4 style="text-align: center;">Vector Similarity Visualization for "${query}"</h4>
+                <div style="position: relative; height: 250px; width: 100%; margin-top: 20px;">
+                    <!-- Central query -->
+                    <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); 
+                                padding: 15px; background-color: #0078D2; color: white; border-radius: 50%;
+                                width: 100px; height: 100px; display: flex; align-items: center; 
+                                justify-content: center; text-align: center; font-weight: bold;">
+                        ${closestQuery}
+                    </div>
+                    
+                    <!-- Similar queries -->
+                    ${similarQueries.map((sq, index) => {
+                        // Calculate position in a circle around the central query
+                        const angle = (index / similarQueries.length) * 2 * Math.PI;
+                        const distance = 130; // Distance from center
+                        const x = 50 + Math.cos(angle) * distance;
+                        const y = 50 + Math.sin(angle) * distance;
+                        
+                        // Calculate similarity score (would be from vector similarity in real system)
+                        const similarity = (0.95 - (index * 0.07)).toFixed(2);
+                        
+                        // Size based on similarity
+                        const size = 70 - (index * 5);
+                        
+                        return `
+                            <div style="position: absolute; top: ${y}%; left: ${x}%; transform: translate(-50%, -50%); 
+                                        padding: 10px; background-color: ${similarity > 0.8 ? '#C8102E' : '#6c757d'}; 
+                                        color: white; border-radius: 50%; width: ${size}px; height: ${size}px; 
+                                        display: flex; align-items: center; justify-content: center; 
+                                        text-align: center; font-size: 0.8rem;">
+                                ${sq}
+                                <span style="position: absolute; bottom: -20px; font-size: 0.7rem; 
+                                            background-color: #f8f9fa; color: #212529; padding: 2px 5px; 
+                                            border-radius: 10px;">
+                                    ${similarity}
+                                </span>
+                            </div>
+                            <div style="position: absolute; top: 50%; left: 50%; 
+                                        width: ${distance * 2}px; height: ${distance * 2}px;
+                                        border: 1px dashed #dee2e6; border-radius: 50%;
+                                        transform: translate(-50%, -50%); z-index: -1;">
+                            </div>
+                        `;
+                    }).join('')}
+                </div>
+                <div style="margin-top: 20px; text-align: center;">
+                    <p><strong>Explanation:</strong> In vector space, semantically similar queries appear closer together. This visualization shows the query "${query}" and its most similar queries based on semantic meaning. Numbers represent cosine similarity scores.</p>
+                </div>
+            `;
+            
+            vectorViz.innerHTML = vizContent;
+        }
+        
+        // Vector database query simulator
+        function simulateVectorQuery() {
+            const query = document.getElementById("vector-db-query").value;
+            const indexType = document.getElementById("index-type").value;
+            const resultsDiv = document.getElementById("query-results");
+            
+            if (!query) {
+                alert("Please enter a query");
+                return;
+            }
+            
+            // Sample results based on index type and query
+            let responseTime, results;
+            
+            // Set response time based on index type
+            if (indexType === "hnsw") {
+                responseTime = "12ms";
+            } else if (indexType === "ivf") {
+                responseTime = "28ms";
+            } else {
+                responseTime = "145ms";
+            }
+            
+            // Generate sample results based on query
+            if (query.toLowerCase().includes("baggage") || query.toLowerCase().includes("luggage")) {
+                results = [
+                    { score: 0.92, text: "American Airlines checked baggage policy allows most passengers to check at least one bag up to 50 lbs (23 kg) and 62 in (158 cm) for a fee. AAdvantage Elite members and premium cabin passengers have increased allowances." },
+                    { score: 0.88, text: "For international flights, American Airlines typically allows passengers to check at least one bag free of charge, with weight limits varying by destination and cabin class." },
+                    { score: 0.84, text: "Carry-on baggage on American Airlines is limited to one personal item and one carry-on bag per passenger. The maximum dimensions for carry-on bags are 22 x 14 x 9 inches including handles and wheels." },
+                    { score: 0.79, text: "Oversized and overweight baggage on American Airlines may be accepted for an additional fee, provided they don't exceed 126 inches in total dimensions or 100 lbs in weight." },
+                    { score: 0.75, text: "Special items such as sports equipment, musical instruments, and medical devices may have different baggage policies and fees on American Airlines flights." }
+                ];
+            } else if (query.toLowerCase().includes("flight") || query.toLowerCase().includes("cancel") || query.toLowerCase().includes("delay")) {
+                results = [
+                    { score: 0.94, text: "American Airlines flight status can be checked online, through the mobile app, or by calling our reservation system. We provide real-time updates on departures, arrivals, and any schedule changes." },
+                    { score: 0.89, text: "In the event of flight cancellations due to factors within American Airlines' control, passengers may be entitled to reaccommodation on the next available flight or a refund." },
+                    { score: 0.85, text: "For significant delays on American Airlines flights (typically over 4 hours), customers may be eligible for meal vouchers, hotel accommodations for overnight delays, or rebooking options." },
+                    { score: 0.83, text: "Weather-related delays and cancellations are considered beyond the airline's control, but American Airlines still provides rebooking assistance without additional fees during these events." },
+                    { score: 0.77, text: "American Airlines' delay prediction models use machine learning algorithms to analyze historical flight data, weather patterns, air traffic, and aircraft routing to predict potential disruptions and proactively manage operations." }
+                ];
+            } else if (query.toLowerCase().includes("maintenance") || query.toLowerCase().includes("safety") || query.toLowerCase().includes("aircraft")) {
+                results = [
+                    { score: 0.95, text: "American Airlines maintenance procedures follow a rigorous schedule of inspections and service checks as mandated by the FAA. Each aircraft undergoes routine checks categorized as A, B, C, and D checks, varying in depth and frequency." },
+                    { score: 0.91, text: "Line maintenance activities at American Airlines are performed between flights and overnight to address minor repairs and routine maintenance without disrupting the flight schedule." },
+                    { score: 0.87, text: "Heavy maintenance visits (HMVs) for American Airlines aircraft occur every 6-10 years and involve comprehensive teardown inspections, structural repairs, and interior refurbishment." },
+                    { score: 0.83, text: "American Airlines uses predictive maintenance analytics to monitor aircraft systems in real-time, identifying potential issues before they cause operational disruptions." },
+                    { score: 0.80, text: "Safety management systems at American Airlines integrate data from multiple sources including flight recorders, maintenance reports, and employee safety reports to identify trends and mitigate risks." }
+                ];
+            } else if (query.toLowerCase().includes("reward") || query.toLowerCase().includes("aadvantage") || query.toLowerCase().includes("mile")) {
+                results = [
+                    { score: 0.96, text: "The AAdvantage program allows members to earn miles through flights on American Airlines, partner airlines, and everyday spending with affiliated credit cards and merchants." },
+                    { score: 0.92, text: "AAdvantage miles can be redeemed for award flights, upgrades, Admirals Club memberships, car rentals, hotel stays, and vacation packages." },
+                    { score: 0.88, text: "Elite status in the AAdvantage program (Gold, Platinum, Platinum Pro, and Executive Platinum) offers benefits such as bonus miles, priority boarding, free checked bags, and complimentary upgrades." },
+                    { score: 0.84, text: "American Airlines uses dynamic award pricing for AAdvantage redemptions, with MileSAAver awards offering better value when available compared to AAnytime awards." },
+                    { score: 0.79, text: "AAdvantage miles typically expire after 24 months of inactivity, but any qualifying activity such as earning or redeeming miles will reset the expiration date." }
+                ];
+            } else {
+                results = [
+                    { score: 0.85, text: "American Airlines is one of the largest airlines in the world, operating an extensive network of domestic and international flights with hubs in Dallas/Fort Worth, Charlotte, Chicago, Philadelphia, Miami, Phoenix, Washington DC, Los Angeles, and New York." },
+                    { score: 0.82, text: "Customer service is available through multiple channels including phone support, social media assistance, airport agents, and the mobile app for booking management and travel queries." },
+                    { score: 0.78, text: "American Airlines operates a diverse fleet of aircraft including Boeing 737, 777, 787 and Airbus A320, A321, and A330 models for different route requirements." },
+                    { score: 0.74, text: "In-flight services vary by route and aircraft type, with premium cabins offering amenities such as lie-flat seats, chef-designed meals, premium beverages, and enhanced entertainment options." },
+                    { score: 0.70, text: "American Airlines partners with other oneworld alliance members to offer expanded route networks, codeshare flights, and reciprocal loyalty program benefits." }
+                ];
+            }
+            
+            // Create visualization content
+            const resultsContent = `
+                <h4 style="margin-top: 0;">Query Results for: "${query}"</h4>
+                <p><strong>Index Type:</strong> ${indexType} | <strong>Response Time:</strong> ${responseTime} | <strong>Results Found:</strong> ${results.length}</p>
+                <hr>
+                ${results.map((result, index) => `
+                    <div style="margin-bottom: 15px; padding: 10px; border-left: 4px solid ${result.score > 0.9 ? '#C8102E' : result.score > 0.85 ? '#0078D2' : '#6c757d'}; background-color: #f8f9fa;">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                            <strong>Result #${index + 1}</strong>
+                            <span style="background-color: ${result.score > 0.9 ? '#C8102E' : result.score > 0.85 ? '#0078D2' : '#6c757d'}; color: white; padding: 2px 8px; border-radius: 10px;">
+                                Similarity: ${result.score}
+                            </span>
+                        </div>
+                        <p style="margin: 0;">${result.text}</p>
+                    </div>
+                `).join('')}
+                <div style="margin-top: 15px; padding: 10px; background-color: #e9ecef; border-radius: 5px;">
+                    <p style="margin: 0;"><strong>Index Performance Analysis:</strong> ${
+                        indexType === "hnsw" ? 
+                        "HNSW (Hierarchical Navigable Small World) index provides the fastest query performance with excellent accuracy, ideal for real-time customer support systems." :
+                        indexType === "ivf" ? 
+                        "IVF (Inverted File) index offers a good balance between accuracy and performance, suitable for most airline operational use cases." :
+                        "Flat index provides maximum accuracy but with significantly slower performance, only recommended for offline critical safety procedures where precision is paramount."
+                    }</p>
+                </div>
+            `;
+            
+            resultsDiv.innerHTML = resultsContent;
+        }
+        
+        // Multi-stage retrieval simulator
+        function simulateMultiStageRetrieval() {
+            const query = document.getElementById("multi-stage-query").value;
+            const retrievalStages = document.getElementById("retrieval-stages");
+            
+            if (!query) {
+                alert("Please enter a query");
+                return;
+            }
+            
+            // Create simulation content
+            const simulationContent = `
+                <h4 style="margin-top: 0;">Multi-Stage Retrieval Process</h4>
+                <p><strong>Query:</strong> "${query}"</p>
+                
+                <div style="margin-top: 15px;">
+                    <div style="background-color: #e9ecef; padding: 10px; border-radius: 5px; margin-bottom: 10px;">
+                        <h5 style="margin-top: 0; color: #0078D2;">Stage 1: Query Understanding</h5>
+                        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                            <div style="flex: 1; min-width: 250px; padding: 10px; background-color: white; border-radius: 5px;">
+                                <strong>Entity Extraction:</strong>
+                                <ul style="margin-bottom: 0;">
+                                    ${
+                                        query.toLowerCase().includes("dfw") ? '<li>Airport: DFW (Dallas Fort Worth)</li>' : ''
+                                    }
+                                    ${
+                                        query.toLowerCase().includes("lax") ? '<li>Airport: LAX (Los Angeles)</li>' : ''
+                                    }
+                                    ${
+                                        query.toLowerCase().includes("ord") ? '<li>Airport: ORD (Chicago O\'Hare)</li>' : ''
+                                    }
+                                    ${
+                                        query.toLowerCase().includes("jfk") ? '<li>Airport: JFK (New York)</li>' : ''
+                                    }
+                                    ${
+                                        query.toLowerCase().includes("nrt") ? '<li>Airport: NRT (Tokyo Narita)</li>' : ''
+                                    }
+                                    ${
+                                        query.toLowerCase().includes("fuel") ? '<li>Topic: Fuel Requirements</li>' : ''
+                                    }
+                                    ${
+                                        query.toLowerCase().includes("maintenance") ? '<li>Topic: Maintenance</li>' : ''
+                                    }
+                                    ${
+                                        query.toLowerCase().includes("delay") ? '<li>Topic: Delays</li>' : ''
+                                    }
+                                    ${
+                                        query.toLowerCase().includes("weather") ? '<li>Topic: Weather</li>' : ''
+                                    }
+                                    ${
+                                        query.toLowerCase().includes("flight") ? '<li>Topic: Flight Operations</li>' : ''
+                                    }
+                                    <li>Intent: Information Retrieval</li>
+                                </ul>
+                            </div>
+                            <div style="flex: 1; min-width: 250px; padding: 10px; background-color: white; border-radius: 5px;">
+                                <strong>Query Classification:</strong>
+                                <ul style="margin-bottom: 0;">
+                                    <li>Domain: ${
+                                        query.toLowerCase().includes("fuel") ? 'Flight Operations' : 
+                                        query.toLowerCase().includes("maintenance") ? 'Technical Operations' :
+                                        query.toLowerCase().includes("delay") ? 'Operations Control' :
+                                        query.toLowerCase().includes("weather") ? 'Dispatch' :
+                                        'General Operations'
+                                    }</li>
+                                    <li>Query Type: Procedural/Informational</li>
+                                    <li>Complexity: ${
+                                        query.length > 50 ? 'High' : query.length > 30 ? 'Medium' : 'Low'
+                                    }</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div style="background-color: #e9ecef; padding: 10px; border-radius: 5px; margin-bottom: 10px;">
+                        <h5 style="margin-top: 0; color: #0078D2;">Stage 2: Initial Retrieval (BM25)</h5>
+                        <p><strong>Runtime:</strong> 8ms | <strong>Candidates Retrieved:</strong> 20</p>
+                        <div style="display: flex; gap: 10px; overflow-x: auto; padding-bottom: 5px;">
+                            <div style="min-width: 200px; padding: 10px; background-color: white; border-radius: 5px; border-left: 3px solid #0078D2;">
+                                <div style="font-size: 0.8rem; color: #6c757d;">Document A-123</div>
+                                <div style="font-weight: bold;">AA Flight Operations Manual</div>
+                                <div style="font-size: 0.9rem; margin-top: 5px;">BM25 Score: 0.89</div>
+                            </div>
+                            <div style="min-width: 200px; padding: 10px; background-color: white; border-radius: 5px; border-left: 3px solid #0078D2;">
+                                <div style="font-size: 0.8rem; color: #6c757d;">Document B-456</div>
+                                <div style="font-weight: bold;">Operational Bulletin ${new Date().getFullYear()}-17</div>
+                                <div style="font-size: 0.9rem; margin-top: 5px;">BM25 Score: 0.82</div>
+                            </div>
+                            <div style="min-width: 200px; padding: 10px; background-color: white; border-radius: 5px; border-left: 3px solid #0078D2;">
+                                <div style="font-size: 0.8rem; color: #6c757d;">Document C-789</div>
+                                <div style="font-weight: bold;">International Operations Guide</div>
+                                <div style="font-size: 0.9rem; margin-top: 5px;">BM25 Score: 0.76</div>
+                            </div>
+                            <div style="min-width: 200px; padding: 10px; background-color: white; border-radius: 5px; border-left: 3px solid #0078D2;">
+                                <div style="font-size: 0.8rem; color: #6c757d;">Document D-012</div>
+                                <div style="font-weight: bold;">Aircraft Technical Manual</div>
+                                <div style="font-size: 0.9rem; margin-top: 5px;">BM25 Score: 0.71</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div style="background-color: #e9ecef; padding: 10px; border-radius: 5px; margin-bottom: 10px;">
+                        <h5 style="margin-top: 0; color: #0078D2;">Stage 3: Semantic Retrieval (Dense Vectors)</h5>
+                        <p><strong>Runtime:</strong> 18ms | <strong>Index:</strong> HNSW | <strong>Candidates Retrieved:</strong> 15</p>
+                        <div style="display: flex; gap: 10px; overflow-x: auto; padding-bottom: 5px;">
+                            <div style="min-width: 200px; padding: 10px; background-color: white; border-radius: 5px; border-left: 3px solid #C8102E;">
+                                <div style="font-size: 0.8rem; color: #6c757d;">Document X-345</div>
+                                <div style="font-weight: bold;">${
+                                    query.toLowerCase().includes("fuel") ? 'International Fuel Planning Guide' : 
+                                    query.toLowerCase().includes("maintenance") ? 'Aircraft Maintenance Procedures' :
+                                    query.toLowerCase().includes("delay") ? 'Irregular Operations Handbook' :
+                                    query.toLowerCase().includes("weather") ? 'Adverse Weather Operations' :
+                                    'Route Planning Guide'
+                                }</div>
+                                <div style="font-size: 0.9rem; margin-top: 5px;">Similarity: 0.92</div>
+                            </div>
+                            <div style="min-width: 200px; padding: 10px; background-color: white; border-radius: 5px; border-left: 3px solid #C8102E;">
+                                <div style="font-size: 0.8rem; color: #6c757d;">Document Y-678</div>
+                                <div style="font-weight: bold;">${
+                                    query.toLowerCase().includes("fuel") ? 'Boeing 777/787 Fuel Policy' : 
+                                    query.toLowerCase().includes("maintenance") ? 'Technical Operations Guide' :
+                                    query.toLowerCase().includes("delay") ? 'Delay Coding Reference' :
+                                    query.toLowerCase().includes("weather") ? 'Winter Operations Manual' :
+                                    'Flight Planning Procedures'
+                                }</div>
+                                <div style="font-size: 0.9rem; margin-top: 5px;">Similarity: 0.88</div>
+                            </div>
+                            <div style="min-width: 200px; padding: 10px; background-color: white; border-radius: 5px; border-left: 3px solid #C8102E;">
+                                <div style="font-size: 0.8rem; color: #6c757d;">Document Z-901</div>
+                                <div style="font-weight: bold;">${
+                                    query.toLowerCase().includes("fuel") ? 'ETOPS Operations Guide' : 
+                                    query.toLowerCase().includes("maintenance") ? 'MEL Reference Handbook' :
+                                    query.toLowerCase().includes("delay") ? 'Disruption Management Guide' :
+                                    query.toLowerCase().includes("weather") ? 'Thunderstorm Avoidance Protocol' :
+                                    'Long-haul Operations Manual'
+                                }</div>
+                                <div style="font-size: 0.9rem; margin-top: 5px;">Similarity: 0.83</div>
+                            </div>
+                            <div style="min-width: 200px; padding: 10px; background-color: white; border-radius: 5px; border-left: 3px solid #C8102E;">
+                                <div style="font-size: 0.8rem; color: #6c757d;">Document W-234</div>
+                                <div style="font-weight: bold;">${
+                                    query.toLowerCase().includes("fuel") ? 'Flight Planning Guide' : 
+                                    query.toLowerCase().includes("maintenance") ? 'Component Replacement Guidelines' :
+                                    query.toLowerCase().includes("delay") ? 'On-Time Performance Guide' :
+                                    query.toLowerCase().includes("weather") ? 'Dispatch Weather Manual' :
+                                    'International Operations Handbook'
+                                }</div>
+                                <div style="font-size: 0.9rem; margin-top: 5px;">Similarity: 0.79</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div style="background-color: #e9ecef; padding: 10px; border-radius: 5px; margin-bottom: 10px;">
+                        <h5 style="margin-top: 0; color: #0078D2;">Stage 4: Candidate Fusion</h5>
+                        <p><strong>Method:</strong> Reciprocal Rank Fusion | <strong>Candidates Merged:</strong> 35 | <strong>Unique Candidates:</strong> 28</p>
+                        <div style="height: 40px; background-color: white; border-radius: 5px; position: relative; overflow: hidden; margin-bottom: 10px;">
+                            <div style="position: absolute; height: 100%; width: 35%; background-color: #0078D2; display: flex; align-items: center; justify-content: center; color: white;">BM25 Results</div>
+                            <div style="position: absolute; height: 100%; width: 40%; left: 35%; background-color: #C8102E; display: flex; align-items: center; justify-content: center; color: white;">Vector Results</div>
+                            <div style="position: absolute; height: 100%; width: 25%; left: 75%; background-color: #6c757d; display: flex; align-items: center; justify-content: center; color: white;">Overlap</div>
+                        </div>
+                    </div>
+                    
+                    <div style="background-color: #e9ecef; padding: 10px; border-radius: 5px;">
+                        <h5 style="margin-top: 0; color: #0078D2;">Stage 5: Cross-Encoder Reranking</h5>
+                        <p><strong>Runtime:</strong> 120ms | <strong>Candidates Reranked:</strong> Top 10 from fusion results</p>
+                        <div style="display: flex; flex-direction: column; gap: 10px;">
+                            <div style="padding: 15px; background-color: white; border-radius: 5px; border-left: 5px solid #C8102E;">
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                                    <div>
+                                        <div style="font-size: 0.8rem; color: #6c757d;">Document X-345 | Section 3.2</div>
+                                        <div style="font-weight: bold; font-size: 1.1rem;">${
+                                            query.toLowerCase().includes("fuel") ? 'Trans-Pacific Fuel Requirements' : 
+                                            query.toLowerCase().includes("maintenance") ? 'Non-Routine Maintenance Procedures' :
+                                            query.toLowerCase().includes("delay") ? 'Weather-Related Delay Protocols' :
+                                            query.toLowerCase().includes("weather") ? 'Severe Weather Diversion Procedures' :
+                                            'Long-haul Flight Planning Guidelines'
+                                        }</div>
+                                    </div>
+                                    <div style="background-color: #C8102E; color: white; height: fit-content; padding: 5px 10px; border-radius: 15px; font-weight: bold;">
+                                        Score: 0.96
+                                    </div>
+                                </div>
+                                <p style="margin: 0; font-size: 0.9rem;">
+                                    ${
+                                        query.toLowerCase().includes("fuel") ? 'American Airlines flights operating between the continental United States and Asia-Pacific destinations must comply with ETOPS fuel requirements including standard contingency fuel (5% of trip fuel), ETOPS equal-time point reserves, and destination alternates as specified in OpSpec B342...' : 
+                                        query.toLowerCase().includes("maintenance") ? 'Non-routine maintenance procedures require documentation in the aircraft logbook, MEL verification, supervisor authorization for Category B items, and immediate notification to Maintenance Control for any findings that may affect continued safe operation...' :
+                                        query.toLowerCase().includes("delay") ? 'Weather-related delays exceeding 90 minutes require proactive rebooking of passengers with tight connections, notifications to downstream stations, and coordination with System Operations Control for network impact mitigation...' :
+                                        query.toLowerCase().includes("weather") ? 'Severe weather diversion procedures require coordination between Flight Operations, Dispatch, and System Operations Control. Priority alternates should be identified during pre-flight planning and updated continuously throughout the flight...' :
+                                        'International long-haul flight planning requires special consideration for ETOPS requirements, crew duty limitations, and passenger connection integrity. Planners should prioritize optimal city pairs for disruption recovery...'
+                                    }
+                                </p>
+                            </div>
+                            
+                            <div style="padding: 15px; background-color: white; border-radius: 5px; border-left: 5px solid #0078D2;">
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                                    <div>
+                                        <div style="font-size: 0.8rem; color: #6c757d;">Document Y-678 | Section 2.1</div>
+                                        <div style="font-weight: bold; font-size: 1.1rem;">${
+                                            query.toLowerCase().includes("fuel") ? 'Minimum Fuel Requirements by Aircraft Type' : 
+                                            query.toLowerCase().includes("maintenance") ? 'Routine Inspection Requirements' :
+                                            query.toLowerCase().includes("delay") ? 'Delay Classification Guide' :
+                                            query.toLowerCase().includes("weather") ? 'Weather Minimums for Departure/Arrival' :
+                                            'Standard Route Structures'
+                                        }</div>
+                                    </div>
+                                    <div style="background-color: #0078D2; color: white; height: fit-content; padding: 5px 10px; border-radius: 15px; font-weight: bold;">
+                                        Score: 0.92
+                                    </div>
+                                </div>
+                                <p style="margin: 0; font-size: 0.9rem;">
+                                    ${
+                                        query.toLowerCase().includes("fuel") ? 'Boeing 777-300ER aircraft operating American Airlines international routes require a minimum contingency fuel of 5% of trip fuel or 15 minutes of holding at 1,500 feet above destination airport, whichever is greater. Additional requirements apply for ETOPS segments...' : 
+                                        query.toLowerCase().includes("maintenance") ? 'A-check inspections for American Airlines widebody aircraft occur every 800-1000 flight hours depending on aircraft type, with labor requirements of 150-300 man-hours. These checks are typically performed overnight at maintenance bases...' :
+                                        query.toLowerCase().includes("delay") ? 'American Airlines categorizes delays using standard IATA delay codes, with internal subcategories for root cause analysis. Code 41-45 represents maintenance delays, while codes 71-77 represent weather-related delays...' :
+                                        query.toLowerCase().includes("weather") ? 'American Airlines operations require visibility minimums of RVR 2000 for Category I approaches and ceiling minimums as published in the terminal procedures. Crosswind limitations vary by aircraft type...' :
+                                        'North Atlantic Track structure changes twice daily based on optimal winds. American Airlines flight planning prioritizes tracks based on fuel efficiency and passenger connection requirements at destination...'
+                                    }
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            retrievalStages.innerHTML = simulationContent;
+        }
+        
+        // Attention mechanism visualization
+        function visualizeAttention() {
+            const input = document.getElementById("attention-input").value;
+            const attentionViz = document.getElementById("attention-viz");
+            
+            if (!input) {
+                alert("Please enter a sentence");
+                return;
+            }
+            
+            // Split input into words
+            const words = input.split(/\s+/);
+            
+            // Create simulated attention weights
+            // In a real system, these would come from the model
+            const attentionWeights = [];
+            for (let i = 0; i < words.length; i++) {
+                const row = [];
+                for (let j = 0; j < words.length; j++) {
+                    // Create some interesting patterns
+                    let weight;
+                    if (i === j) {
+                        // Words attend to themselves strongly
+                        weight = 0.8 + Math.random() * 0.2;
+                    } else if (
+                        // Key airline terms get higher attention
+                        (words[j].toLowerCase().includes("flight") ||
+                         words[j].toLowerCase().includes("passenger") ||
+                         words[j].toLowerCase().includes("baggage") ||
+                         words[j].toLowerCase().includes("aircraft") ||
+                         words[j].toLowerCase().includes("american") ||
+                         words[j].toLowerCase().includes("airline")) &&
+                        // From relevant terms
+                        (words[i].toLowerCase().includes("delay") ||
+                         words[i].toLowerCase().includes("cancel") ||
+                         words[i].toLowerCase().includes("check") ||
+                         words[i].toLowerCase().includes("board") ||
+                         words[i].toLowerCase().includes("reservation"))
+                    ) {
+                        weight = 0.6 + Math.random() * 0.3;
+                    } else if (Math.abs(i - j) === 1) {
+                        // Adjacent words have medium attention
+                        weight = 0.4 + Math.random() * 0.3;
+                    } else {
+                        // Other words have lower attention
+                        weight = Math.random() * 0.3;
+                    }
+                    row.push(weight);
+                }
+                attentionWeights.push(row);
+            }
+            
+            // Create the visualization
+            let vizContent = `
+                <h4 style="text-align: center;">Self-Attention Visualization</h4>
+                <p style="text-align: center;">"${input}"</p>
+                
+                <div style="overflow-x: auto;">
+                    <table style="margin: 0 auto; border-collapse: collapse; border-spacing: 0;">
+                        <tr>
+                            <td></td>
+                            ${words.map(word => `
+                                <td style="padding: 5px; text-align: center; font-weight: bold; writing-mode: vertical-rl; transform: rotate(180deg); height: 120px;">
+                                    ${word}
+                                </td>
+                            `).join('')}
+                        </tr>
+                        ${words.map((word, i) => `
+                            <tr>
+                                <td style="padding: 5px; font-weight: bold; text-align: right;">
+                                    ${word}
+                                </td>
+                                ${attentionWeights[i].map((weight, j) => `
+                                    <td style="padding: 0; width: 40px; height: 40px;">
+                                        <div style="width: 100%; height: 100%; background-color: rgba(${
+                                            weight > 0.5 ? `194, 16, 46, ${weight}` : `0, 120, 210, ${weight}`
+                                        }); border: 1px solid #dee2e6;">
+                                        </div>
+                                    </td>
+                                `).join('')}
+                            </tr>
+                        `).join('')}
+                    </table>
+                </div>
+                
+                <div style="margin-top: 20px; text-align: center;">
+                    <div style="display: inline-block; margin-right: 20px;">
+                        <div style="width: 20px; height: 20px; background: linear-gradient(to right, rgba(0, 120, 210, 0.2), rgba(0, 120, 210, 1)); display: inline-block; vertical-align: middle;"></div>
+                        <span style="margin-left: 5px; vertical-align: middle;">Low to Medium Attention</span>
+                    </div>
+                    <div style="display: inline-block;">
+                        <div style="width: 20px; height: 20px; background: linear-gradient(to right, rgba(194, 16, 46, 0.5), rgba(194, 16, 46, 1)); display: inline-block; vertical-align: middle;"></div>
+                        <span style="margin-left: 5px; vertical-align: middle;">High Attention</span>
+                    </div>
+                </div>
+            `;
+            
+            attentionViz.innerHTML = vizContent;
+        }
+        
+        // Quiz functionality
+        function selectOption(option) {
+            // Get all options in the same question
+            const questionDiv = option.parentElement.parentElement;
+            const options = questionDiv.querySelectorAll('.quiz-option');
+            
+            // Remove selected class from all options
+            options.forEach(opt => {
+                opt.classList.remove('selected');
+            });
+            
+            // Add selected class to clicked option
+            option.classList.add('selected');
+        }
+        
+        function checkQuiz() {
+            const correctAnswers = [2, 1, 2, 1, 1]; // 0-indexed
+            let score = 0;
+            
+            const questions = document.querySelectorAll('.quiz-question');
+            
+            questions.forEach((question, index) => {
+                const options = question.querySelectorAll('.quiz-option');
+                const feedback = question.querySelector('.feedback');
+                let selected = -1;
+                
+                options.forEach((option, optIndex) => {
+                    if (option.classList.contains('selected')) {
+                        selected = optIndex;
+                    }
+                    
+                    // Remove any previous result classes
+                    option.classList.remove('correct', 'incorrect');
+                });
+                
+                if (selected === -1) {
+                    feedback.textContent = 'Please select an answer.';
+                    feedback.className = 'feedback incorrect';
+                    return;
+                }
+                
+                if (selected === correctAnswers[index]) {
+                    options[selected].classList.add('correct');
+                    feedback.textContent = 'Correct! This answer demonstrates understanding of airline-specific AI applications.';
+                    feedback.className = 'feedback correct';
+                    score++;
+                } else {
+                    options[selected].classList.add('incorrect');
+                    options[correctAnswers[index]].classList.add('correct');
+                    feedback.textContent = 'Incorrect. The highlighted answer better reflects how American Airlines would implement this technology.';
+                    feedback.className = 'feedback incorrect';
+                }
+            });
+            
+            // Update progress steps
+            const steps = document.querySelectorAll('.progress-step');
+            steps.forEach((step, index) => {
+                if (index < score) {
+                    step.classList.add('completed');
+                } else {
+                    step.classList.remove('completed');
+                }
+                
+                if (index === score) {
+                    step.classList.add('active');
+                } else {
+                    step.classList.remove('active');
+                }
+            });
+            
+            // Alert final score if all questions answered
+            if (document.querySelectorAll('.quiz-option.selected').length === questions.length) {
+                alert(`You scored ${score} out of ${questions.length}! ${
+                    score === questions.length ? 'Excellent! You\'re well-prepared for your American Airlines interview.' :
+                    score >= 3 ? 'Good job! Review the incorrect answers to strengthen your knowledge.' :
+                    'Keep studying! Focus on how these AI concepts apply specifically to airline operations.'
+                }`);
+            }
+        }
+        
+        // Initialize mermaid on load
+        document.addEventListener('DOMContentLoaded', function() {
+            mermaid.init();
+        });
+    </script>
+</body>
+</html>
