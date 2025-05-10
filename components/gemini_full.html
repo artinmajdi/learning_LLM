@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project File Viewer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom styles for better aesthetics */
+        body {
+            font-family: 'Inter', sans-serif; /* Default Tailwind font */
+            background-color: #f3f4f6; /* Light gray background */
+        }
+        .tab-button {
+            transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition for hover/active states */
+        }
+        .tab-button.active {
+            border-bottom-width: 2px; /* Tailwind class for bottom border */
+            border-color: #4f46e5; /* Indigo-600 for active tab */
+            color: #4f46e5;
+            font-weight: 600;
+        }
+        .tab-button:not(.active):hover {
+            background-color: #e5e7eb; /* Gray-200 for hover */
+        }
+        .tab-content {
+            background-color: #ffffff; /* White background for content area */
+            border: 1px solid #d1d5db; /* Gray-300 border */
+            border-radius: 0.5rem; /* Rounded corners for content area */
+            min-height: 70vh; /* Ensure content area has a decent height */
+        }
+        /* Style for iframes to ensure they take full width and height of their container */
+        iframe {
+            width: 100%;
+            height: 100%;
+            min-height: 65vh; /* Minimum height for iframe content */
+            border: none; /* Remove default iframe border */
+        }
+        /* Style for preformatted text (Markdown and TSX content) */
+        pre {
+            white-space: pre-wrap; /* Allow text to wrap */
+            word-wrap: break-word; /* Break long words */
+            background-color: #f9fafb; /* Very light gray for pre blocks */
+            padding: 1rem;
+            border-radius: 0.375rem; /* Rounded corners for pre blocks */
+            overflow-x: auto; /* Allow horizontal scroll if needed */
+            font-family: 'Menlo', 'Monaco', 'Consolas', "Liberation Mono", "Courier New", monospace; /* Monospace font for code */
+            font-size: 0.875rem; /* Slightly smaller font for code */
+            line-height: 1.5; /* Adjust line height for readability */
+        }
+    </style>
+</head>
+<body class="p-4 md:p-8">
+
+    <header class="mb-6">
+        <h1 class="text-3xl font-bold text-gray-800 text-center">Project File Viewer</h1>
+    </header>
+
+    <div id="tab-container" class="mb-4 border-b border-gray-300">
+        <nav class="flex flex-wrap -mb-px" aria-label="Tabs">
+            </nav>
+    </div>
+
+    <div id="content-container" class="p-4 md:p-6 tab-content shadow-lg">
+        <div class="text-gray-500 text-center">Select a file to view its content.</div>
+    </div>
+
+    <script>
+        // Data structure to hold file information
+        const files = [
+            {
+                id: 'aa-interview-guide',
+                name: 'AA Interview Guide',
+                type: 'html',
+                contentId: 'uploaded:artinmajdi/learning_LLM/learning_LLM-eac7dd7882a315aaf1b5b95c2dad21851badb844/aa-interview-guide.html'
+            },
+            {
+                id: 'airline-ai-prep',
+                name: 'Airline AI Prep',
+                type: 'html',
+                contentId: 'uploaded:artinmajdi/learning_LLM/learning_LLM-eac7dd7882a315aaf1b5b95c2dad21851badb844/airline-ai-interview-prep.html'
+            },
+            {
+                id: 'gemini-html',
+                name: 'Gemini HTML',
+                type: 'html',
+                contentId: 'uploaded:artinmajdi/learning_LLM/learning_LLM-eac7dd7882a315aaf1b5b95c2dad21851badb844/gemini.html'
+            },
+            {
+                id: 'context-md',
+                name: 'Context Rules (MD)',
+                type: 'markdown',
+                contentId: 'uploaded:artinmajdi/learning_LLM/learning_LLM-eac7dd7882a315aaf1b5b95c2dad21851badb844/code snippets/.windsurf/rules/context.md'
+            },
+            {
+                id: 'pr-comments-md',
+                name: 'PR Comments Workflow (MD)',
+                type: 'markdown',
+                contentId: 'uploaded:artinmajdi/learning_LLM/learning_LLM-eac7dd7882a315aaf1b5b95c2dad21851badb844/code snippets/.windsurf/workflows/address-pull-request-comments.md'
+            },
+            {
+                id: 'readme-md',
+                name: 'Code Snippets README (MD)',
+                type: 'markdown',
+                contentId: 'uploaded:artinmajdi/learning_LLM/learning_LLM-eac7dd7882a315aaf1b5b95c2dad21851badb844/code snippets/README.md'
+            },
+            {
+                id: 'compass-md',
+                name: 'Compass Artifact (MD)',
+                type: 'markdown',
+                contentId: 'uploaded:artinmajdi/learning_LLM/learning_LLM-eac7dd7882a315aaf1b5b95c2dad21851badb844/compass_artifact_wf-b941eb3f-6e21-4223-9fcb-00cd1bea6a5b_text_markdown.md'
+            },
+            // Adding TSX files
+            {
+                id: 'interview-prep-app-tsx',
+                name: 'Interview Prep App (TSX)',
+                type: 'tsx',
+                contentId: 'uploaded:artinmajdi/learning_LLM/learning_LLM-eac7dd7882a315aaf1b5b95c2dad21851badb844/interview-prep-app.tsx'
+            },
+            {
+                id: 'comparison-table-tsx',
+                name: 'Comparison Table (TSX)',
+                type: 'tsx',
+                contentId: 'uploaded:artinmajdi/learning_LLM/learning_LLM-eac7dd7882a315aaf1b5b95c2dad21851badb844/comparison-table.tsx'
+            },
+            {
+                id: 'adapter-explained-tsx',
+                name: 'Adapter Explained (TSX)',
+                type: 'tsx',
+                contentId: 'uploaded:artinmajdi/learning_LLM/learning_LLM-eac7dd7882a315aaf1b5b95c2dad21851badb844/adapter-explained.tsx'
+            },
+            {
+                id: 'adapter-bottleneck-tsx',
+                name: 'Adapter Bottleneck (TSX)',
+                type: 'tsx',
+                contentId: 'uploaded:artinmajdi/learning_LLM/learning_LLM-eac7dd7882a315aaf1b5b95c2dad21851badb844/adapter-bottleneck-explained.tsx'
+            }
+        ];
+
+        // DOM elements
+        const tabContainer = document.getElementById('tab-container').querySelector('nav');
+        const contentContainer = document.getElementById('content-container');
+
+        // --- Content Placeholder ---
+        // YOU MUST REPLACE THE PLACEHOLDER CONTENT BELOW WITH THE ACTUAL CONTENT OF YOUR FILES.
+        const fileContents = {
+            'uploaded:artinmajdi/learning_LLM/learning_LLM-eac7dd7882a315aaf1b5b95c2dad21851badb844/aa-interview-guide.html': `<p class="text-gray-700">Content for AA Interview Guide (HTML)</p>`,
+            'uploaded:artinmajdi/learning_LLM/learning_LLM-eac7dd7882a315aaf1b5b95c2dad21851badb844/airline-ai-interview-prep.html': `<p class="text-gray-700">Content for Airline AI Prep (HTML)</p>`,
+            'uploaded:artinmajdi/learning_LLM/learning_LLM-eac7dd7882a315aaf1b5b95c2dad21851badb844/gemini.html': `<p class="text-gray-700">Content for Gemini HTML</p>`,
+            'uploaded:artinmajdi/learning_LLM/learning_LLM-eac7dd7882a315aaf1b5b95c2dad21851badb844/code snippets/.windsurf/rules/context.md': \`# Context Rules\n\nThis is sample markdown content for context.md.\n\n* Rule 1\n* Rule 2\`,
+            'uploaded:artinmajdi/learning_LLM/learning_LLM-eac7dd7882a315aaf1b5b95c2dad21851badb844/code snippets/.windsurf/workflows/address-pull-request-comments.md': \`# PR Comments Workflow\n\nDetails about addressing PR comments.\n\n1.  Review comment.\n2.  Address.\n3.  Resolve.\`,
+            'uploaded:artinmajdi/learning_LLM/learning_LLM-eac7dd7882a315aaf1b5b95c2dad21851badb844/code snippets/README.md': \`# Code Snippets README\n\nThis project contains various code snippets for different purposes.\n\n## Usage\nBrowse through the tabs to find relevant code or documentation.\`,
+            'uploaded:artinmajdi/learning_LLM/learning_LLM-eac7dd7882a315aaf1b5b95c2dad21851badb844/compass_artifact_wf-b941eb3f-6e21-4223-9fcb-00cd1bea6a5b_text_markdown.md': \`# Compass Artifact\n\nMarkdown content from the compass artifact file.\n\nThis document outlines the workflow related to the compass artifact.\`,
+            // TSX file contents (replace with actual TSX code)
+            'uploaded:artinmajdi/learning_LLM/learning_LLM-eac7dd7882a315aaf1b5b95c2dad21851badb844/interview-prep-app.tsx': \`// Paste content of interview-prep-app.tsx here\nimport React from 'react';\n\nconst InterviewPrepApp = () => {\n  return <div>Interview Prep Application Content</div>;\n};\n\nexport default InterviewPrepApp;\`,
+            'uploaded:artinmajdi/learning_LLM/learning_LLM-eac7dd7882a315aaf1b5b95c2dad21851badb844/comparison-table.tsx': \`// Paste content of comparison-table.tsx here\nimport React from 'react';\n\nconst ComparisonTable = () => {\n  return <div>Comparison Table Content</div>;\n};\n\nexport default ComparisonTable;\`,
+            'uploaded:artinmajdi/learning_LLM/learning_LLM-eac7dd7882a315aaf1b5b95c2dad21851badb844/adapter-explained.tsx': \`// Paste content of adapter-explained.tsx here\nimport React from 'react';\n\nconst AdapterExplained = () => {\n  return <div>Adapter Explained Content</div>;\n};\n\nexport default AdapterExplained;\`,
+            'uploaded:artinmajdi/learning_LLM/learning_LLM-eac7dd7882a315aaf1b5b95c2dad21851badb844/adapter-bottleneck-explained.tsx': \`// Paste content of adapter-bottleneck-explained.tsx here\nimport React from 'react';\n\nconst AdapterBottleneckExplained = () => {\n  return <div>Adapter Bottleneck Explained Content</div>;\n};\n\nexport default AdapterBottleneckExplained;\`
+        };
+        // --- End Content Placeholder ---
+
+        // Function to display content for the active tab
+        async function showTabContent(fileId) {
+            // Remove active class from all buttons and set default styles
+            document.querySelectorAll('.tab-button').forEach(button => {
+                button.classList.remove('active', 'text-indigo-600', 'border-indigo-600');
+                button.classList.add('text-gray-500', 'hover:text-gray-700', 'hover:border-gray-300');
+                button.setAttribute('aria-selected', 'false');
+            });
+
+            // Add active class to the clicked button
+            const activeButton = document.getElementById(`tab-${fileId}`);
+            if (activeButton) {
+                activeButton.classList.add('active', 'text-indigo-600', 'border-indigo-600');
+                activeButton.classList.remove('text-gray-500', 'hover:text-gray-700', 'hover:border-gray-300');
+                activeButton.setAttribute('aria-selected', 'true');
+            }
+
+            // Find the file object
+            const file = files.find(f => f.id === fileId);
+            if (!file) {
+                contentContainer.innerHTML = '<p class="text-red-500">Error: File not found.</p>';
+                return;
+            }
+
+            // Display loading message
+            contentContainer.innerHTML = '<p class="text-gray-500 text-center py-10">Loading content...</p>';
+
+            try {
+                const content = fileContents[file.contentId];
+
+                if (typeof content === 'undefined') {
+                     contentContainer.innerHTML = \`<p class="text-red-500 text-center py-10">Error: Content for <strong>\${file.name}</strong> could not be loaded. Please ensure it's correctly specified in the fileContents object in the script.</p>\`;
+                     console.error(\`Content ID not found in fileContents: \${file.contentId}\`);
+                     return;
+                }
+
+                if (file.type === 'html') {
+                    // For HTML, use an iframe to isolate content and styles.
+                    const blob = new Blob([content], { type: 'text/html' });
+                    const url = URL.createObjectURL(blob);
+                    contentContainer.innerHTML = \`<iframe src="\${url}" onload="URL.revokeObjectURL(this.src)" title="\${file.name} Content"></iframe>\`;
+                } else if (file.type === 'markdown' || file.type === 'tsx') {
+                    // For Markdown and TSX, display as preformatted text.
+                    // Escape HTML characters to prevent XSS if content is untrusted.
+                    const escapedContent = content.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+                    contentContainer.innerHTML = \`<pre class="whitespace-pre-wrap break-words p-4 bg-gray-50 rounded-md text-gray-800">\${escapedContent}</pre>\`;
+                } else {
+                    contentContainer.innerHTML = \`<p class="text-red-500 text-center py-10">Unsupported file type: \${file.type}</p>\`;
+                }
+            } catch (error) {
+                contentContainer.innerHTML = \`<p class="text-red-500 text-center py-10">Error loading content: \${error.message}</p>\`;
+                console.error('Error processing file:', error);
+            }
+        }
+
+        // Function to initialize tabs
+        function initializeTabs() {
+            if (!tabContainer) {
+                console.error("Tab container (nav element) not found!");
+                return;
+            }
+            tabContainer.innerHTML = ''; // Clear existing tabs
+
+            files.forEach((file) => {
+                const button = document.createElement('button');
+                button.id = \`tab-\${file.id}\`;
+                button.className = 'tab-button py-3 px-4 md:px-6 font-medium text-sm text-gray-500 hover:text-gray-700 hover:border-gray-300 border-b-2 border-transparent rounded-t-md focus:outline-none focus:ring-2 focus:ring-indigo-500';
+                button.textContent = file.name;
+                button.setAttribute('role', 'tab');
+                button.setAttribute('aria-controls', \`content-\${file.id}\`); // Though content div is shared
+                button.setAttribute('aria-selected', 'false');
+                button.onclick = () => {
+                    window.location.hash = file.id; // This will trigger hashchange listener
+                };
+                tabContainer.appendChild(button);
+            });
+
+            // Handle initial tab based on URL hash or default to first tab
+            handleHashChange(); // Call directly to load initial content
+        }
+
+        // Function to handle hash changes and load appropriate tab
+        function handleHashChange() {
+            const currentHash = window.location.hash.substring(1);
+            const fileToLoad = files.find(f => f.id === currentHash);
+
+            if (fileToLoad) {
+                showTabContent(fileToLoad.id);
+            } else if (files.length > 0) {
+                // Default to the first file if no hash or invalid hash
+                window.location.hash = files[0].id; // This will re-trigger hashchange if hash was empty or invalid
+                // If hash was already files[0].id, showTabContent won't be called by hashchange, so call it directly
+                if (currentHash !== files[0].id) {
+                    // showTabContent will be called by the hashchange event
+                } else {
+                    showTabContent(files[0].id); // Explicitly call if hash is already the first file's id
+                }
+            } else {
+                 contentContainer.innerHTML = '<p class="text-gray-700 text-center py-10">No files available to display.</p>';
+            }
+        }
+
+
+        // Listen for hash changes to update tab content (e.g., browser back/forward buttons)
+        window.addEventListener('hashchange', handleHashChange);
+
+        // Initialize when the DOM is fully loaded
+        document.addEventListener('DOMContentLoaded', initializeTabs);
+
+    </script>
+
+</body>
+</html>
